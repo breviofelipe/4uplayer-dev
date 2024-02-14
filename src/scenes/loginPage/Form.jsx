@@ -25,7 +25,6 @@ const initialValuesRegister = {
   email: "",
   password: "",
   clan: "",
-  nickName: "",
   picture: "",
 };
 
@@ -58,24 +57,55 @@ const Form = ({ translation }) => {
     email: yup.string().email(translation.loginPage.fraseEmail).required(translation.loginPage.fraseRequired),
     password: yup.string().required(translation.loginPage.fraseRequired),
     clan: yup.string(),
-    nickName: yup.string(),
     picture: yup.string(),
   });
+
+  const getBase64FromUrl = (values, onSubmitProps) => {
+    var reader = new FileReader();
+    reader.readAsDataURL(values.picture);
+    reader.onload = async function () {
+      values.picture = reader.result;
+       let body = JSON.stringify(values);
+      //  body.image = reader.result;
+       const savedUserResponse = await fetch(
+         urlEnv+"/auth/register",
+         {
+           method: "POST",
+           headers: { "Content-Type": "application/json" },
+           body: body
+         }
+       ).catch(err => {
+         console.log(err);
+       });
+       validaStatus(savedUserResponse, onSubmitProps);
+    };
+    reader.onerror = function (error) {
+      console.log('Error: ', error);
+     };
+  }
+
   const register = async (values, onSubmitProps) => {
     setLoading(true);
 
-    const savedUserResponse = await fetch(
-      urlEnv+"/auth/register",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values)
-      }
-    ).catch(err => {
-      console.log(err);
-    });
+    if(values.picture){
+      getBase64FromUrl(values, onSubmitProps);
+    } else {
+      const savedUserResponse = await fetch(
+        urlEnv+"/auth/register",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(values)
+        }
+      ).catch(err => {
+        console.log(err);
+      });
+      validaStatus(savedUserResponse, onSubmitProps);
+    }    
+  };
+
+  async function validaStatus (savedUserResponse, onSubmitProps){
     const status = savedUserResponse.status;
-      
     if(status === 200){
       const savedUser = await savedUserResponse.json();
       setLoading(false);
@@ -93,8 +123,7 @@ const Form = ({ translation }) => {
       setLoading(false)
       setWarning(translation.loginPage.error)
     }
-  };
-
+  }
   
   const login = async (values, onSubmitProps) => {
     setLoading(true);
@@ -223,13 +252,6 @@ const Form = ({ translation }) => {
                   onChange={handleChange}
                   value={values.clan}
                   name="clan"
-                  sx={{ gridColumn: "span 4" }}
-                />
-                <TextField
-                  label={translation.loginPage.formNickname}
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.nickName}
                   sx={{ gridColumn: "span 4" }}
                 />
                 <Box

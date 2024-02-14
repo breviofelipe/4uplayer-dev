@@ -50,13 +50,20 @@ const Navbar = () => {
 
   return (
     <FlexBetween padding="1rem 6%" backgroundColor={alt}>
-      <FlexBetween gap="1.75rem">
+      <FlexBetween gap="1.5rem">
+      <img
+        width={"50dp"}
+        height={"50dp"}
+        alt="4u"
+        src={'https://res.cloudinary.com/dosghtja7/image/upload/v1707940336/assets/w5vviukwefe2hwykn2jt.png'}
+      />
         <Typography
           fontWeight="bold"
           fontSize="clamp(1rem, 2rem, 2.25rem)"
           color="primary"
           onClick={() => navigate("/home") }
           sx={{
+            marginTop: "0.5rem",
             "&:hover": {
               color: primaryLight,
               cursor: "pointer",
@@ -72,7 +79,7 @@ const Navbar = () => {
             gap="3rem"
             padding="0.1rem 1.5rem"
           >
-            <InputBase placeholder="Search..." />
+            <InputBase placeholder="Pesquisar..." />
             <IconButton>
               <Search />
             </IconButton>

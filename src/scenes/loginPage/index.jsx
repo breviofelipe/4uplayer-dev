@@ -14,12 +14,18 @@ const LoginPage = () => {
       <Box
         width="100%"
         backgroundColor={theme.palette.background.alt}
-        p="1rem 6%"
-        textAlign="center"
       >
-        <Typography fontWeight="bold" fontSize="32px" color="primary">
+        <Box p="1rem 6%" gap={"0.5rem"} justifyContent="center" display={"flex"} flexDirection={"row"}>
+        <img
+          width={"50dp"}
+          height={"50dp"}
+          alt="4u"
+          src={'https://res.cloudinary.com/dosghtja7/image/upload/v1707940336/assets/w5vviukwefe2hwykn2jt.png'}
+        />
+        <Typography mt={"0.5rem"} fontWeight="bold" fontSize="32px" color="primary">
         {translation != null && translation.loginPage.title}
         </Typography>
+        </Box>
       </Box>
       {/* <WeatherApp /> */}
       {!isNonMobileScreens && <Divider />}

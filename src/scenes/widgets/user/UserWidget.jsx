@@ -170,6 +170,8 @@ const UserWidget = ({ userId }) => {
     viewedProfile,
     impressions,
     friends,
+    clan, 
+    role
   } = user;
 
   return <WidgetWrapper mobile={!isNonMobileScreens} >
@@ -194,12 +196,12 @@ const UserWidget = ({ userId }) => {
                     >
                       {firstName} {lastName}
                     </Typography>
-                      <FlexBetween gap="0.5rem">
-                        <Typography color={medium}><Masks quantidade={3}/></Typography>
+                      {role === 'ADMIN' && <><FlexBetween gap="0.5rem">
+                        <Typography color={medium}><Masks quantidade={5}/></Typography>
                       </FlexBetween>
-                        <FlexBetween gap="0.5rem">
-                          <Typography color={medium}>GENERAL</Typography>
-                        </FlexBetween>
+                      <FlexBetween gap="0.5rem">
+                        <Typography color={medium}>GENERAL</Typography>
+                      </FlexBetween></>}
                   </Box>}
                 </FlexBetween>
                 { myProfile && editPic() }
@@ -220,20 +222,20 @@ const UserWidget = ({ userId }) => {
             </Box>       
           </Box>
           <Divider />
-          <Box p="1rem 0">
+          {clan && <Box p="1rem 0">
             <Box display="flex" alignItems="center" gap="1rem">
                 <Diversity2Icon />
                 <Typography color={medium}>Clan</Typography>
-                <Typography color={medium}>Genesis</Typography>
+                <Typography color={medium}>{clan}</Typography>
               </Box>
-          </Box>
+          </Box>}
           <Divider />
           {/* 3 ROW */}
           <Box p="1rem 0">
             <Box display="flex" alignItems="center" gap="1rem">
                 <WorkspacePremiumIcon />
                 <Typography color={medium}>Medalhas</Typography>
-                <Typography color={medium}>Primórdios, General, PlayerCoinFan...</Typography>
+                <Typography color={medium}>Primórdios, PlayerCoinFan...</Typography>
               </Box>
           </Box>
           <Divider />

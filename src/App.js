@@ -26,8 +26,8 @@ function App() {
     dispatch(
       setTranslation({
         loginPage: {
-          title: "Titulo",
-          frase: "Bem vindo ao que quiser",
+          title: "4uPlayer",
+          frase: "Ingresse e seja parte da maior aventura entre mundos, personagens e magia",
           fraseFormCriar: "Não tem uma conta? Crie aqui.",
           fraseFormEntrar: "Já tem uma conta? Entre aqui.",
           fraseRequired: "Obrigatório",
@@ -40,7 +40,7 @@ function App() {
           formPassword: "Senha",
           formName: "Nome",
           formLastName: "Sobrenome",
-          formClan: "Clã",
+          formClan: "Clan",
           formNickname: "Nickname",
           formLogin: "Entrar",
           formRegister: "Cadastrar"
