@@ -25,6 +25,7 @@ import GamerLoading from "components/gamerLoading/GamerLoading";
 
 const UserWidget = ({ userId }) => {
   const url = process.env.REACT_APP_HOST_USERS;
+  const urlLogin = process.env.REACT_APP_HOST_LOGIN;
 
   const [user, setUser] = useState(null);
   const [edit, setEdit] = useState(false);
@@ -79,7 +80,7 @@ const UserWidget = ({ userId }) => {
           file: reader.result,
           userId: userId
         };
-        const response = await fetch(url+`/actors/picture`, {
+        const response = await fetch(urlLogin+`/profile/picture`, {
           method: "PATCH",
           headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
           body: JSON.stringify(body),
