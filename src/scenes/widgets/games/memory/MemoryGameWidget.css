@@ -1,0 +1,39 @@
+.bold {
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+ .memory-game footer {
+    width: 360px;
+    position: relative;
+    margin: 0 auto;
+    padding: 10px 4px;
+    margin-top: 10px;
+  }
+  .memory-game footer .score {
+    justify-content: center;
+    display: flex;
+  }
+  .memory-game footer .score div {
+    padding: 8px;
+  }
+  .memory-game footer .restart {
+    display: flex;
+    justify-content: center;
+  }
+  .memory-game .container {
+    border: 1px solid #DEDEDE;
+    padding: 12px;
+    box-shadow: 0 0 4px 4px #DEDEDE;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    justify-items: center;
+    align-items: stretch;
+    gap: 1rem;
+    margin: 1rem auto;
+    width: 100%;
+    height: 450px;
+    perspective: 100%;
+    max-width: 720px;
+  }
+  

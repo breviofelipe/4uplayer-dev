@@ -1,0 +1,30 @@
+
+
+
+.checkAnimated {
+    width : 0;
+    height: 0;
+    animation: 3s some ease infinite;
+    background-image: linear-gradient(120deg, #ecf5e7 0%, #98f305de 100%);
+    border-radius: 3rem;
+    padding: 1rem;
+}
+  
+ @keyframes some {
+    0% {
+        width : 10%;
+        height: 10%;
+
+    }
+
+    50% {
+        width : 100px;
+        height: 100px;
+        
+    }
+  
+    100% {
+        width : 10%;
+        height: 0%;
+    }
+}

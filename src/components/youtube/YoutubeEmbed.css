@@ -1,0 +1,19 @@
+.video-responsive {
+    overflow: hidden;
+    padding-bottom: 56.25%;
+    position: relative;
+    height: 0;
+  }
+  
+  .video-responsive iframe {
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    transform: translateY(0px);
+    border-radius: "0.75rem";
+    border: 4px solid #000;
+    -moz-border-radius: "0.75rem";
+  }
+  
