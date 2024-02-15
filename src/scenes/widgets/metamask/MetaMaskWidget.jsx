@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import "./Metamask.css";
 import PostComponent from 'components/post/PostComponent';
-import { Box, Button, InputBase, Typography, useTheme } from '@mui/material';
-import { getTokenBalance, transferToken } from './MetaMaskService';
+import { Box, Button, IconButton, InputBase, Typography, useTheme } from '@mui/material';
+import { getTokenBalance, transferToken, addPlc } from './MetaMaskService';
 import GamerLoading from 'components/gamerLoading/GamerLoading';
+import AddIcon from '@mui/icons-material/Add';
 const ethers = require("ethers");
 
 const MetaMaskWidget = () => {
@@ -71,7 +72,8 @@ const MetaMaskWidget = () => {
     const content = () => {
         return <Box>            
             {myAddress ? <Typography>{myAddress}</Typography> : 
-                <Button onClick={evt => connect()} >Conectar</Button>
+                <><Button onClick={evt => connect()} >Conectar</Button>
+                </>
             }
             {myAddress &&
                 <div>
@@ -90,6 +92,7 @@ const MetaMaskWidget = () => {
                         sx={{ borderRadius: "3rem", color: main, backgroundColor: palette.neutral.light, m: "0.5rem 0", pl: "1rem", width: "100%", }}
                         />
                     <Button onClick={() => transferPLC() } >Enviar</Button>
+                    
                 </div>
             }
             </Box>
@@ -118,9 +121,12 @@ const MetaMaskWidget = () => {
         return <PostComponent titulo={titulo} subtitulo={subtitulo} content={linkMetamask()} icon={metaIcon()} />
     }
 
+    const msg = () => {
+        return <><IconButton onClick={evt => addPlc()} ><img width={"30px"} height={"30px"} src={'https://res.cloudinary.com/dosghtja7/image/upload/v1707940336/assets/w5vviukwefe2hwykn2jt.png'} /><AddIcon />{metaIcon()}</IconButton></>
+    }
 
     return <>{ isLoading ? <GamerLoading /> :
-            <PostComponent titulo={titulo} subtitulo={subtitulo} content={mainContent} icon={metaIcon()} />}
+            <PostComponent titulo={titulo} subtitulo={subtitulo} content={mainContent} icon={metaIcon()} msg={msg()} />}
         </>
 }
 

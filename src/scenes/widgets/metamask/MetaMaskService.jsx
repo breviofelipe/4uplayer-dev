@@ -264,3 +264,34 @@ export async function transferToken(toAddress, contractAddress, quantity, decima
 		return err;
     }
 }
+
+export async function addPlc(){
+	const tokenAddress = '0xe88666ed7aefcf7657f5c479164bd5b519f123ba';
+    const tokenSymbol = 'PLCTST';
+    const tokenDecimals = 8;
+    const tokenImage = 'https://res.cloudinary.com/dosghtja7/image/upload/v1707940336/assets/w5vviukwefe2hwykn2jt.png';
+    
+    try {
+      // wasAdded is a boolean. Like any RPC method, an error may be thrown.
+      const wasAdded = await window.ethereum.request({
+        method: 'wallet_watchAsset',
+        params: {
+          type: 'ERC20', // Initially only supports ERC20, but eventually more!
+          options: {
+            address: tokenAddress, // The address that the token is at.
+            symbol: tokenSymbol, // A ticker symbol or shorthand, up to 5 chars.
+            decimals: tokenDecimals, // The number of decimals in the token
+            image: tokenImage, // A string url of the token logo
+          },
+        },
+      });
+    
+      if (wasAdded) {
+        console.log('Thanks for your interest!');
+      } else {
+        console.log('Your loss!');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+}
