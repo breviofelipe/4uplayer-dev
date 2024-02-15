@@ -5,13 +5,12 @@ import UserWidget from "scenes/widgets/user/UserWidget";
 import FriendListWidget from "scenes/widgets/utils/FriendListWidget";
 
 import PageSchemaComponent from "components/page/PageSchemaComponent";
-import PostComponent from "components/post/PostComponent";
-import Groups3Icon from '@mui/icons-material/Groups3';
 import PostsWidget from "scenes/widgets/utils/PostsWidget";
 import MyPostWidget from "scenes/widgets/utils/MyPostWidget";
 import UserListWidget from "scenes/widgets/users";
 import MetaMaskWidget from "scenes/widgets/metamask/MetaMaskWidget";
 import { useNavigate } from "react-router-dom";
+import PostBuild from "components/postConstruction/PostConstruction";
 
 const HomePage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
@@ -43,8 +42,8 @@ const HomePage = () => {
           <FriendListWidget userId={id} />
           {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
           <UserListWidget />
-          {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
-          <PostComponent titulo={"Grupos Populares"} subtitulo={"Grupos Populares"} content={"⛏️ Em construção..."} icon={<Groups3Icon fontSize="large" />} />
+          {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}        
+          <PostBuild titulo={"Clans Populares"} subTitulo={"Encontre o seu"} />
       </>
     }
     const alertCheckEmail = () => {

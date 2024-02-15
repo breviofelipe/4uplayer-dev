@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPosts } from "state";
 import PostWidget from "./PostWidget";
-import { useMediaQuery } from "@mui/material";
-import WidgetWrapper from "components/WidgetWrapper";
+
 import GamerLoading from "components/gamerLoading/GamerLoading";
+import PostComponent from "components/post/PostComponent";
+import WysiwygTwoToneIcon from '@mui/icons-material/WysiwygTwoTone';
 
 const urlEnv = process.env.REACT_APP_HOST_POSTS;
 
@@ -50,6 +51,9 @@ const PostsWidget = ({ userId, isProfile = false }) => {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const postsComponente = () => {
+    if(posts === null || posts.length == 0)
+    return <PostComponent subtitulo={"Nenhum post por aqui..."} icon={<WysiwygTwoToneIcon fontSize="large" />} />
+
     return posts.map(
       ({
         id,

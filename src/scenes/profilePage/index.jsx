@@ -11,7 +11,6 @@ import AdvertWidget from "scenes/widgets/ads/AdvertWidget";
 import PostComponent from "components/post/PostComponent";
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 import PageSchemaComponent from "components/page/PageSchemaComponent";
-import GamerLoading from "components/gamerLoading/GamerLoading";
 import PageLoadingComponent from "components/page/PageLoadingComponent";
 
 const ProfilePage = () => {
@@ -21,6 +20,7 @@ const ProfilePage = () => {
   const token = useSelector((state) => state.token);
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
   const url = process.env.REACT_APP_HOST_USERS;
+  const myProfile = useSelector((state) => state.user.id) === userId;
   const getUser = async () => {
     setLoading(true);
     const response = await fetch(url+`/users/${userId}`, {
@@ -39,12 +39,12 @@ const ProfilePage = () => {
   if (!user) return <PageLoadingComponent />;
 
   const top = () => {
-    return <UserWidget userId={userId} picturePath={user.picturePath} />
+    return <UserWidget userId={userId} />
   }
 
   const main = () => {
-    return <><MyPostWidget picturePath={user.picturePath} />
-    {isNonMobileScreens ? <Box m="2rem 0" /> : <Divider />}
+    return <>{myProfile && <><MyPostWidget picturePath={user.picturePath} />{isNonMobileScreens ? <Box m="2rem 0" /> : <Divider />} </>}
+    
     <PostsWidget userId={userId} isProfile /></>
   }
 

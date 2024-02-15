@@ -90,10 +90,10 @@ const Navbar = () => {
       {/* DESKTOP NAV */}
       {isNonMobileScreens ? (
         <FlexBetween gap="2rem">
-           { role === 'ADMIN' && <IconButton onClick={() => navigate("/cadastro/turma")} >
+           {/* { role === 'ADMIN' && <IconButton onClick={() => navigate("/cadastro/turma")} >
                   <AddIcon sx={{ fontSize: "25px" }} />
                 </IconButton> 
-          }
+          } */}
           <IconButton onClick={() => dispatch(setMode())}>
             {theme.palette.mode === "dark" ? (
               <DarkMode sx={{ fontSize: "25px" }} />
@@ -170,9 +170,9 @@ const Navbar = () => {
             alignItems="center"
             gap="3rem"
           >
-            { role === 'ADMIN' && <IconButton onClick={() => navigate("/cadastro/turma")} >
+            {/* { role === 'ADMIN' && <IconButton onClick={() => navigate("/cadastro/turma")} >
                 <AddIcon sx={{ fontSize: "25px" }} />
-            </IconButton> }
+            </IconButton> } */}
             <IconButton
               onClick={() => dispatch(setMode())}
               sx={{ fontSize: "25px" }}
