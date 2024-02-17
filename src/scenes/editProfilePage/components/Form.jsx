@@ -10,6 +10,7 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import FlexBetween from "components/FlexBetween";
 import { setLogin } from "state";
 import { useNavigate } from "react-router-dom";
+import GamerLoading from "components/gamerLoading/GamerLoading";
 
 const FormEmailConfirmed = ({emailSended = false}) => {
     const { palette } = useTheme();
@@ -23,6 +24,7 @@ const FormEmailConfirmed = ({emailSended = false}) => {
     const [check, setCheck] = useState(emailSended);
     const [edit, setEdit] = useState(false);
     const [errorCode, setErrorCode] = useState(false);
+    const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
    
@@ -41,6 +43,8 @@ const FormEmailConfirmed = ({emailSended = false}) => {
 
     const content = () => {
 
+        if(loading) return <GamerLoading />
+        
         if(!edit && !check){
             return <Box>
             <Typography variant="h4"
@@ -192,7 +196,7 @@ const FormEmailConfirmed = ({emailSended = false}) => {
               disabled={values.sendCode ? false : true}
               onClick={async () => {
                 if(values.sendCode){
-                  console.log(values.sendCode);
+                  setLoading(true);
                   const response = await fetch(url+`/profile/${id}/email/${values.sendCode}`, {
                       method: "PATCH",
                       headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
@@ -208,7 +212,7 @@ const FormEmailConfirmed = ({emailSended = false}) => {
                       setErrorCode(true);
                       console.log("Código inválido")
                     }
-                    
+                    setLoading(false);
                 }
               }}
               sx={{
@@ -240,7 +244,7 @@ const FormEmailConfirmed = ({emailSended = false}) => {
 
     useEffect(() => {
         setMainContent(content())    
-    },[check, edit, errorCode])
+    },[check, edit, errorCode, loading])
 
     if(emailCheck) navigate("/home");
 

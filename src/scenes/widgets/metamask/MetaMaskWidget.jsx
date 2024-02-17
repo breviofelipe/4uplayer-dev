@@ -5,6 +5,8 @@ import { Box, Button, IconButton, InputBase, Typography, useTheme } from '@mui/m
 import { getTokenBalance, transferToken, addPlc } from './MetaMaskService';
 import GamerLoading from 'components/gamerLoading/GamerLoading';
 import AddIcon from '@mui/icons-material/Add';
+import { Refresh } from '@mui/icons-material';
+
 const ethers = require("ethers");
 
 const MetaMaskWidget = () => {
@@ -28,6 +30,8 @@ const MetaMaskWidget = () => {
 
     const [success, setSuccess] = useState();
 
+
+    
     async function connect() {
         
         await window.ethereum.send('eth_requestAccounts'); 
@@ -71,7 +75,7 @@ const MetaMaskWidget = () => {
     //0xa4df0666852d5cD6E43bC4c5de795b3B79750a37
     const content = () => {
         return <Box>            
-            {myAddress ? <Typography>{myAddress}</Typography> : 
+            {myAddress ? <><Typography>{myAddress}</Typography></> : 
                 <><Button onClick={evt => connect()} >Conectar</Button>
                 </>
             }
@@ -79,6 +83,9 @@ const MetaMaskWidget = () => {
                 <div>
                     <Typography>BNB: {balance}</Typography>    
                     <Typography>PLC: {message}</Typography>
+                    <IconButton onClick={() => connect()}>
+                        <Refresh />
+                    </IconButton>
                     <InputBase
                         placeholder="Enviar PLC para..."
                         onChange={(e) => setToAddress(e.target.value)}

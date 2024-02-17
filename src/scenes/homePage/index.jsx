@@ -11,6 +11,7 @@ import UserListWidget from "scenes/widgets/users";
 import MetaMaskWidget from "scenes/widgets/metamask/MetaMaskWidget";
 import { useNavigate } from "react-router-dom";
 import PostBuild from "components/postConstruction/PostConstruction";
+import ResgateWidget from "scenes/widgets/resgatePLC/ResgateWidgets";
 
 const HomePage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
@@ -21,6 +22,8 @@ const HomePage = () => {
     const top = () => {
       return <>
         <UserWidget userId={id} />
+        {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
+        <ResgateWidget />
         {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
       </>
     };
