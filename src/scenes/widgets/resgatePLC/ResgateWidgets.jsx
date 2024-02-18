@@ -1,4 +1,4 @@
-import { Box, Button, InputBase, TextField, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Alert, Box, Button, TextField, Typography, useMediaQuery } from "@mui/material";
 import PostComponent from "components/post/PostComponent";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
@@ -6,7 +6,7 @@ import * as yup from "yup";
 import { Formik } from "formik";
 import LoadingComponent from "components/loading/Loading";
 import Confetes from "./components/Confetes";
-
+import CheckIcon from '@mui/icons-material/Check';
 const ResgateWidget = () => {
 
     const [isLoading, setLoading] = useState(false);
@@ -14,9 +14,6 @@ const ResgateWidget = () => {
     const token = useSelector((state) => state.token);
     const url = process.env.REACT_APP_HOST_NOTIFICATIONS;
     const isNonMobile = useMediaQuery("(min-width:1000px)");
-    const [isOpen, setOpen] = useState(false);
-    const { palette } = useTheme();
-    const main = palette.neutral.main;
 
     const initialValuesRegister = {
         code: "",
@@ -38,7 +35,7 @@ const ResgateWidget = () => {
             setLoading(false);
             onSubmitProps.resetForm();
             setConfetes(true);
-            setTimeout(() => setConfetes(false), 10000);
+            setTimeout(() => setConfetes(false), 30000);
         }
         else {
             const status = response.status;
@@ -82,6 +79,9 @@ const ResgateWidget = () => {
                         "& > div": { gridColumn: isNonMobile ? undefined : "span 4", marginBottom: "1rem" },
                         }}
                     >
+                    {confetes && <Alert onClose={() => {setConfetes(false)}} sx={{ gridColumn: "span 4", marginTop: "1rem" }} icon={<CheckIcon fontSize="inherit" />} severity="success">
+                      <Typography>Código resgatado com sucesso, sua PLC chegará em breve.</Typography>
+                    </Alert>}
                     <TextField
                         label={"Código de resgate"}
                         onBlur={handleBlur}
