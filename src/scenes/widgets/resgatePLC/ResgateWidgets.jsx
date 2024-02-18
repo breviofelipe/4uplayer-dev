@@ -115,7 +115,7 @@ const ResgateWidget = () => {
     </>
     }
 
-    return <PostComponent titulo={"PLC Resgate"} subtitulo={"Utilize seu códigos de restate"} content={content()} icon={<img width={"30px"} height={"30px"} src={'https://res.cloudinary.com/dosghtja7/image/upload/v1707940336/assets/w5vviukwefe2hwykn2jt.png'} />}/>
+    return <PostComponent titulo={"PLC Resgate"} subtitulo={"Utilize códigos de restate"} content={content()} icon={<img width={"30px"} height={"30px"} src={'https://res.cloudinary.com/dosghtja7/image/upload/v1707940336/assets/w5vviukwefe2hwykn2jt.png'} />}/>
 }
 
 export default ResgateWidget;
