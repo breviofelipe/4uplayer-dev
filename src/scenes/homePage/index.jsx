@@ -11,7 +11,8 @@ import UserListWidget from "scenes/widgets/users";
 import MetaMaskWidget from "scenes/widgets/metamask/MetaMaskWidget";
 import { useNavigate } from "react-router-dom";
 import PostBuild from "components/postConstruction/PostConstruction";
-import ResgateWidget from "scenes/widgets/resgatePLC/ResgateWidgets";
+import ResgateWidget from "scenes/widgets/resgate/ResgateWidgets";
+import MemberWidget from "scenes/widgets/member/MemberWidget";
 
 const HomePage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
@@ -31,6 +32,8 @@ const HomePage = () => {
     const main = () => {
       return <>
        <MyPostWidget picturePath={picturePath} />
+      {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
+      <MemberWidget />
       {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
       <PostsWidget />
       {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}

@@ -4,7 +4,7 @@ import WidgetWrapper from "../WidgetWrapper";
 import FlexBetween from 'components/FlexBetween';
 import { Box, Divider, Typography, useMediaQuery, useTheme } from '@mui/material';
 
-function PostComponent({ titulo, subtitulo, icon, content, msg, isCenter = true }) {
+function PostComponent({ titulo, subtitulo, icon, content, msg, isCenter = true, msg1 }) {
 
     const { palette } = useTheme();
     const dark = palette.neutral.dark;
@@ -47,7 +47,7 @@ function PostComponent({ titulo, subtitulo, icon, content, msg, isCenter = true 
        </div>
        }
        <FlexBetween>
-        <Box></Box><Box>{msg}</Box>
+        <Box>{msg1}</Box><Box>{msg}</Box>
        </FlexBetween>
     </WidgetWrapper>
     {isNonMobileScreens ? <Box m={"2rem"} /> : <Divider/>}

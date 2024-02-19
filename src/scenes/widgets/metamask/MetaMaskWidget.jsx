@@ -83,9 +83,7 @@ const MetaMaskWidget = () => {
                 <div>
                     <Typography>BNB: {balance}</Typography>    
                     <Typography>PLC: {message}</Typography>
-                    <IconButton onClick={() => connect()}>
-                        <Refresh />
-                    </IconButton>
+                    
                     <InputBase
                         placeholder="Enviar PLC para..."
                         onChange={(e) => setToAddress(e.target.value)}
@@ -133,7 +131,9 @@ const MetaMaskWidget = () => {
     }
 
     return <>{ isLoading ? <GamerLoading /> :
-            <PostComponent titulo={titulo} subtitulo={subtitulo} content={mainContent} icon={metaIcon()} msg={msg()} />}
+            <PostComponent titulo={titulo} subtitulo={subtitulo} content={mainContent} icon={metaIcon()} msg={msg()} msg1={<IconButton onClick={() => connect()}>
+            <Refresh />
+        </IconButton>} />}
         </>
 }
 
