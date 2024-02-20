@@ -6,6 +6,8 @@ import { getTokenBalance, transferToken, addPlc } from './MetaMaskService';
 import GamerLoading from 'components/gamerLoading/GamerLoading';
 import AddIcon from '@mui/icons-material/Add';
 import { Refresh } from '@mui/icons-material';
+import { useDispatch, useSelector } from 'react-redux';
+import { setMetamaskAddress } from 'state';
 
 const ethers = require("ethers");
 
@@ -14,7 +16,8 @@ const MetaMaskWidget = () => {
     const { palette } = useTheme();
     const main = palette.neutral.main;
 
-    const [myAddress, setMyAddress] = useState("");
+    // const [myAddress, setMyAddress] = useState("");
+    const metamaskAddress = useSelector((state) => state.metamaskAddress);
     const [balance, setBalance] = useState('');
     const [message, setMessage] = useState('');
     const [isLoading, setLoading] = useState(false);
@@ -29,7 +32,10 @@ const MetaMaskWidget = () => {
     const ethereum = useState(window.ethereum);
 
     const [success, setSuccess] = useState();
+   
+    const dispatch = useDispatch();
 
+    const [providerState, setProvider] = useState(null);
 
     
     async function connect() {
@@ -37,16 +43,31 @@ const MetaMaskWidget = () => {
         await window.ethereum.send('eth_requestAccounts'); 
 
         const provider = new ethers.providers.Web3Provider(window.ethereum);
-
+        setProvider(provider);
         const signer = provider.getSigner();
         const address = await signer.getAddress();
-        setMyAddress(address);
+        dispatch(setMetamaskAddress({'metamaskAddress' : address}))
         const balance = await provider.getBalance(address);
         
         setBalance(ethers.utils.formatEther(balance.toString()));
         
         const amountPlc = await getTokenBalance(address, addressPLCTeste); 
         setMessage(amountPlc);
+    }
+
+    const refresh = async () => {
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+
+        const signer = provider.getSigner();
+        const address = await signer.getAddress();
+        dispatch(setMetamaskAddress({'metamaskAddress' : address}))
+        const balance = await provider.getBalance(address);
+        
+        setBalance(ethers.utils.formatEther(balance.toString()));
+        
+        const amountPlc = await getTokenBalance(address, addressPLCTeste); 
+        setMessage(amountPlc);
+
     }
 
     const metaIcon = () => {
@@ -75,11 +96,11 @@ const MetaMaskWidget = () => {
     //0xa4df0666852d5cD6E43bC4c5de795b3B79750a37
     const content = () => {
         return <Box>            
-            {myAddress ? <><Typography>{myAddress}</Typography></> : 
+            {metamaskAddress ? <><Typography>{metamaskAddress}</Typography></> : 
                 <><Button onClick={evt => connect()} >Conectar</Button>
                 </>
             }
-            {myAddress &&
+            {metamaskAddress &&
                 <div>
                     <Typography>BNB: {balance}</Typography>    
                     <Typography>PLC: {message}</Typography>
@@ -114,13 +135,19 @@ const MetaMaskWidget = () => {
 
     useEffect(() => {
         setMainContent(content());
-    }, [myAddress, balance, message, toAddress, transferAmount]);
+    }, [metamaskAddress, balance, message, toAddress, transferAmount]);
 
     useEffect(() => {
         if(success){
            setMainContent(checkIcon())
         }
     }, [success])
+
+    useEffect(() => {        
+        if(metamaskAddress){
+            refresh();
+        }     
+    }, []);
 
     if (ethereum[0] === undefined){
         return <PostComponent titulo={titulo} subtitulo={subtitulo} content={linkMetamask()} icon={metaIcon()} />
@@ -131,7 +158,7 @@ const MetaMaskWidget = () => {
     }
 
     return <>{ isLoading ? <GamerLoading /> :
-            <PostComponent titulo={titulo} subtitulo={subtitulo} content={mainContent} icon={metaIcon()} msg={msg()} msg1={myAddress && <IconButton onClick={() => connect()}>
+            <PostComponent titulo={titulo} subtitulo={subtitulo} content={mainContent} icon={metaIcon()} msg={msg()} msg1={metamaskAddress && <IconButton onClick={() => connect()}>
             <Refresh />
         </IconButton>} />}
         </>

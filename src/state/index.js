@@ -5,6 +5,7 @@ const initialState = {
   translation: null,
   user: null,
   token: null,
+  metamaskAddress: null,
   posts: [],
   users: [],
   notifications: []
@@ -24,9 +25,13 @@ export const authSlice = createSlice({
       state.user = action.payload.user;
       state.token = action.payload.token;
     },
+    setMetamaskAddress: (state, action) => {
+       state.metamaskAddress = action.payload.metamaskAddress; 
+    },
     setLogout: (state) => {
       state.user = null;
       state.token = null;
+      state.metamaskAddress = null;
     },
     setFriends: (state, action) => {
       if (state.user) {
@@ -57,6 +62,6 @@ export const authSlice = createSlice({
   },
 });
 
-export const { setMode, setTranslation, setLogin, setLogout, setFriends, setPosts, setPost, setUsers, setNotifications } =
+export const { setMode, setTranslation, setLogin, setLogout, setFriends, setPosts, setPost, setUsers, setNotifications, setMetamaskAddress } =
   authSlice.actions;
 export default authSlice.reducer;
