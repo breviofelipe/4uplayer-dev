@@ -131,7 +131,7 @@ const MetaMaskWidget = () => {
     }
 
     return <>{ isLoading ? <GamerLoading /> :
-            <PostComponent titulo={titulo} subtitulo={subtitulo} content={mainContent} icon={metaIcon()} msg={msg()} msg1={<IconButton onClick={() => connect()}>
+            <PostComponent titulo={titulo} subtitulo={subtitulo} content={mainContent} icon={metaIcon()} msg={msg()} msg1={myAddress && <IconButton onClick={() => connect()}>
             <Refresh />
         </IconButton>} />}
         </>

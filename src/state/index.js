@@ -6,11 +6,8 @@ const initialState = {
   user: null,
   token: null,
   posts: [],
-  tasks: [],
-  turmas: [],
-  turma: null,
-  ator: null,
-  users: []
+  users: [],
+  notifications: []
 };
 
 export const authSlice = createSlice({
@@ -41,6 +38,9 @@ export const authSlice = createSlice({
     setUsers: (state, action) => {
       state.users = action.payload.users;    
     },
+    setNotifications: (state, action) => {
+      state.notifications = action.payload.notifications;    
+    },
     setPosts: (state, action) => {
       state.posts = action.payload.posts;
     },
@@ -54,33 +54,9 @@ export const authSlice = createSlice({
       });
       state.posts = updatedPosts;
     },
-    setPostPersonagem: (state, action) => {
-      const updatedPosts = state.postsPersonagem.map((post) => {
-        if (post.id === action.payload.post.id) return action.payload.post;
-        return post;
-      });
-      state.postsPersonagem = updatedPosts;
-    },
-    setTasks: (state, action) => {
-      state.tasks = action.payload.tasks;
-    },
-    setTurmas: (state, action) => {
-      state.turmas = action.payload.turmas;
-    },
-    setTurma: (state, action) => {
-      state.turma = action.payload.turma;
-    },
-    setAtor: (state, action) => {
-      state.ator = action.payload.ator;
-      const atoresUpdated = state.turma.atores.map((ator) => {
-        if (ator.id === action.payload.ator.id) return action.payload.ator;
-        return ator;
-      });
-      state.turma.atores = atoresUpdated;
-    },
   },
 });
 
-export const { setMode, setTranslation, setLogin, setLogout, setFriends, setPosts, setPost, setTasks, setTurmas, setTurma, setAtor, setPostsPersonagem, setPostPersonagem, setUsers } =
+export const { setMode, setTranslation, setLogin, setLogout, setFriends, setPosts, setPost, setUsers, setNotifications } =
   authSlice.actions;
 export default authSlice.reducer;

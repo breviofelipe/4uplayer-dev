@@ -8,13 +8,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { themeSettings } from "./theme";
-import SpectaclePage from "scenes/spectaclePage";
-import ActorPage from 'scenes/actorPage';
-import PersonagemPage from 'scenes/personagemPage';
 import GamePage from 'scenes/gamePage';
-import CadastroTurmaPage from 'scenes/cadastroTurmaPage';
 import { setTranslation } from 'state';
 import EditProfilePage from 'scenes/editProfilePage';
+import NotificationPage from 'scenes/notificationPage';
 
 function App() {
   const mode = useSelector((state) => state.mode);
@@ -65,29 +62,19 @@ function App() {
               element={isAuth ? <ProfilePage /> : <Navigate to="/" />}
             />
             <Route
-              path="/spectacle/"
-              element={isAuth ? <SpectaclePage /> : <Navigate to="/" />}
-            />
-            <Route
-              path="/ator/"
-              element={isAuth ? <ActorPage /> : <Navigate to="/" />}
-            />
-            <Route
-              path="/personagem"
-              element={isAuth ? <PersonagemPage /> : <Navigate to="/" />}
-            />
-            <Route
               path="/games"
               element={isAuth ? <GamePage /> : <Navigate to="/" />}
-            />
-            <Route
-              path="/cadastro/turma"
-              element={isAuth ? <CadastroTurmaPage /> : <Navigate to="/" />}
             />
             <Route
               path="/profile/email"
               element={isAuth ? <EditProfilePage /> : <Navigate to="/" />}
             />
+            <Route
+              path="/notifications/:id"
+              element={isAuth ? <NotificationPage /> : <Navigate to="/" />}
+            />
+
+
           </Routes>
         </ThemeProvider>
       </BrowserRouter>

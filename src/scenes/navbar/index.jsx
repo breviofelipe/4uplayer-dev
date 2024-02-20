@@ -35,8 +35,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
-  const role = user.role;
-  const turma = useSelector((state) => state.turma);
+
   const theme = useTheme();
   const neutralLight = theme.palette.neutral.light;
   const dark = theme.palette.neutral.dark;
@@ -47,6 +46,7 @@ const Navbar = () => {
   // const fullName = `${user.firstName} ${user.lastName}`;
   const fullName = `${user.firstName}`;
 
+  const [length, setLength] = useState(0);
 
   return (
     <FlexBetween padding="1rem 6%" backgroundColor={alt}>
@@ -104,8 +104,8 @@ const Navbar = () => {
           <IconButton onClick={() => navigate("/games")} >
             <SportsEsportsIcon sx={{ fontSize: "25px" }} />
           </IconButton>          
-          <BasicMenu content={
-            <Badge badgeContent={3} color="error">
+          <BasicMenu setLength={setLength} content={
+            <Badge badgeContent={length} color="error">
               <Notifications  sx={{ fontSize: "25px" }} />
             </Badge>
             }/>
