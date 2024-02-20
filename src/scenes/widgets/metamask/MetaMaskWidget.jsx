@@ -56,17 +56,21 @@ const MetaMaskWidget = () => {
     }
 
     const refresh = async () => {
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        try{
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
 
-        const signer = provider.getSigner();
-        const address = await signer.getAddress();
-        dispatch(setMetamaskAddress({'metamaskAddress' : address}))
-        const balance = await provider.getBalance(address);
-        
-        setBalance(ethers.utils.formatEther(balance.toString()));
-        
-        const amountPlc = await getTokenBalance(address, addressPLCTeste); 
-        setMessage(amountPlc);
+            const signer = provider.getSigner();
+            const address = await signer.getAddress();
+            dispatch(setMetamaskAddress({'metamaskAddress' : address}))
+            const balance = await provider.getBalance(address);
+            
+            setBalance(ethers.utils.formatEther(balance.toString()));
+            
+            const amountPlc = await getTokenBalance(address, addressPLCTeste); 
+            setMessage(amountPlc);
+        } catch (err){
+            console.log(err);
+        }
 
     }
 
