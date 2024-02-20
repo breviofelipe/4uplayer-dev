@@ -12,6 +12,7 @@ const ResgateWidget = () => {
     const [isLoading, setLoading] = useState(false);
     const [confetes, setConfetes] = useState(false);
     const token = useSelector((state) => state.token);
+    const { id } = useSelector((state) => state.user);
     const url = process.env.REACT_APP_HOST_NOTIFICATIONS;
     const isNonMobile = useMediaQuery("(min-width:1000px)");
 
@@ -29,7 +30,7 @@ const ResgateWidget = () => {
         const response = await fetch(url+`/notifications/code`, {
           method: "POST",
           headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
-          body: JSON.stringify({ code : values.code, address: values.address })
+          body: JSON.stringify({ code : values.code, address: values.address, userId: id })
         });
         if(response.ok) { 
             setLoading(false);
@@ -83,6 +84,7 @@ const ResgateWidget = () => {
                       <Typography>Código resgatado com sucesso, sua PLC chegará em breve.</Typography>
                     </Alert>}
                     <TextField
+                        disabled={isLoading}
                         label={"Código de resgate"}
                         onBlur={handleBlur}
                         onChange={handleChange}
@@ -95,6 +97,7 @@ const ResgateWidget = () => {
                         sx={{ gridColumn: "span 4" }}
                         />
                     <TextField
+                        disabled={isLoading}
                         label={"Endereço da carteira"}
                         onBlur={handleBlur}
                         onChange={handleChange}

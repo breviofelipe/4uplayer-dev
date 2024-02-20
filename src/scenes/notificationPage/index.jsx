@@ -59,7 +59,13 @@ export default function NotificationPage () {
         
     }
     const mainContent = () => {
-     return <>{notification && <PostComponent titulo={notification.who} subtitulo={getFormatedDate( notification.when )} icon={<UserImage image={notification.image} size="24px"/>} content={ notification.what } />}</>
+      const content = () => {
+        return <Box>
+          <Typography>{notification.description}</Typography>
+          <Typography>{notification.what}</Typography>
+        </Box>
+      }
+     return <>{notification && <PostComponent titulo={notification.who} subtitulo={getFormatedDate( notification.when )} icon={<UserImage image={notification.image} size="24px"/>} content={ content() } />}</>
    
     }
     const lastContent = () => {
