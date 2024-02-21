@@ -171,7 +171,8 @@ const UserWidget = ({ userId }) => {
     impressions,
     friends,
     clan, 
-    role
+    role,
+    wallet
   } = user;
 
   return <WidgetWrapper mobile={!isNonMobileScreens} >
@@ -218,7 +219,7 @@ const UserWidget = ({ userId }) => {
             <Box display="flex" alignItems="center" gap="1rem">
               <AccountBalanceWalletIcon />
               <Typography color={medium}>PLC</Typography>
-              <Typography color={medium}>1000000</Typography>
+              <Typography color={medium}>{wallet}</Typography>
             </Box>       
           </Box>
           <Divider />
