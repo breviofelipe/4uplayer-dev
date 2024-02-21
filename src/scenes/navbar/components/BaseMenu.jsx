@@ -9,8 +9,9 @@ import ptBR from 'date-fns/locale/pt-BR';
 import { useDispatch, useSelector } from 'react-redux';
 import { setNotifications } from 'state';
 import { useNavigate } from 'react-router-dom';
+import BlockIcon from '@mui/icons-material/Block';
 
-export default function BasicMenu({content, setLength}) {
+export default function BasicMenu({content, setLength }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
@@ -65,18 +66,18 @@ export default function BasicMenu({content, setLength}) {
     }
    }
 
-   const massa = [{
-            name: "TESTE", image: "https://res.cloudinary.com/dosghtja7/image/upload/v1707940336/assets/w5vviukwefe2hwykn2jt.png", who: "4uPlayer", when: '', what: "A very long text that overflows..."
-        },{
-            name: "TESTE", image: "https://res.cloudinary.com/dosghtja7/image/upload/v1707940336/assets/w5vviukwefe2hwykn2jt.png", who: "4uPlayer", when: '', what: "TESNTANDO..."
-        },{
-            name: "TESTE", image: "https://res.cloudinary.com/dosghtja7/image/upload/v1707940336/assets/w5vviukwefe2hwykn2jt.png", who: "4uPlayer", when: '', what: "TESNTANDO..."
-        }];
 
   const menuItem = ( ) => {
     if(notifications.length > 0){
       const result = notifications.filter((item) => item.visualized===false).length;
       setLength(result);
+    } else {
+      return <Paper sx={{ width: 320, maxWidth: '100%', marginBottom: '0.4rem', marginLeft: '0.4rem', marginRight: '0.4rem' }}>
+              <Box gap={"1rem"} sx={{ m: "0.5rem 0", display: 'flex', padding: "0.5rem"}}>
+                  <BlockIcon fontSize='medium' />
+                  <Typography sx={{ color: medium, width: "100%" }}>Nenhuma notificação!</Typography>
+              </Box>
+      </Paper>
     }
     return notifications.map(({name, image, who, when, what, id, visualized}, i) => (
         <>

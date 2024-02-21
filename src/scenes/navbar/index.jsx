@@ -186,7 +186,11 @@ const Navbar = () => {
             <IconButton onClick={() => navigate("/games")} >
               <SportsEsportsIcon sx={{ fontSize: "25px" }} />
             </IconButton>
-            <Notifications sx={{ fontSize: "25px" }} />
+            <BasicMenu setLength={setLength} content={
+            <Badge badgeContent={length} color="error">
+              <Notifications  sx={{ fontSize: "25px" }} />
+            </Badge>
+            }/>
             <FormControl variant="standard" value={fullName}>
               <Select
                 value={fullName}
