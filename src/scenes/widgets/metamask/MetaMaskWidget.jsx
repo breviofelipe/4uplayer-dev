@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
 import "./Metamask.css";
 import PostComponent from 'components/post/PostComponent';
-import { Box, Button, IconButton, InputBase, Typography, useTheme } from '@mui/material';
-import { getTokenBalance, transferToken, addPlc } from './MetaMaskService';
+import { Box, Button, IconButton, InputBase, Tooltip, Typography, useTheme } from '@mui/material';
+import { getTokenBalance, transferToken, addPlc, AddNetwork } from './MetaMaskService';
 import GamerLoading from 'components/gamerLoading/GamerLoading';
 import AddIcon from '@mui/icons-material/Add';
 import { Refresh } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
 import { setMetamaskAddress } from 'state';
-
+import FlexBetween from 'components/FlexBetween';
+import ViewInArIcon from '@mui/icons-material/ViewInAr';
 const ethers = require("ethers");
 
 const MetaMaskWidget = () => {
@@ -106,9 +107,17 @@ const MetaMaskWidget = () => {
             }
             {metamaskAddress &&
                 <div>
-                    <Typography>BNB: {balance}</Typography>    
-                    <Typography>PLC: {message}</Typography>
                     
+                       
+                    <FlexBetween>
+                        <Box display={"flex"} flexDirection={"column"} alignItems={"center"} width={"100%"}>
+                            <Typography>BNB: {balance}</Typography> 
+                            <Typography>PLC: {message}</Typography>
+                        </Box>
+                        <IconButton onClick={() => connect()}>
+                            <Refresh />
+                        </IconButton>
+                    </FlexBetween>
                     <InputBase
                         placeholder="Enviar PLC para..."
                         onChange={(e) => setToAddress(e.target.value)}
@@ -158,13 +167,22 @@ const MetaMaskWidget = () => {
     }
 
     const msg = () => {
-        return <><IconButton onClick={evt => addPlc()} ><img width={"30px"} height={"30px"} src={'https://res.cloudinary.com/dosghtja7/image/upload/v1707940336/assets/w5vviukwefe2hwykn2jt.png'} /><AddIcon />{metaIcon()}</IconButton></>
+        return <>
+        <Tooltip title="Add PLC Metamask">
+            <IconButton onClick={evt => addPlc()} ><img width={"30px"} height={"30px"} src={'https://res.cloudinary.com/dosghtja7/image/upload/v1707940336/assets/w5vviukwefe2hwykn2jt.png'} /><AddIcon />{metaIcon()}</IconButton>
+        </Tooltip>
+        </>
     }
 
     return <>{ isLoading ? <GamerLoading /> :
-            <PostComponent titulo={titulo} subtitulo={subtitulo} content={mainContent} icon={metaIcon()} msg={msg()} msg1={metamaskAddress && <IconButton onClick={() => connect()}>
-            <Refresh />
-        </IconButton>} />}
+            <PostComponent titulo={titulo} subtitulo={subtitulo} content={mainContent} icon={metaIcon()} msg={msg()} msg1={metamaskAddress && 
+            <>
+             <Tooltip title="Add Network Metamask">
+                <IconButton  onClick={AddNetwork}><ViewInArIcon fontSize='large'/><AddIcon />{metaIcon()}</IconButton>
+            </Tooltip>
+            
+        </>
+    } />}
         </>
 }
 

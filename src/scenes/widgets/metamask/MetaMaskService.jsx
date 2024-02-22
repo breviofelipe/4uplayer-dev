@@ -265,6 +265,28 @@ export async function transferToken(toAddress, contractAddress, quantity, decima
     }
 }
 
+export async function AddNetwork () {
+	try {
+		await window.ethereum.request({
+		method: "wallet_addEthereumChain",
+		params: [{
+		  chainId: "0x61",
+		  rpcUrls: ["https://bsc-testnet.publicnode.com/"],
+		  chainName: "BNB Smart Chain Testnet",
+		  nativeCurrency: {
+			name: "tBNB",
+			symbol: "tBNB",
+			decimals: 18
+		  },
+		  blockExplorerUrls: ["https://testnet.bscscan.com/"]
+		}]
+	  });
+	} catch (err) {
+        console.log(err);
+		return err;
+    }
+}
+
 export async function addPlc(){
 	const tokenAddress = '0xe88666ed7aefcf7657f5c479164bd5b519f123ba';
     const tokenSymbol = 'PLCTST';
