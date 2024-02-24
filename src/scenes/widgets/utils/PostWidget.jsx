@@ -16,6 +16,7 @@ import ptBR from 'date-fns/locale/pt-BR';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate } from "react-router-dom";
 import UserImage from "components/UserImage";
+import YoutubeEmbed from "components/youtube/YoutubeEmbed";
 
 const PostWidget = ({
   postId,
@@ -27,7 +28,8 @@ const PostWidget = ({
   userPicturePath,
   likes,
   comments,
-  createdAt
+  createdAt,
+  youtubeEmbedId
 }) => {
   const [isComments, setIsComments] = useState(false);
   const dispatch = useDispatch();
@@ -121,6 +123,7 @@ const PostWidget = ({
         src={ picturePath }
       />
     )}
+    {youtubeEmbedId && <YoutubeEmbed embedId={youtubeEmbedId} />}
     <FlexBetween mt="0.25rem">
       <FlexBetween gap="1rem">
         <FlexBetween gap="0.3rem">
