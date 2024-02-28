@@ -11,6 +11,7 @@ import FlexBetween from "components/FlexBetween";
 import { setLogin } from "state";
 import { useNavigate } from "react-router-dom";
 import GamerLoading from "components/gamerLoading/GamerLoading";
+import { tr } from "date-fns/locale";
 
 const FormEmailConfirmed = ({emailSended = false}) => {
     const { palette } = useTheme();
@@ -92,12 +93,14 @@ const FormEmailConfirmed = ({emailSended = false}) => {
               email : values.email,
               emailConfirmed: values.emailConfirmed
             }
+            setLoading(true);
             const response = await fetch(url+`/profile/${id}/email`, {
               method: "PATCH",
               headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
               body: JSON.stringify(body),
             });
             const data = await response.json();
+            setLoading(false);
             dispatch(setLogin({
               user: data.user,
               token: data.token,
