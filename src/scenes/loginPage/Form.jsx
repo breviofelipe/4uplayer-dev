@@ -168,20 +168,29 @@ const Form = ({ translation }) => {
   const password = async (values, onSubmitProps) => {
 
     setLoading(true);
-    const loggedInResponse = await fetch(urlEnv+"/auth/password", {
+    setSuccess(null);
+    setWarning(null);
+    const passwordResponse = await fetch(urlEnv+"/auth/password", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values)
-    });
+    })
+    .catch(console.log);
+
      try {
       
-      const status = loggedInResponse.status;
-      
-      if(status === 202){
-        console.log("sucesso");
+      if(passwordResponse.ok){
+        setSuccess("Solicitação enviado com sucesso. Verifique seu e-mail!")
+      } else {
+        const status = passwordResponse.status;
+        if (status === 404){
+          setWarning("Sistema indisponivel. Tente novamente mais tarde")
+        } else {
+          setWarning("Email não cadastrado.")
+        }
       }
-    }catch (err) {
-      console.log(err);
+    } catch (err) {
+      setWarning("Sistema indisponivel. Tente novamente mais tarde")
     } finally {
       setLoading(false);
     }
