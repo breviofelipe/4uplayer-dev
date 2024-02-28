@@ -42,6 +42,7 @@ const Form = ({ translation }) => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const isLogin = pageType === "login";
   const isRegister = pageType === "register";
+  const isNewPassword = pageType === "password";
   const [warning, setWarning] = useState();
   const [success, setSuccess] =  useState();
 
@@ -58,6 +59,9 @@ const Form = ({ translation }) => {
     password: yup.string().required(translation.loginPage.fraseRequired),
     clan: yup.string(),
     picture: yup.string(),
+  });
+  const passwordSchema = yup.object().shape({
+    email: yup.string().email(translation.loginPage.fraseEmail).required(translation.loginPage.fraseRequired),
   });
 
   const getBase64FromUrl = (values, onSubmitProps) => {
@@ -161,9 +165,32 @@ const Form = ({ translation }) => {
     }
   };
 
+  const password = async (values, onSubmitProps) => {
+
+    setLoading(true);
+    const loggedInResponse = await fetch(urlEnv+"/auth/password", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(values)
+    });
+     try {
+      
+      const status = loggedInResponse.status;
+      
+      if(status === 202){
+        console.log("sucesso");
+      }
+    }catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   const handleFormSubmit = async (values, onSubmitProps) => {
     if (isLogin) await login(values, onSubmitProps);
     if (isRegister) await register(values, onSubmitProps);
+    if (isNewPassword) await password(values, onSubmitProps);
   };
 
   return (
@@ -180,7 +207,7 @@ const Form = ({ translation }) => {
         <Formik
       onSubmit={handleFormSubmit}
       initialValues={isLogin ? initialValuesLogin : initialValuesRegister}
-      validationSchema={isLogin ? loginSchema : registerSchema}
+      validationSchema={isLogin ? loginSchema : isNewPassword ? passwordSchema : registerSchema}
     >
       {({
         values,
@@ -312,6 +339,19 @@ const Form = ({ translation }) => {
               sx={{ gridColumn: "span 4" }}
             /></>
             }
+
+            {isNewPassword && <>
+              <TextField
+              label={"Recuperar senha e-mail"}
+              onBlur={handleBlur}
+              onChange={handleChange}
+              value={values.email}
+              name="email"
+              error={Boolean(touched.email) && Boolean(errors.email)}
+              helperText={touched.email && errors.email}
+              sx={{ gridColumn: "span 4" }} />
+            </>}
+
           </Box>
 
           {/* BUTTONS */}
@@ -327,8 +367,9 @@ const Form = ({ translation }) => {
                 "&:hover": { color: palette.primary.main },
               }}
             >
-              {isLogin ? translation.loginPage.formLogin : translation.loginPage.formRegister}
+              {isLogin ? translation.loginPage.formLogin : isNewPassword ? "Solicitar recuperação de senha" : translation.loginPage.formRegister}
             </Button>
+            <FlexBetween>
             <Typography
               onClick={() => {
                 setPageType(isLogin ? "register" : "login");
@@ -347,6 +388,19 @@ const Form = ({ translation }) => {
                 ?  translation.loginPage.fraseFormCriar
                 :  translation.loginPage.fraseFormEntrar }
             </Typography>
+            {!isNewPassword &&  <Typography
+            onClick={() => {
+              setPageType("password");
+            }}
+            sx={{
+                textDecoration: "underline",
+                color: palette.primary.main,
+                "&:hover": {
+                  cursor: "pointer",
+                  color: palette.primary.light,
+                },
+              }}>Esqueceu a senha?</Typography>}
+            </FlexBetween>
           </Box>
         </form>
       )}

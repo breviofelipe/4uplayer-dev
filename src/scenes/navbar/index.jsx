@@ -23,11 +23,10 @@ import {
 } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { setMode, setLogout } from "state";
-import { createSearchParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import FlexBetween from "components/FlexBetween";
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
-import { FaTheaterMasks } from 'react-icons/fa';
-import AddIcon from '@mui/icons-material/Add';
+
 import BasicMenu from "./components/BaseMenu";
 const Navbar = () => {
   const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
@@ -43,8 +42,11 @@ const Navbar = () => {
   const primaryLight = theme.palette.primary.light;
   const alt = theme.palette.background.alt;
 
-  // const fullName = `${user.firstName} ${user.lastName}`;
-  const fullName = `${user.firstName}`;
+  let fullName = `Entrar`;
+
+  if(user){
+    fullName = `${user.firstName}`;
+  }
 
   const [length, setLength] = useState(0);
 
@@ -104,12 +106,12 @@ const Navbar = () => {
           <IconButton onClick={() => navigate("/games")} >
             <SportsEsportsIcon sx={{ fontSize: "25px" }} />
           </IconButton>          
-          <BasicMenu setLength={setLength} content={
+         { user &&  <BasicMenu setLength={setLength} content={
             <Badge badgeContent={length} color="error">
               <Notifications  sx={{ fontSize: "25px" }} />
             </Badge>
-            }/>
-          <FormControl variant="standard" value={fullName}>
+            }/>}
+          {user && <FormControl variant="standard" value={fullName}>
             <Select
               value={fullName}
               sx={{
@@ -133,6 +135,7 @@ const Navbar = () => {
               <MenuItem onClick={() => dispatch(setLogout())}>Log Out</MenuItem>
             </Select>
           </FormControl>
+          }
         </FlexBetween>
       ) : (
         <IconButton
@@ -186,12 +189,12 @@ const Navbar = () => {
             <IconButton onClick={() => navigate("/games")} >
               <SportsEsportsIcon sx={{ fontSize: "25px" }} />
             </IconButton>
-            <BasicMenu setLength={setLength} content={
+            {user && <BasicMenu setLength={setLength} content={
             <Badge badgeContent={length} color="error">
               <Notifications  sx={{ fontSize: "25px" }} />
             </Badge>
-            }/>
-            <FormControl variant="standard" value={fullName}>
+            }/>}
+            {user && <FormControl variant="standard" value={fullName}>
               <Select
                 value={fullName}
                 sx={{
@@ -216,7 +219,7 @@ const Navbar = () => {
                   Log Out
                 </MenuItem>
               </Select>
-            </FormControl>
+            </FormControl>}
           </FlexBetween>
         </Box>
       )}

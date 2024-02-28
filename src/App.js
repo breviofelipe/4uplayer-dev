@@ -12,6 +12,8 @@ import GamePage from 'scenes/gamePage';
 import { setTranslation } from 'state';
 import EditProfilePage from 'scenes/editProfilePage';
 import NotificationPage from 'scenes/notificationPage';
+import NoAuthPage from 'scenes/noAuthPage';
+import NotFound from 'scenes/notFoundPage';
 
 function App() {
   const mode = useSelector((state) => state.mode);
@@ -52,7 +54,9 @@ function App() {
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <Routes>
+            <Route path='*' element={<NotFound />} />
             <Route path="/" element={<LoginPage />} />
+            <Route path="/guest/:code" element={<NoAuthPage />} />
             <Route
               path="/home"
               element={isAuth ? <HomePage /> : <Navigate to="/" />}

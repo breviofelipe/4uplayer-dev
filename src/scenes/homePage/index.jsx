@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import PostBuild from "components/postConstruction/PostConstruction";
 import ResgateWidget from "scenes/widgets/resgate/ResgateWidgets";
 import MemberWidget from "scenes/widgets/member/MemberWidget";
+import MissionsWidget from "scenes/widgets/missions/MissionsWidget";
 
 const HomePage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
@@ -43,6 +44,8 @@ const HomePage = () => {
 
     const lastContent = () => {
       return <>
+          <MissionsWidget />
+          {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
           <MetaMaskWidget />
           {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
           <FriendListWidget userId={id} />
