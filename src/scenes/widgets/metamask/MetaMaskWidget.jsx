@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setMetamaskAddress } from 'state';
 import FlexBetween from 'components/FlexBetween';
 import ViewInArIcon from '@mui/icons-material/ViewInAr';
+import Icon4uPlayer from 'components/icons/Icon4uPlayer';
 const ethers = require("ethers");
 
 const MetaMaskWidget = () => {
@@ -169,7 +170,7 @@ const MetaMaskWidget = () => {
     const msg = () => {
         return <>
         <Tooltip title="Add PLC Metamask">
-            <IconButton onClick={evt => addPlc()} ><img width={"30px"} height={"30px"} src={'https://res.cloudinary.com/dosghtja7/image/upload/v1707940336/assets/w5vviukwefe2hwykn2jt.png'} /><AddIcon />{metaIcon()}</IconButton>
+            <IconButton onClick={evt => addPlc()} ><Icon4uPlayer /><AddIcon />{metaIcon()}</IconButton>
         </Tooltip>
         </>
     }
