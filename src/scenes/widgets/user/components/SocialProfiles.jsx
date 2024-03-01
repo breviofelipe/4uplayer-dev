@@ -55,13 +55,13 @@ const editSave = (edit, setEdit, type, userId, link, token, setUser, palette) =>
 
   const handlePatchLink = async (link, type, userId, token, setUser) => {
     setUser(null);
-    const url = 'https://arcane-thicket-81092-1ac7cecea9b8.herokuapp.com';
+    const url = process.env.REACT_APP_HOST_USERS;
     const body = {
       link: link,
       userId: userId,
       type: type
     }
-    const response = await fetch(url+`/actors/link`, {
+    const response = await fetch(url+`/user/link`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
       body: JSON.stringify(body),
