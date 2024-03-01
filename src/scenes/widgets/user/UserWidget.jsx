@@ -248,7 +248,7 @@ const UserWidget = ({ userId }) => {
           <FlexBetween gap="1rem" mb="0.5rem">
             <FlexBetween gap="1rem">
               <img style={{width : 25, height: 25}} src="https://res.cloudinary.com/dosghtja7/image/upload/v1696357234/instagram_dvirc4.png" alt="instagram" />
-              {linkEditInsta ? inputLink('https://instagram.com/', linkInsta, setLinkInsta) : 
+              {linkEditInsta ? inputLink('https://instagram.com/', linkInsta, setLinkInsta, palette) : 
               <Box>
                 <Typography onClick={() => {openNewTab('INSTAGRAM')}} color={main} fontWeight="500">
                   Instagram
