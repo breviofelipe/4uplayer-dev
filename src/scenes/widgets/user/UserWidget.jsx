@@ -172,7 +172,8 @@ const UserWidget = ({ userId }) => {
     friends,
     clan, 
     role,
-    wallet
+    wallet,
+    nickName
   } = user;
 
   return <WidgetWrapper mobile={!isNonMobileScreens} >
@@ -203,6 +204,7 @@ const UserWidget = ({ userId }) => {
                       <FlexBetween gap="0.5rem">
                         <Typography color={medium}>GENERAL</Typography>
                       </FlexBetween></>}
+                      {nickName && <Typography color={medium}>@{nickName}</Typography>}
                   </Box>}
                 </FlexBetween>
                 { myProfile && editPic() }

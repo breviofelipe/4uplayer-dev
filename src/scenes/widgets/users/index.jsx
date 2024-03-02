@@ -16,7 +16,7 @@ const UserListWidget = () => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.token);
   const users = useSelector((state) => state.users);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [isLoading, setLoading] =  useState(false);
   
   const getUsers = async () => {
@@ -44,7 +44,7 @@ const UserListWidget = () => {
 
   useEffect(() => {
     getUsers();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [page]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const content = () => {
     const listUsers =() => {
@@ -60,16 +60,14 @@ const UserListWidget = () => {
               ))}
               <Box>
                 <FlexBetween gap={"1rem"}>
-                  <IconButton disabled={page == 1} onClick={() => {
+                <IconButton disabled={page == 0} onClick={() => {
                     setPage(page - 1);
-                    getUsers();
                   }}>
                     <SkipPreviousIcon fontSize="large" />
                   </IconButton>
-                  <Typography>{page}</Typography>
+                  { page > 0 && <Typography>{page}</Typography>}
                   <IconButton onClick={() => {
                     setPage(page+1);
-                    getUsers();
                   }}>
                     <SkipNextIcon fontSize="large" />
                   </IconButton>
