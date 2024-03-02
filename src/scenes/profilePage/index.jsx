@@ -2,7 +2,6 @@ import { Box, Divider, useMediaQuery } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import Navbar from "scenes/navbar";
 import FriendListWidget from "scenes/widgets/utils/FriendListWidget";
 import MyPostWidget from "scenes/widgets/utils/MyPostWidget";
 import PostsWidget from "scenes/widgets/utils/PostsWidget";
@@ -49,7 +48,8 @@ const ProfilePage = () => {
   }
 
   const lastContent = () => {
-    return <><PostComponent titulo={"Medalhas"} subtitulo={"Medalhas Conquistadas"} content={"⛏️ Em construção..."} icon={<WorkspacePremiumIcon fontSize="large" />} />
+    return <>
+    <PostComponent titulo={"Medalhas"} subtitulo={"Medalhas Conquistadas"} content={"⛏️ Em construção..."} icon={<WorkspacePremiumIcon fontSize="large" />} />
     {isNonMobileScreens ? <Box m="2rem 0" /> : <Divider />}
     <AdvertWidget />
     {isNonMobileScreens ? <Box m="2rem 0" /> : <Divider />}

@@ -1,7 +1,7 @@
 import {
   ManageAccountsOutlined,
 } from "@mui/icons-material";
-import { Box, Typography, Divider, useTheme, useMediaQuery, Button } from "@mui/material";
+import { Box, Typography, Divider, useTheme, useMediaQuery, Button, Icon } from "@mui/material";
 import UserImage from "components/UserImage";
 import FlexBetween from "components/FlexBetween";
 import WidgetWrapper from "components/WidgetWrapper";
@@ -23,6 +23,7 @@ import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 import { useNavigate } from "react-router-dom";
 import GamerLoading from "components/gamerLoading/GamerLoading";
 
+
 const UserWidget = ({ userId }) => {
   const url = process.env.REACT_APP_HOST_USERS;
   const urlLogin = process.env.REACT_APP_HOST_LOGIN;
@@ -35,8 +36,7 @@ const UserWidget = ({ userId }) => {
   const [linkInsta, setLinkInsta] = useState();
 
   const token = useSelector((state) => state.token);
-  const myProfile = useSelector((state) => state.user.id) === userId;
-  
+  const myProfile = useSelector((state) => state.user.id) === userId; 
   const { palette } = useTheme();
   const navigate = useNavigate();
   
@@ -176,7 +176,11 @@ const UserWidget = ({ userId }) => {
     nickName
   } = user;
 
-  return <WidgetWrapper mobile={!isNonMobileScreens} >
+  return <WidgetWrapper style={role === 'ADMIN' ? {
+    border: '2px solid gold',
+    boxShadow: '0px 0px 25px rgba(255, 215, 0, 0.5)', /* Define o efeito de sombra com cor dourada */
+    // background: 'linear-gradient(145deg, #ffd700, #ffd700 50%, #e8c100 50%, #e8c100)', /* Cria o efeito de gradiente dourado */
+  } : {} } mobile={!isNonMobileScreens} >
           {/* FIRST ROW */}
           <FlexBetween
                 gap="0.5rem"
@@ -236,7 +240,9 @@ const UserWidget = ({ userId }) => {
           {/* 3 ROW */}
           <Box p="1rem 0">
             <Box display="flex" alignItems="center" gap="1rem">
+            <Icon>
                 <WorkspacePremiumIcon />
+            </Icon>
                 <Typography color={medium}>Medalhas</Typography>
                 <Typography color={medium}>Primórdios, PlayerCoinFan...</Typography>
               </Box>
