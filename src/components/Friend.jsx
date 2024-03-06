@@ -6,7 +6,7 @@ import { setFriends } from "state";
 import FlexBetween from "./FlexBetween";
 import UserImage from "./UserImage";
 
-const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
+function Friend ({ friendId, name, subtitle, userPicturePath }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useSelector((state) => state.user);
@@ -20,7 +20,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
   const main = palette.neutral.main;
   const medium = palette.neutral.medium;
 
-  const isFriend = friends.find((friend) => friend.id === friendId);
+  const isFriend = friends.find((friend) => friend === friendId);
   
   const urlEnv = process.env.REACT_APP_HOST_USERS;
   

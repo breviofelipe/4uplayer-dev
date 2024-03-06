@@ -8,7 +8,8 @@ const initialState = {
   metamaskAddress: null,
   posts: [],
   users: [],
-  notifications: []
+  notifications: [],
+  friends: []
 };
 
 export const authSlice = createSlice({
@@ -43,14 +44,14 @@ export const authSlice = createSlice({
     setUsers: (state, action) => {
       state.users = action.payload.users;    
     },
+    setFriendsPage: (state, action) => {
+      state.friends = action.payload.friends;
+    },
     setNotifications: (state, action) => {
       state.notifications = action.payload.notifications;    
     },
     setPosts: (state, action) => {
       state.posts = action.payload.posts;
-    },
-    setPostsPersonagem: (state, action) => {
-      state.postsPersonagem = action.payload.postsPersonagem;
     },
     setPost: (state, action) => {
       const updatedPosts = state.posts.map((post) => {
@@ -62,6 +63,6 @@ export const authSlice = createSlice({
   },
 });
 
-export const { setMode, setTranslation, setLogin, setLogout, setFriends, setPosts, setPost, setUsers, setNotifications, setMetamaskAddress } =
+export const { setMode, setTranslation, setLogin, setLogout, setFriends, setPosts, setPost, setUsers, setNotifications, setMetamaskAddress, setFriendsPage } =
   authSlice.actions;
 export default authSlice.reducer;

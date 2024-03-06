@@ -22,6 +22,8 @@ import Diversity2Icon from '@mui/icons-material/Diversity2';
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 import { useNavigate } from "react-router-dom";
 import GamerLoading from "components/gamerLoading/GamerLoading";
+import IconMedalGold from "components/icons/IconMedalGold";
+import BookmarkIcon from '@mui/icons-material/Bookmark';
 
 
 const UserWidget = ({ userId }) => {
@@ -176,7 +178,7 @@ const UserWidget = ({ userId }) => {
     nickName
   } = user;
 
-  return <WidgetWrapper style={role === 'ADMIN' ? {
+  return <WidgetWrapper style={role === 'PLAYER' ? {
     border: '2px solid gold',
     boxShadow: '0px 0px 25px rgba(255, 215, 0, 0.5)', /* Define o efeito de sombra com cor dourada */
     // background: 'linear-gradient(145deg, #ffd700, #ffd700 50%, #e8c100 50%, #e8c100)', /* Cria o efeito de gradiente dourado */
@@ -209,6 +211,16 @@ const UserWidget = ({ userId }) => {
                         <Typography color={medium}>GENERAL</Typography>
                       </FlexBetween></>}
                       {nickName && <Typography color={medium}>@{nickName}</Typography>}
+                      {role === 'PLAYER' && <>
+                      <Box sx={{
+                        display: "flex",
+                        flexDirection: "row",
+                        gap: "0.4rem",
+                      }}>
+                         <Typography color={medium}>COFUNDADOR</Typography>
+                         <BookmarkIcon sx={{ color: "gold" }} />
+                      </Box>
+                      </>}
                   </Box>}
                 </FlexBetween>
                 { myProfile && editPic() }
@@ -240,8 +252,10 @@ const UserWidget = ({ userId }) => {
           {/* 3 ROW */}
           <Box p="1rem 0">
             <Box display="flex" alignItems="center" gap="1rem">
-            <Icon>
+            <Icon >
                 <WorkspacePremiumIcon />
+                
+                 {/* <IconMedalGold /> */}
             </Icon>
                 <Typography color={medium}>Medalhas</Typography>
                 <Typography color={medium}>Primórdios, PlayerCoinFan...</Typography>
