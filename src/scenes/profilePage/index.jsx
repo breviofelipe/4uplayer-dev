@@ -1,4 +1,4 @@
-import { Box, Divider, useMediaQuery } from "@mui/material";
+import { Box, Divider, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -11,6 +11,8 @@ import PostComponent from "components/post/PostComponent";
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 import PageSchemaComponent from "components/page/PageSchemaComponent";
 import PageLoadingComponent from "components/page/PageLoadingComponent";
+import FlexBetween from "components/FlexBetween";
+import IconMedalGold from "components/icons/IconMedalGold";
 
 const ProfilePage = () => {
   const [user, setUser] = useState(null);
@@ -20,6 +22,9 @@ const ProfilePage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
   const url = process.env.REACT_APP_HOST_USERS;
   const myProfile = useSelector((state) => state.user.id) === userId;
+  const { palette } = useTheme();
+  const medium = palette.neutral.medium;
+
   const getUser = async () => {
     setLoading(true);
     const response = await fetch(url+`/users/${userId}`, {
@@ -48,8 +53,14 @@ const ProfilePage = () => {
   }
 
   const lastContent = () => {
+    const content = () => {
+      return <Box flexDirection={"column"} display={"flex"} alignItems={"center"}>
+        <IconMedalGold />
+        <Typography color={medium}>Primórdios</Typography>
+     </Box>
+    }
     return <>
-    <PostComponent titulo={"Medalhas"} subtitulo={"Medalhas Conquistadas"} content={"⛏️ Em construção..."} icon={<WorkspacePremiumIcon fontSize="large" />} />
+    <PostComponent titulo={"Medalhas"} subtitulo={"Medalhas Conquistadas"} content={content()} icon={<WorkspacePremiumIcon fontSize="large" />} />
     {isNonMobileScreens ? <Box m="2rem 0" /> : <Divider />}
     <AdvertWidget />
     {isNonMobileScreens ? <Box m="2rem 0" /> : <Divider />}

@@ -251,15 +251,17 @@ const UserWidget = ({ userId }) => {
           <Divider />
           {/* 3 ROW */}
           <Box p="1rem 0">
-            <Box display="flex" alignItems="center" gap="1rem">
-            <Icon >
-                <WorkspacePremiumIcon />
-                
-                 {/* <IconMedalGold /> */}
-            </Icon>
-                <Typography color={medium}>Medalhas</Typography>
-                <Typography color={medium}>Primórdios, PlayerCoinFan...</Typography>
-              </Box>
+            <Box display="flex" alignItems="center" gap="1rem" >
+                  <WorkspacePremiumIcon fontSize="large" />
+                  <FlexBetween width={"100%"}>
+                    <Typography color={medium}>Medalhas</Typography>
+                    <Box flexDirection={"column"} display={"flex"} alignItems={"center"}>
+                      <IconMedalGold />
+                      <Typography color={medium}>Primórdios</Typography>
+                    </Box>
+                  </FlexBetween>
+                  {/* <Typography color={medium}>Primórdios, PlayerCoinFan...</Typography> */}
+             </Box>
           </Box>
           <Divider />
           {/* 4 ROW */}
