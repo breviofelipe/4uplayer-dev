@@ -252,7 +252,7 @@ const UserWidget = ({ userId }) => {
           {/* 3 ROW */}
           <Box p="1rem 0">
             <Box display="flex" alignItems="center" gap="1rem" >
-                  <WorkspacePremiumIcon fontSize="large" />
+                  <WorkspacePremiumIcon />
                   <FlexBetween width={"100%"}>
                     <Typography color={medium}>Medalhas</Typography>
                     <Box flexDirection={"column"} display={"flex"} alignItems={"center"}>

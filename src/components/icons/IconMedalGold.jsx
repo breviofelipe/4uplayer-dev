@@ -6,7 +6,7 @@ const imgSilver = 'https://res.cloudinary.com/dosghtja7/image/upload/v1709728361
 
 const newGold = 'https://res.cloudinary.com/dosghtja7/image/upload/v1710373470/assets/vpjqkh5whnmpk8rp9fn4.png';
 const IconMedalGold = () => {
-    return <img style={{width : 70, height: 70}} src={newGold} />
+    return <img style={{width : 30, height: 30}} src={newGold} />
 }
 
 export default IconMedalGold;
