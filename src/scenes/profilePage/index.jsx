@@ -13,6 +13,7 @@ import PageSchemaComponent from "components/page/PageSchemaComponent";
 import PageLoadingComponent from "components/page/PageLoadingComponent";
 import FlexBetween from "components/FlexBetween";
 import IconMedalGold from "components/icons/IconMedalGold";
+import MyClanWidget from "scenes/widgets/clans/MyClanWidget";
 
 const ProfilePage = () => {
   const [user, setUser] = useState(null);
@@ -54,12 +55,13 @@ const ProfilePage = () => {
 
   const lastContent = () => {
     const content = () => {
-      return <Box flexDirection={"column"} display={"flex"} alignItems={"center"}>
-        <IconMedalGold />
-        <Typography color={medium}>Primórdios</Typography>
-     </Box>
+      return  <Box flexDirection={"column"} display={"flex"} alignItems={"center"}>
+                <IconMedalGold />
+                <Typography color={medium}>Primórdios</Typography>
+              </Box>
     }
     return <>
+    {user && <><MyClanWidget clan={user.clan} />{isNonMobileScreens ? <Box m="2rem 0" /> : <Divider />}</>}
     <PostComponent titulo={"Medalhas"} subtitulo={"Medalhas Conquistadas"} content={content()} icon={<WorkspacePremiumIcon fontSize="large" />} />
     {isNonMobileScreens ? <Box m="2rem 0" /> : <Divider />}
     <AdvertWidget />

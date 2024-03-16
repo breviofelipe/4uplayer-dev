@@ -14,10 +14,11 @@ import PostBuild from "components/postConstruction/PostConstruction";
 import ResgateWidget from "scenes/widgets/resgate/ResgateWidgets";
 import MemberWidget from "scenes/widgets/member/MemberWidget";
 import MissionsWidget from "scenes/widgets/missions/MissionsWidget";
+import MyClanWidget from "scenes/widgets/clans/MyClanWidget";
 
 const HomePage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
-  const { id, picturePath, emailCheck } = useSelector((state) => state.user);
+  const { id, picturePath, emailCheck, clan } = useSelector((state) => state.user);
   const navigate = useNavigate();
     
   const home = () => {
@@ -34,7 +35,8 @@ const HomePage = () => {
       return <>
        <MyPostWidget picturePath={picturePath} />
       {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
-      <MemberWidget />
+      {/* <MemberWidget /> */}
+      <MissionsWidget />
       {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
       <PostsWidget />
       {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
@@ -44,15 +46,14 @@ const HomePage = () => {
 
     const lastContent = () => {
       return <>
-          <MissionsWidget />
+          <MyClanWidget clan={clan} />
           {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
           <MetaMaskWidget />
           {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
           <FriendListWidget userId={id} />
           {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
           <UserListWidget />
-          {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}        
-          <PostBuild titulo={"Clans Populares"} subTitulo={"Encontre o seu"} />
+          {/* <PostBuild titulo={"Clans Populares"} subTitulo={"Encontre o seu"} /> */}
       </>
     }
     const alertCheckEmail = () => {

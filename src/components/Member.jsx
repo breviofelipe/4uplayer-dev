@@ -1,17 +1,14 @@
 import { PersonAddOutlined, PersonRemoveOutlined } from "@mui/icons-material";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { setFriends } from "state";
 import FlexBetween from "./FlexBetween";
 import UserImage from "./UserImage";
 
-function Friend ({ friendId, name, subtitle, userPicturePath }) {
-  const dispatch = useDispatch();
+function Member ({ friendId, name, subtitle, titles, userPicturePath, owner, clan, email}) {
   const navigate = useNavigate();
-  const { id } = useSelector((state) => state.user);
   const token = useSelector((state) => state.token);
-  const friends = useSelector((state) => state.user.friends);
+  const isOwner = useSelector((state) => state.user.email) === owner;
   const myProfile = useSelector((state) => state.user.id) === friendId;
 
   const { palette } = useTheme();
@@ -20,13 +17,13 @@ function Friend ({ friendId, name, subtitle, userPicturePath }) {
   const main = palette.neutral.main;
   const medium = palette.neutral.medium;
 
-  const isFriend = friends.find((friend) => friend === friendId);
+  const isFriend = true;
   
-  const urlEnv = process.env.REACT_APP_HOST_USERS;
-  
+  const urlEnv = process.env.REACT_APP_HOST_GROUPS;
+  const nav = useNavigate();
   const patchFriend = async () => {
     const response = await fetch(
-      urlEnv+`/users/${id}/${friendId}`,
+      urlEnv+`/groups/${clan}/members/remove?email=${email}`,
       {
         method: "PATCH",
         headers: {
@@ -35,8 +32,9 @@ function Friend ({ friendId, name, subtitle, userPicturePath }) {
         },
       }
     );
-    const data = await response.json();
-    dispatch(setFriends({ friends: data }));
+    if(response.ok){
+        nav(0);
+    }
   };
 
   return (
@@ -62,13 +60,16 @@ function Friend ({ friendId, name, subtitle, userPicturePath }) {
           >
             {name}
           </Typography>
+          {titles && <Typography color={medium} fontSize="0.75rem">
+            {titles}
+          </Typography>}
           <Typography color={medium} fontSize="0.75rem">
             {subtitle}
           </Typography>
         </Box>
       </FlexBetween>
-      {!myProfile && 
-      <IconButton
+      {isOwner && !myProfile &&
+      <> {  <IconButton
         onClick={() => patchFriend()}
         sx={{ backgroundColor: primaryLight, p: "0.6rem" }}
       >
@@ -78,10 +79,14 @@ function Friend ({ friendId, name, subtitle, userPicturePath }) {
           <PersonAddOutlined sx={{ color: primaryDark }} />
         )}
       </IconButton>
+
+      }
+      
+      </>
       }
 
     </FlexBetween>
   );
 };
 
-export default Friend;
+export default Member;
