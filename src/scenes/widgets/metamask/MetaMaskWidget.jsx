@@ -18,26 +18,24 @@ const MetaMaskWidget = () => {
     const { palette } = useTheme();
     const main = palette.neutral.main;
 
-    // const [myAddress, setMyAddress] = useState("");
     const metamaskAddress = useSelector((state) => state.metamaskAddress);
     const [balance, setBalance] = useState('');
     const [message, setMessage] = useState('');
     const [isLoading, setLoading] = useState(false);
     const [transferAmount, setTransferAmount] = useState('');
-    const [toAddress, setToAddress] = useState("0xa4df0666852d5cD6E43bC4c5de795b3B79750a37");
+    const [toAddress, setToAddress] = useState();
     const [mainContent, setMainContent] = useState();
     
     const titulo = "MetaMask";
-    const subtitulo ="Connect sua wallet MetaMask";
-    const addressPLC = "0x8c888e9187DE82c5AACcD9e9acDE6B3D15f4f906";
-    const addressPLCTeste = '0xe88666ed7aefcf7657f5c479164bd5b519f123ba';
+    const subtitulo = "Connect sua wallet MetaMask";
+    
     const ethereum = useState(window.ethereum);
 
     const [success, setSuccess] = useState();
    
     const dispatch = useDispatch();
 
-    const [providerState, setProvider] = useState(null);
+    
 
     
     async function connect() {
@@ -45,7 +43,6 @@ const MetaMaskWidget = () => {
         await window.ethereum.send('eth_requestAccounts'); 
 
         const provider = new ethers.providers.Web3Provider(window.ethereum);
-        setProvider(provider);
         const signer = provider.getSigner();
         const address = await signer.getAddress();
         dispatch(setMetamaskAddress({'metamaskAddress' : address}))
@@ -53,7 +50,7 @@ const MetaMaskWidget = () => {
         
         setBalance(ethers.utils.formatEther(balance.toString()));
         
-        const amountPlc = await getTokenBalance(address, addressPLCTeste); 
+        const amountPlc = await getTokenBalance(address); 
         setMessage(amountPlc);
     }
 
@@ -68,7 +65,7 @@ const MetaMaskWidget = () => {
             
             setBalance(ethers.utils.formatEther(balance.toString()));
             
-            const amountPlc = await getTokenBalance(address, addressPLCTeste); 
+            const amountPlc = await getTokenBalance(address); 
             setMessage(amountPlc);
         } catch (err){
             console.log(err);
@@ -88,7 +85,7 @@ const MetaMaskWidget = () => {
     const transferPLC = async () => {
                         
         setLoading(true);  
-        const tx = await transferToken(toAddress, addressPLCTeste, transferAmount);
+        const tx = await transferToken(toAddress, transferAmount);
         console.log(tx);
         setLoading(false);             
         if(tx.data){
@@ -99,7 +96,6 @@ const MetaMaskWidget = () => {
         }     
     }
 
-    //0xa4df0666852d5cD6E43bC4c5de795b3B79750a37
     const content = () => {
         return <Box>            
             {metamaskAddress ? <><Typography>{metamaskAddress}</Typography></> : 

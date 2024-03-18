@@ -36,8 +36,8 @@ const HomePage = () => {
        <MyPostWidget picturePath={picturePath} />
       {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
       {/* <MemberWidget /> */}
-      <MissionsWidget />
-      {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
+      {emailCheck && <><MissionsWidget />{isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}</>
+      }
       <PostsWidget />
       {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
        </>
@@ -65,7 +65,7 @@ const HomePage = () => {
             Confirmar
           </Button>           
         }>
-          <Typography variant="h5">Corfirme seu e-mail e ganhe 1 PLC.</Typography>
+          <Typography variant="h5">Corfirme seu e-mail e ganhe 100 PLC.</Typography>
         </Alert>
       } else {
         return false;

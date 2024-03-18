@@ -7,7 +7,7 @@ import CheckIcon from '@mui/icons-material/Check';
 
 const MissionsWidget = () => {
     const [progress, setProgress] = useState(100);
-    const [progress2, setProgress2] = useState(60);
+    const [progress2, setProgress2] = useState(10);
 
     const { palette } = useTheme();
     const dark = palette.neutral.dark;

@@ -228,6 +228,8 @@ const CONTRACT_ABI_TESTE = [
 		"type": "function"
 	}
 ];
+
+const addressToken = process.env.REACT_APP_TOKEN_ADDRESS;
 const ethers = require("ethers");
 
 
@@ -240,15 +242,39 @@ async function getMetaMaskProvider() {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     return provider;
 }
+export async function getTokenBalance(address, decimals = 8) {
+    const provider = await getMetaMaskProvider();
+    const contract = new ethers.Contract(addressToken, CONTRACT_ABI, provider);
+    const balance = await contract.balanceOf(address)
+    return ethers.utils.formatUnits(balance, decimals);
+}
 
-export async function getTokenBalance(address, contractAddress, decimals = 8) {
+export async function getTokenBalanceTeste(address, contractAddress, decimals = 8) {
     const provider = await getMetaMaskProvider();
     const contract = new ethers.Contract(contractAddress, CONTRACT_ABI_TESTE, provider);
     const balance = await contract.balanceOf(address)
     return ethers.utils.formatUnits(balance, decimals);
 }
 
-export async function transferToken(toAddress, contractAddress, quantity, decimals = 8) {
+
+export async function transferToken(toAddress, quantity, decimals = 8) {
+	const provider = await getMetaMaskProvider();
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(addressToken, CONTRACT_ABI, provider);
+    const contractSigner = contract.connect(signer);
+    ethers.utils.getAddress(toAddress);//valida endereço
+    try {
+        const tx = await contractSigner
+		.transfer(toAddress,
+			 ethers.utils.parseUnits(quantity, decimals));
+        return tx;
+    } catch (err) {
+        console.log(err);
+		return err;
+    }
+}
+
+export async function transferTokenTeste(toAddress, contractAddress, quantity, decimals = 8) {
 	const provider = await getMetaMaskProvider();
     const signer = provider.getSigner();
     const contract = new ethers.Contract(contractAddress, CONTRACT_ABI_TESTE, provider);
@@ -270,6 +296,29 @@ export async function AddNetwork () {
 		await window.ethereum.request({
 		method: "wallet_addEthereumChain",
 		params: [{
+		  chainId: "0x38",
+		  rpcUrls: ["https://bsc-testnet.publicnode.com/"],
+		  chainName: "Binance Smart Chain",
+		  nativeCurrency: {
+			name: "Binance Coin",
+			symbol: "BNB",
+			decimals: 18
+		  },
+		  rpcUrls: ['https://bsc-dataseed.binance.org/'],
+		  blockExplorerUrls: ["https://bscscan.com"]
+		}]
+	  });
+	} catch (err) {
+        console.log(err);
+		return err;
+    }
+}
+
+export async function AddNetworkTeste () {
+	try {
+		await window.ethereum.request({
+		method: "wallet_addEthereumChain",
+		params: [{
 		  chainId: "0x61",
 		  rpcUrls: ["https://bsc-testnet.publicnode.com/"],
 		  chainName: "BNB Smart Chain Testnet",
@@ -287,7 +336,41 @@ export async function AddNetwork () {
     }
 }
 
+
+
 export async function addPlc(){
+	const tokenAddress = addressToken;
+    const tokenSymbol = 'PLC';
+    const tokenDecimals = 8;
+    const tokenImage = 'https://res.cloudinary.com/dosghtja7/image/upload/v1707940336/assets/w5vviukwefe2hwykn2jt.png';
+    
+    try {
+      // wasAdded is a boolean. Like any RPC method, an error may be thrown.
+      const wasAdded = await window.ethereum.request({
+        method: 'wallet_watchAsset',
+        params: {
+          type: 'ERC20', // Initially only supports ERC20, but eventually more!
+          options: {
+            address: tokenAddress, // The address that the token is at.
+            symbol: tokenSymbol, // A ticker symbol or shorthand, up to 5 chars.
+            decimals: tokenDecimals, // The number of decimals in the token
+            image: tokenImage, // A string url of the token logo
+          },
+        },
+      });
+    
+      if (wasAdded) {
+        console.log('Thanks for your interest!');
+      } else {
+        console.log('Your loss!');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+}
+
+
+export async function addPlcTeste(){
 	const tokenAddress = '0xe88666ed7aefcf7657f5c479164bd5b519f123ba';
     const tokenSymbol = 'PLCTST';
     const tokenDecimals = 8;

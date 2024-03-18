@@ -37,7 +37,6 @@ const MyClanWidget = ({ clan }) => {
     );
     if(response.ok){      
       const data = await response.json();
-      console.log(data);
       setAmount(data);
     } else {
       console.log(response);
