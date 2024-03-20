@@ -251,7 +251,7 @@ const FormEmailConfirmed = ({emailSended = false}) => {
 
     if(emailCheck) navigate("/home");
 
-    return <>{mainContent && <PostComponent titulo={"Confirme seu e-mail"} subtitulo={"Ganhe 1 PLC"} content={mainContent} />}</>
+    return <>{mainContent && <PostComponent titulo={"Confirme seu e-mail"} subtitulo={"Ganhe 100 PLCs"} content={mainContent} />}</>
 
 }
 
