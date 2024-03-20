@@ -7,6 +7,8 @@ import { Formik } from "formik";
 import LoadingComponent from "components/loading/Loading";
 import Confetes from "./components/Confetes";
 import CheckIcon from '@mui/icons-material/Check';
+import reCAPTCHA from "react-google-recaptcha";
+import { useRef } from "react";
 const ResgateWidget = () => {
 
     const [isLoading, setLoading] = useState(false);
@@ -15,6 +17,7 @@ const ResgateWidget = () => {
     const { id } = useSelector((state) => state.user);
     const url = process.env.REACT_APP_HOST_NOTIFICATIONS;
     const isNonMobile = useMediaQuery("(min-width:1000px)");
+    const captchaRef = useRef(null)
 
     const initialValuesRegister = {
         code: "",
@@ -25,7 +28,11 @@ const ResgateWidget = () => {
         address: yup.string().required("Obrigatório"),
       });
 
-    const postResgateCode = async (values, onSubmitProps) => {
+    const postResgateCode = async (values, onSubmitProps, e) => {
+
+        const token = captchaRef.current.getValue();
+        captchaRef.current.reset();
+
         setLoading(true);
         const response = await fetch(url+`/notifications/code`, {
           method: "POST",
@@ -107,6 +114,14 @@ const ResgateWidget = () => {
                         helperText={touched.address && errors.address}
                         sx={{ gridColumn: "span 4" }} />
                     </Box>
+                    <div class="g-recaptcha" data-sitekey={process.env.REACT_APP_SITE_KEY}></div>
+                    {/* <reCAPTCHA
+                        sitekey={process.env.REACT_APP_SITE_KEY}
+                        ref={captchaRef}
+                        onChange={handleChange}
+                        /> */}
+
+
                     {isLoading ? <LoadingComponent /> : <Button 
                         fullWidth
                         type="submit">Enviar</Button>  } 
