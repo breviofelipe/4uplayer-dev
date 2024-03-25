@@ -40,13 +40,20 @@ const ResgateWidget = () => {
         if(strike > strikeLimit && recaptchaToken === null){
             onSubmitProps.setFieldError('recaptcha', "Não sou um robô Obrigatório");
         } else {
-            console.log(recaptchaToken);
             setLoading(true);
+            if(strike > strikeLimit && window.grecaptcha){
+                try{
+                    window.grecaptcha.reset();
+                } catch (err){
+                    console.log(err);
+                }
+            }
             const response = await fetch(url+`/notifications/code`, {
             method: "POST",
             headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
-            body: JSON.stringify({ code : values.code, address: values.address, userId: id })
+            body: JSON.stringify({ code : values.code, address: values.address, userId: id, token: recaptchaToken })
             });
+            setRecaptchaToken(null);
             if(response.ok) { 
                 setLoading(false);
                 onSubmitProps.resetForm();
@@ -59,6 +66,9 @@ const ResgateWidget = () => {
                 setLoading(false);
                 if(status == 405){
                     onSubmitProps.setFieldError('address', data);
+                } else if (status === 401){
+                    onSubmitProps.setFieldError('recaptcha', "Erro ao validar reCAPTCHA. Tente novamente");
+                    console.log(data);
                 } else {
                     onSubmitProps.setFieldError('code', data);
                 }
