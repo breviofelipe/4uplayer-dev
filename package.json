@@ -9,6 +9,7 @@
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@mercadopago/sdk-react": "^0.0.18",
     "@mui/icons-material": "^5.10.9",
     "@mui/material": "^5.10.11",
     "@reduxjs/toolkit": "^1.9.5",

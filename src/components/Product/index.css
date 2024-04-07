@@ -1,0 +1,25 @@
+.product {
+    margin: 1%;
+    padding: 15px;
+    border: 2px solid lightgray;
+    width: 25%;
+    border-radius: 5px;
+}
+
+.product:hover {
+    border-color: gold;
+    border: 1px solid gold
+}
+
+.product p {
+    min-height: 25px;
+}
+
+.product span {
+    font-weight: bold;
+}
+
+.product .image-product {
+    /*height: 100%;*/
+    width: 100%;
+}

@@ -19,8 +19,7 @@ export default function NotificationPage () {
     const [notification, setNotification] = useState();
     const [isLoading, setLoading] = useState(false);
     const { palette } = useTheme();
-    const main = palette.neutral.main;
-    const medium = palette.neutral.medium;
+
     const feactNotifications = async () => {
         setLoading(true);
         setNotification(null);

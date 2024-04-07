@@ -15,13 +15,17 @@ import ResgateWidget from "scenes/widgets/resgate/ResgateWidgets";
 import MemberWidget from "scenes/widgets/member/MemberWidget";
 import MissionsWidget from "scenes/widgets/missions/MissionsWidget";
 import MyClanWidget from "scenes/widgets/clans/MyClanWidget";
+import CountdownTimer from "components/countdownTimer/CountdownTimer";
+import BuyPlayerCoin from "scenes/widgets/buyCoin/BuyPlayerCoin";
 
 const HomePage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
   const { id, picturePath, emailCheck, clan } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const theme = useTheme();
-    
+  const now = new Date();
+  // const targetDate = new Date(now.getTime() + (1 * 24 * 60 * 60 * 1000));
+  const targetDate = new Date(2024, 3, 14);
   const home = () => {
     const top = () => {
       return <>
@@ -35,6 +39,9 @@ const HomePage = () => {
     const main = () => {
       return <>
        <MyPostWidget picturePath={picturePath} />
+      {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
+      <BuyPlayerCoin />
+      {/* <CountdownTimer targetDate={targetDate} /> */}
       {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
       {/* <MemberWidget /> */}
       {emailCheck && <><MissionsWidget />{isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}</>
