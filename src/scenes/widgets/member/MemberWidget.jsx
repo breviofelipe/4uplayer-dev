@@ -2,6 +2,7 @@ import { Box, Button, IconButton, Typography } from "@mui/material";
 import PostComponent from "components/post/PostComponent";
 import { transferToken } from "../metamask/MetaMaskService";
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
+import BasicModal from "components/modals/BasicModal";
 
 const MemberWidget = () => {
     const addressPLCTeste = '0xe88666ed7aefcf7657f5c479164bd5b519f123ba';
@@ -20,22 +21,25 @@ const MemberWidget = () => {
                     - VIP vitalício na plataforma
                 </Typography>
                 <Typography>
-                    - Investimento em Eventos na plataforma
+                    - Participação nos lucros
                 </Typography>
                 <Typography>
                 - Taxas de negociação
                 </Typography>
             </Box>
-            <Typography variant="h4">
+            <Typography variant="h5">
                 Tudo isso investindo pouco e se tornando parte da história.
             </Typography>
+            <Typography variant="h5">
+                São apenas 1000 vagas que terão participação em 10% do equity do projeto.
+            </Typography>
+            <Box marginTop={"0.5rem"} marginBottom={"0.5rem"}>
+                <Typography fontWeight="500" variant="h5">
+                    1º Lote – vendido 5/100 Investimento: 800k em PLC
+                </Typography>
+            </Box>
             <Box display={"flex"} mt={"1rem"} mb={"0.5rem"} justifyContent={"center"} width={"100%"}>
-                <Button onClick={() => {
-                    transferToken(addressPLCTeste, addressPLCTeste, '2')
-                }}
-                >   <Typography mt={"0.3rem"} marginRight={"0.5rem"} variant="h3">COMPRAR</Typography>
-                    <img width={"25px"} height={"25px"} src={'https://res.cloudinary.com/dosghtja7/image/upload/v1707940336/assets/w5vviukwefe2hwykn2jt.png'} />
-                </Button>
+                <BasicModal />
             </Box>
         </Box>
     }

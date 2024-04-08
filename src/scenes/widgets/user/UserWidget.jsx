@@ -24,9 +24,12 @@ import { useNavigate } from "react-router-dom";
 import GamerLoading from "components/gamerLoading/GamerLoading";
 import IconMedalGold from "components/icons/IconMedalGold";
 import BookmarkIcon from '@mui/icons-material/Bookmark';
-
+import LockClockIcon from '@mui/icons-material/LockClock';
+import CountdownTimer from "components/countdownTimer/CountdownTimer";
 
 const UserWidget = ({ userId }) => {
+
+  const targetDate = new Date(2025, 3, 8);
   const url = process.env.REACT_APP_HOST_USERS;
   const urlLogin = process.env.REACT_APP_HOST_LOGIN;
 
@@ -234,11 +237,20 @@ const UserWidget = ({ userId }) => {
               <Typography color={medium}>LV.</Typography>
               <Typography color={medium}>100.000</Typography>
             </Box>
-            <Box display="flex" alignItems="center" gap="1rem">
+            <Box display="flex" alignItems="center" gap="1rem" mb="0.5rem">
               <AccountBalanceWalletIcon />
               <Typography color={medium}>PLC</Typography>
               <Typography color={medium}>{wallet}</Typography>
-            </Box>       
+            </Box>
+            <Box display="flex" alignItems="center" gap="1rem">
+            {role === 'PLAYER' && <>
+                  <LockClockIcon />
+                  <Typography color={medium}>PLC</Typography>
+                  <Typography color={medium}>800000.0</Typography>
+                  
+                </>
+                }  
+            </Box>     
           </Box>
           <Divider />
           {clan && <Box p="1rem 0">
@@ -299,6 +311,13 @@ const UserWidget = ({ userId }) => {
             { myProfile && editSave(link, setLink, "TIKTOK", userId, linkUpdate, token, setUser, palette) }
           </FlexBetween>
         </Box>
+        {myProfile && role === 'PLAYER' && <><Divider />
+        <Box p="1rem 0">
+        <Typography fontSize="1rem" color={main} fontWeight="500" mb="1rem">
+            Tempo restante holder
+          </Typography>
+          <CountdownTimer targetDate={targetDate} />
+        </Box></>}
         </WidgetWrapper>
 };
 export default UserWidget;

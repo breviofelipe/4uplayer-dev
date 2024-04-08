@@ -43,7 +43,8 @@ const HomePage = () => {
       <BuyPlayerCoin />
       {/* <CountdownTimer targetDate={targetDate} /> */}
       {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
-      {/* <MemberWidget /> */}
+      <MemberWidget />
+      {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
       {emailCheck && <><MissionsWidget />{isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}</>
       }
       <PostsWidget />
