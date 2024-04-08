@@ -14,12 +14,17 @@ import EditProfilePage from 'scenes/editProfilePage';
 import NotificationPage from 'scenes/notificationPage';
 import NoAuthPage from 'scenes/noAuthPage';
 import NotFound from 'scenes/notFoundPage';
+import { initMercadoPago } from '@mercadopago/sdk-react';
 
 function App() {
   const mode = useSelector((state) => state.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
   const isAuth = Boolean(useSelector((state) => state.token));
   const dispatch = useDispatch();
+  const keyMercadoPago = process.env.REACT_APP_MERCADO_PAGO;
+  var locale = {locale: 'pt-BR'}; 
+  initMercadoPago(keyMercadoPago, locale);
+
   useEffect(() => {
 
     dispatch(

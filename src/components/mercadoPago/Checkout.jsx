@@ -1,8 +1,7 @@
-import { initMercadoPago } from '@mercadopago/sdk-react';
 import { CardPayment } from '@mercadopago/sdk-react';
 import { useTheme } from '@mui/material';
 import GamerLoading from 'components/gamerLoading/GamerLoading';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 
@@ -14,11 +13,14 @@ const Checkout = ({product, setResponse}) => {
     const [loading, setLoading] = useState(false);
     const token = useSelector((state) => state.token);
     const { email, emailCheck } = useSelector((state) => state.user);
-    const url =  process.env.REACT_APP_HOST_NOTIFICATIONS;
+    const url = process.env.REACT_APP_HOST_NOTIFICATIONS;
 
-    const keyMercadoPago = process.env.REACT_APP_MERCADO_PAGO;
-    var locale = {locale: 'pt-BR'}; 
-    initMercadoPago(keyMercadoPago, locale);
+    useEffect(() => {
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+      }, 4000)
+    }, [product]);
 
     const feactPayment = async (params) => {
       setLoading(true);
