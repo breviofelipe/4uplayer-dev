@@ -70,8 +70,7 @@ const BuyPlayerCoin = () => {
                     <Box></Box>
                     <Typography variant='h5'
                         fontWeight="500"
-                    >
-                        Total da compra: R$ {product.price}
+                    >Total da compra: R$ {product.price}
                     </Typography>
                 </FlexBetween>
             </Box>
