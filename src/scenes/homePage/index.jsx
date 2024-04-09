@@ -31,7 +31,13 @@ const HomePage = () => {
       return <>
         <UserWidget userId={id} />
         {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
+        {coinTicker()}
+        {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
+        <BuyPlayerCoin />
+        {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
         <ResgateWidget />
+        {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
+        <MetaMaskWidget />
         {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
       </>
     };
@@ -40,13 +46,10 @@ const HomePage = () => {
       return <>
        <MyPostWidget picturePath={picturePath} />
       {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
-      <BuyPlayerCoin />
       {/* <CountdownTimer targetDate={targetDate} /> */}
-      {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
+      
       <MemberWidget />
       {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
-      {emailCheck && <><MissionsWidget />{isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}</>
-      }
       <PostsWidget />
       {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
        </>
@@ -61,10 +64,9 @@ const HomePage = () => {
       return <>
           <MyClanWidget clan={clan} />
           {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
-          {coinTicker()}
+          {emailCheck && <><MissionsWidget />{isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}</>}                    
           {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
-          <MetaMaskWidget />
-          {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
+          
           <FriendListWidget userId={id} />
           {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
           <UserListWidget />

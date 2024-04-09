@@ -58,7 +58,7 @@ const BuyPlayerCoin = () => {
             onClick
             };
         if(!comprar){
-            return <Box display={'flex'} justifyContent={"space-around"} flex={"column"}>
+            return <Box display={'flex'} justifyContent={"space-between"} flex={"column"}>
                     <Product {...props} />
                     <Product {...props1} />
                     <Product {...props2} />
