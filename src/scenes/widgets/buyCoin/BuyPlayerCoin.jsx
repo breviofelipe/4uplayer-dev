@@ -24,7 +24,7 @@ const BuyPlayerCoin = () => {
     const [mainContent, setMainContent] = useState();
     
     const titulo = "PlayerCoin";
-    const subtitulo = "TESTE - Compre pacotes da Cripto dos Gamers";
+    const subtitulo = "Compre pacotes da Cripto dos Gamers";
     
 
     function onClick(product){
@@ -38,7 +38,7 @@ const BuyPlayerCoin = () => {
             imageUrl: 'https://res.cloudinary.com/dosghtja7/image/upload/v1707940336/assets/w5vviukwefe2hwykn2jt.png',
             name: "10K",
             description: "10.000 unidades de PLC",
-            price: 9.95,
+            price: 1.00,
             onClick
             };
         const props1 =  {
