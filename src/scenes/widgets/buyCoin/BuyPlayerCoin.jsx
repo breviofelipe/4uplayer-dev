@@ -46,7 +46,7 @@ const BuyPlayerCoin = () => {
             imageUrl: 'https://res.cloudinary.com/dosghtja7/image/upload/v1707940336/assets/w5vviukwefe2hwykn2jt.png',
             name: "100K",
             description: "100.000 unidades de PLC",
-            price: 99.95,
+            price: 92.25,
             onClick
             };
         const props2 =  {
@@ -54,7 +54,7 @@ const BuyPlayerCoin = () => {
             imageUrl: 'https://res.cloudinary.com/dosghtja7/image/upload/v1707940336/assets/w5vviukwefe2hwykn2jt.png',
             name: "1M",
             description: "1.000.000 unidades de PLC",
-            price: 999.95,
+            price: 922.50,
             onClick
             };
         if(!comprar){
