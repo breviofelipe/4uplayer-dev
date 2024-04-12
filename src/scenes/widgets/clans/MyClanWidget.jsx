@@ -135,12 +135,15 @@ const MyClanWidget = ({ clan }) => {
     </Box>}
     </>
   }
+  function formatNumberWithCommas(number) {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  }
 
   const wallet = () => {
     return <Box display="flex" alignItems="center" gap="1rem">
     <AccountBalanceWalletIcon />
     <Typography color={medium}>PLC</Typography>
-    <Typography color={medium}>{amount}</Typography>
+    <Typography color={medium}>{formatNumberWithCommas(parseFloat(amount))}</Typography>
   </Box> 
   }
   return <PostComponent titulo={"Clan"} subtitulo={clan} content={content()} isCenter={false} icon={<Diversity2Icon fontSize="large"/>} msg={wallet()} />

@@ -158,6 +158,10 @@ const UserWidget = ({ userId }) => {
   </FlexBetween>
     </>}</div>
   }
+
+  function formatNumberWithCommas(number) {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  }
  
   useEffect(() => {
     getUser();  
@@ -240,7 +244,7 @@ const UserWidget = ({ userId }) => {
             <Box display="flex" alignItems="center" gap="1rem" mb="0.5rem">
               <AccountBalanceWalletIcon />
               <Typography color={medium}>PLC</Typography>
-              <Typography color={medium}>{wallet}</Typography>
+              <Typography color={medium}>{formatNumberWithCommas(parseFloat(wallet))}</Typography>
             </Box>
             <Box display="flex" alignItems="center" gap="1rem">
             {role === 'PLAYER' && <>
