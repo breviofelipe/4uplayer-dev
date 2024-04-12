@@ -82,7 +82,7 @@ const HomePage = () => {
             Confirmar
           </Button>           
         }>
-          <Typography variant="h5">Corfirme seu e-mail e ganhe 100 PLC.</Typography>
+          <Typography variant="h5">Corfirme seu e-mail e ganhe 1000 PLC, com resgate imediato.</Typography>
         </Alert>
       } else {
         return false;
