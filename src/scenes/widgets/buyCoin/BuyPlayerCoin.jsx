@@ -36,9 +36,9 @@ const BuyPlayerCoin = () => {
         const props =  {
             id: '6612f662fdff533870915c9c',
             imageUrl: 'https://res.cloudinary.com/dosghtja7/image/upload/v1707940336/assets/w5vviukwefe2hwykn2jt.png',
-            name: "10K",
-            description: "10.000 unidades de PLC",
-            price: 1.00,
+            name: "4K",
+            description: "4.000 unidades de PLC",
+            price: 3.69,
             onClick
             };
         const props1 =  {
