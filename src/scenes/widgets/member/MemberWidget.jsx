@@ -17,7 +17,7 @@ const MemberWidget = () => {
                 1º Lote – 5/100 Vendidos
             </Typography>
             <Typography  color={palette.primary.main} fontWeight="500" variant="h5">
-                Investimento: $9.99
+                Investimento: $9.90
             </Typography>
             </Box>
         </FlexBetween>

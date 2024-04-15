@@ -103,12 +103,12 @@ export default function BasicModal() {
         <Box display={"flex"} gap={"1rem"}>
         <FormControlLabel
           control={<Checkbox checked={isChecked} onChange={handleChange} />}
-          label="Ao clicar em aceito você concorda com o investimentos 800.000 PLC's com o tempo mínimo de permanência de 6 meses."
+          label="Ao clicar em aceito você concorda com o investimentos 64.000 PLC's com o tempo mínimo de permanência de 6 meses."
         />
         </Box>
-        {wallet && <Button disabled={wallet.amount < 800000 || !isChecked} onClick={fetchNewConfunder}>ACEITO</Button>}
-        {wallet && wallet.amount < 800000 && <Typography color={"error"}>Saldo insuficiente. PLC {formatNumberWithCommas(wallet.amount)}</Typography>}
-        {wallet && wallet.amount >= 800000 && <Typography mt={"0.5rem"} color={"sucess"}>PLC {formatNumberWithCommas(wallet.amount)}</Typography>}
+        {wallet && <Button disabled={wallet.amount < 64000 || !isChecked} onClick={fetchNewConfunder}>ACEITO</Button>}
+        {wallet && wallet.amount < 64000 && <Typography color={"error"}>Saldo insuficiente. PLC {formatNumberWithCommas(wallet.amount)}</Typography>}
+        {wallet && wallet.amount >= 64000 && <Typography mt={"0.5rem"} color={"sucess"}>PLC {formatNumberWithCommas(wallet.amount)}</Typography>}
     </Box>
   </Modal>
 </div>:
