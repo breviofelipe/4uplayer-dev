@@ -60,7 +60,7 @@ const MissionsWidget = () => {
                     <FlexBetween>
                         <Box></Box><Box><Typography
                             color={medium}
-                            >Prêmio: 10 PLC</Typography></Box>
+                            >Prêmio: 10.000 PLC</Typography></Box>
                     </FlexBetween>
                 </Box>
                 <Divider />
@@ -84,7 +84,7 @@ const MissionsWidget = () => {
                     <FlexBetween>
                         <Box></Box><Box><Typography
                             color={medium}
-                            >Prêmio: 100 PLC</Typography></Box>
+                            >Prêmio: 100.000 PLC</Typography></Box>
                     </FlexBetween>
                 </Box>
         </Box>

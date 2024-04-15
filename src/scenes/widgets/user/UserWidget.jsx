@@ -32,8 +32,9 @@ const UserWidget = ({ userId }) => {
   const targetDate = new Date(2025, 3, 8);
   const url = process.env.REACT_APP_HOST_USERS;
   const urlLogin = process.env.REACT_APP_HOST_LOGIN;
-
+  const urlMember = process.env.REACT_APP_HOST_MEMBERS;
   const [user, setUser] = useState(null);
+  const [userWallet, setWalletUser] = useState(null);
   const [edit, setEdit] = useState(false);
   const [link, setLink] = useState();
   const [linkUpdate, setLinkUpdate] = useState();
@@ -60,6 +61,15 @@ const UserWidget = ({ userId }) => {
           });
   };
 
+  const getWallet = async () => {
+    setWalletUser(null);
+    const response = await fetch(urlMember+`/members/wallet`, {
+      method: "GET",
+      headers: { Authorization: `Bearer ${token}` },
+    }).then(async (data) => {
+      setWalletUser(await data.json());
+    });
+  };
 
   const openNewTab = (social) => {
     if(social === 'TIKTOK'){
@@ -164,7 +174,8 @@ const UserWidget = ({ userId }) => {
   }
  
   useEffect(() => {
-    getUser();  
+    getUser();
+    getWallet();
   }, [userId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!user) {
@@ -250,8 +261,7 @@ const UserWidget = ({ userId }) => {
             {role === 'PLAYER' && <>
                   <LockClockIcon />
                   <Typography color={medium}>PLC</Typography>
-                  <Typography color={medium}>800000.0</Typography>
-                  
+                  {userWallet && <Typography color={medium}>{formatNumberWithCommas(parseFloat(userWallet.amountStack))}</Typography>}
                 </>
                 }  
             </Box>     
@@ -320,7 +330,7 @@ const UserWidget = ({ userId }) => {
         <Typography fontSize="1rem" color={main} fontWeight="500" mb="1rem">
             Tempo restante para proximo saque
           </Typography>
-          <CountdownTimer targetDate={targetDate} />
+          {!userWallet ? <CountdownTimer targetDate={targetDate} /> : <CountdownTimer targetDate={userWallet.dateStackFinish} />}
         </Box></>}
         </WidgetWrapper>
 };

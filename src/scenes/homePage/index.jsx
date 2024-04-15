@@ -20,7 +20,7 @@ import BuyPlayerCoin from "scenes/widgets/buyCoin/BuyPlayerCoin";
 
 const HomePage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
-  const { id, picturePath, emailCheck, clan } = useSelector((state) => state.user);
+  const { id, picturePath, emailCheck, clan, role } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const theme = useTheme();
   const now = new Date();
@@ -31,12 +31,13 @@ const HomePage = () => {
       return <>
         <UserWidget userId={id} />
         {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
+        <ResgateWidget />
+        {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
         {coinTicker()}
         {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
         <BuyPlayerCoin />
         {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
-        <ResgateWidget />
-        {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
+        
         <MetaMaskWidget />
         {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
       </>
@@ -48,8 +49,8 @@ const HomePage = () => {
       {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
       {/* <CountdownTimer targetDate={targetDate} /> */}
       
-      <MemberWidget />
-      {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
+      {role !== "PLAYER" && <><MemberWidget />
+      {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}</>}
       <PostsWidget />
       {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
        </>

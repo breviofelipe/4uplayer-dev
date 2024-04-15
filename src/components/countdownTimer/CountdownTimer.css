@@ -7,9 +7,9 @@
   }
   
   .expired-notice > span {
-    font-size: 2.5rem;
+    font-size: 1.5rem;
     font-weight: bold;
-    color: red;
+    color: #38f509;
   }
   
   .expired-notice > p {
@@ -44,7 +44,7 @@
   }
   
   .show-counter .countdown.danger {
-    color: #ff0000;
+    color: #38f509;
   }
   
   .show-counter .countdown > p {
