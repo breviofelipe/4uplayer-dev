@@ -34,10 +34,7 @@ const HomePage = () => {
         <ResgateWidget />
         {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
         {coinTicker()}
-        {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
-        <BuyPlayerCoin />
-        {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
-        
+        {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}      
         <MetaMaskWidget />
         {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
       </>
@@ -51,6 +48,8 @@ const HomePage = () => {
       
       {role !== "PLAYER" && <><MemberWidget />
       {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}</>}
+      <BuyPlayerCoin />
+      {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
       <PostsWidget />
       {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
        </>
