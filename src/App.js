@@ -15,6 +15,7 @@ import NotificationPage from 'scenes/notificationPage';
 import NoAuthPage from 'scenes/noAuthPage';
 import NotFound from 'scenes/notFoundPage';
 import { initMercadoPago } from '@mercadopago/sdk-react';
+import CofunderPage from 'scenes/cofunderPage';
 
 function App() {
   const mode = useSelector((state) => state.mode);
@@ -73,6 +74,10 @@ function App() {
             <Route
               path="/games"
               element={isAuth ? <GamePage /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/cofunders"
+              element={isAuth ? <CofunderPage /> : <Navigate to="/" />}
             />
             <Route
               path="/profile/email"

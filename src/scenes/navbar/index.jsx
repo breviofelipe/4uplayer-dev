@@ -10,6 +10,7 @@ import {
   useTheme,
   useMediaQuery,
   Badge,
+  Tooltip,
 } from "@mui/material";
 import {
   Search,
@@ -26,6 +27,7 @@ import { setMode, setLogout } from "state";
 import { useNavigate } from "react-router-dom";
 import FlexBetween from "components/FlexBetween";
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
 
 import BasicMenu from "./components/BaseMenu";
 const Navbar = () => {
@@ -92,10 +94,12 @@ const Navbar = () => {
       {/* DESKTOP NAV */}
       {isNonMobileScreens ? (
         <FlexBetween gap="2rem">
-           {/* { role === 'ADMIN' && <IconButton onClick={() => navigate("/cadastro/turma")} >
-                  <AddIcon sx={{ fontSize: "25px" }} />
+           { user.role === 'PLAYER' && <IconButton onClick={() => navigate("/cofunders")} >
+                <Tooltip title="Exclusivo Cofundadores">
+                  <BookmarkIcon sx={{ color: "gold", fontSize: "25px" }} />
+                </Tooltip>
                 </IconButton> 
-          } */}
+            }
           <IconButton onClick={() => dispatch(setMode())}>
             {theme.palette.mode === "dark" ? (
               <DarkMode sx={{ fontSize: "25px" }} />
@@ -173,9 +177,10 @@ const Navbar = () => {
             alignItems="center"
             gap="3rem"
           >
-            {/* { role === 'ADMIN' && <IconButton onClick={() => navigate("/cadastro/turma")} >
-                <AddIcon sx={{ fontSize: "25px" }} />
-            </IconButton> } */}
+            { user.role === 'PLAYER' && <IconButton onClick={() => navigate("/cofunders")} >
+                 <BookmarkIcon sx={{ color: "gold", fontSize: "25px" }} />
+                </IconButton> 
+            }
             <IconButton
               onClick={() => dispatch(setMode())}
               sx={{ fontSize: "25px" }}

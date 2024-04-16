@@ -3,7 +3,7 @@ import Groups3Icon from '@mui/icons-material/Groups3';
 
 
 
-const PostBuild = ({titulo, subTitulo, }) => {
+const PostBuild = ({titulo, subTitulo}) => {
     return <PostComponent titulo={titulo} subtitulo={subTitulo} content={"⛏️ Em construção..."} icon={<Groups3Icon fontSize="large" />} />
 }
 
