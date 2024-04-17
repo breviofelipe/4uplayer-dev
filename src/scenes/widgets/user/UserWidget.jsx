@@ -26,6 +26,7 @@ import IconMedalGold from "components/icons/IconMedalGold";
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import LockClockIcon from '@mui/icons-material/LockClock';
 import CountdownTimer from "components/countdownTimer/CountdownTimer";
+import ModalClans from "components/modals/ModalClans";
 
 const UserWidget = ({ userId }) => {
 
@@ -193,7 +194,8 @@ const UserWidget = ({ userId }) => {
     clan, 
     role,
     wallet,
-    nickName
+    nickName,
+    clanOwner
   } = user;
 
   return <WidgetWrapper style={role === 'PLAYER' ? {
@@ -268,10 +270,17 @@ const UserWidget = ({ userId }) => {
           </Box>
           <Divider />
           {clan && <Box p="1rem 0">
-            <Box display="flex" alignItems="center" gap="1rem">
-                <Diversity2Icon />
-                <Typography color={medium}>Clan</Typography>
-                <Typography color={medium}>{clan}</Typography>
+            <Box >
+                <FlexBetween>
+                  <Box display={"flex"} alignItems="center" gap="1rem" width={"100%"}>
+                    <Diversity2Icon />
+                    <Typography color={medium}>Clan</Typography>
+                    <Typography color={medium}>{clan}</Typography>
+                  </Box>
+                  <Box display="flex">
+                      <ModalClans clanOwner={clanOwner} />                  
+                  </Box>
+                </FlexBetween>
               </Box>
           </Box>}
           <Divider />
