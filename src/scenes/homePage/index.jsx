@@ -17,6 +17,7 @@ import MissionsWidget from "scenes/widgets/missions/MissionsWidget";
 import MyClanWidget from "scenes/widgets/clans/MyClanWidget";
 import CountdownTimer from "components/countdownTimer/CountdownTimer";
 import BuyPlayerCoin from "scenes/widgets/buyCoin/BuyPlayerCoin";
+import ClansWidget from "scenes/widgets/clans/ClansWidget";
 
 const HomePage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
@@ -63,6 +64,8 @@ const HomePage = () => {
     const lastContent = () => {
       return <>
           <MyClanWidget clan={clan} />
+          {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
+          <ClansWidget />
           {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
           {emailCheck && <><MissionsWidget />{isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}</>}                    
           {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
