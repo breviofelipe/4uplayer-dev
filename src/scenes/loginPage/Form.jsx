@@ -17,6 +17,7 @@ import Dropzone from "react-dropzone";
 import FlexBetween from "components/FlexBetween";
 import LoadingComponent from "components/loading/Loading";
 import Alert from '@mui/material/Alert';
+import ReCaptchaComponent from "components/reCaptcha/ReCaptchaComponent";
 
 
 const initialValuesRegister = {
@@ -28,10 +29,6 @@ const initialValuesRegister = {
   picture: "",
 };
 
-const initialValuesLogin = {
-  email: "",
-  password: "",
-};
 
 const Form = ({ translation }) => {
   const [loading, setLoading] = useState(false);
@@ -45,8 +42,21 @@ const Form = ({ translation }) => {
   const isNewPassword = pageType === "password";
   const [warning, setWarning] = useState();
   const [success, setSuccess] =  useState();
-
+  const [recaptchaToken, setRecaptchaToken] = useState(null);
+  const [strike, setStrike] = useState(0);
+  const strikeLimit = 1;
+  const handleRecaptchaChange = (token) => {
+    setRecaptchaToken(token);
+  };
   const urlEnv = process.env.REACT_APP_HOST_LOGIN;
+
+  const initialValuesLogin = {
+    email: "",
+    password: "",
+    recaptcha: recaptchaToken
+  };
+
+  
   const loginSchema = yup.object().shape({
     email: yup.string().email(translation.loginPage.fraseEmail).required(translation.loginPage.fraseRequired),
     password: yup.string().required(translation.loginPage.fraseRequired),
@@ -130,12 +140,23 @@ const Form = ({ translation }) => {
   }
   
   const login = async (values, onSubmitProps) => {
+    if(strike > strikeLimit && recaptchaToken === null){
+      onSubmitProps.setFieldError('recaptcha', "Não sou um robô Obrigatório");
+  } else {
     setLoading(true);
+    if(strike > strikeLimit && window.grecaptcha){
+      try{
+          window.grecaptcha.reset();
+      } catch (err){
+          console.log(err);
+      }
+    }
     const loggedInResponse = await fetch(urlEnv+"/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values)
     });
+    setRecaptchaToken(null);
      try {
       
       const status = loggedInResponse.status;
@@ -158,11 +179,13 @@ const Form = ({ translation }) => {
       } else {
         setLoading(false)
         setWarning(translation.loginPage.warningLogin)
-        }
+        setStrike(strike+1);
+      }
     } catch (err) {
         setLoading(false)
         console.log(err);
     }
+  }
   };
 
   const password = async (values, onSubmitProps) => {
@@ -360,9 +383,17 @@ const Form = ({ translation }) => {
               helperText={touched.email && errors.email}
               sx={{ gridColumn: "span 4" }} />
             </>}
-
           </Box>
+            <Box mt={"1rem"}>
+            {strike > strikeLimit && <ReCaptchaComponent handleRecaptchaChange={handleRecaptchaChange} />}
+                    {errors.recaptcha 
+                    && touched.recaptcha && (
+                    <Typography color={"error"}>
+                        {errors.recaptcha}
+                    </Typography>
+                    )}
 
+            </Box>
           {/* BUTTONS */}
           <Box>
             <Button
