@@ -40,7 +40,7 @@ export default function ModalClans({clanOwner}) {
   const [ wallet, setWallet ] =  useState();
   const [isLoading, setLoading] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
-  const [value, setValue] = useState();
+  const [value, setValue] = useState('');
   const [err, setErr] = useState();
 
   const handleChange = (event) => {
@@ -48,7 +48,11 @@ export default function ModalClans({clanOwner}) {
   };
   
   const fetchNewGroup = async () => {
-    setLoading(true);
+    if(value === ''){
+      setErr("Preencha o nome do novo clan.")
+      return;
+    } else {
+      setLoading(true);
     let body = { name: value, first: clanOwner};
     const newClanResponse = await fetch(
       url+"/groups",
@@ -68,6 +72,7 @@ export default function ModalClans({clanOwner}) {
         setErr("Este clan já existe.")
         setLoading(false);
     }
+    }    
   }
 
   function formatNumberWithCommas(number) {
