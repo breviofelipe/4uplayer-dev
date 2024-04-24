@@ -38,7 +38,7 @@ const BuyPlayerCoin = () => {
             imageUrl: 'https://res.cloudinary.com/dosghtja7/image/upload/v1707940336/assets/w5vviukwefe2hwykn2jt.png',
             name: "4K",
             description: "4.000 unidades de PLC",
-            price: 3.69,
+            price: 3.96,
             onClick
             };
         const props1 =  {

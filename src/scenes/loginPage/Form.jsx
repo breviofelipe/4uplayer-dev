@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -10,7 +10,7 @@ import {
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { Formik } from "formik";
 import * as yup from "yup";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setLogin } from "state";
 import Dropzone from "react-dropzone";
@@ -20,19 +20,13 @@ import Alert from '@mui/material/Alert';
 import ReCaptchaComponent from "components/reCaptcha/ReCaptchaComponent";
 
 
-const initialValuesRegister = {
-  firstName: "",
-  lastName: "",
-  email: "",
-  password: "",
-  clan: "",
-  picture: "",
-};
 
 
 const Form = ({ translation }) => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const clan = searchParams.get('clan') || "";
   const [loading, setLoading] = useState(false);
-  const [pageType, setPageType] = useState("login");
+  const [pageType, setPageType] = useState(clan !== "" ? "register" : "login");
   const { palette } = useTheme();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -44,6 +38,18 @@ const Form = ({ translation }) => {
   const [success, setSuccess] =  useState();
   const [recaptchaToken, setRecaptchaToken] = useState(null);
   const [strike, setStrike] = useState(0);
+
+
+  let initialValuesRegister = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    clan: clan,
+    picture: "",
+  };
+  
+
   const strikeLimit = 1;
   const handleRecaptchaChange = (token) => {
     setRecaptchaToken(token);
@@ -66,7 +72,7 @@ const Form = ({ translation }) => {
     firstName: yup.string().required(translation.loginPage.fraseRequired),
     lastName: yup.string().required(translation.loginPage.fraseRequired),
     email: yup.string().email(translation.loginPage.fraseEmail).required(translation.loginPage.fraseRequired),
-    password: yup.string().required(translation.loginPage.fraseRequired),
+    password: yup.string().min(6, 'A senha deve ter pelo menos 6 caracteres').required(translation.loginPage.fraseRequired),
     clan: yup.string(),
     picture: yup.string(),
   });
@@ -104,6 +110,8 @@ const Form = ({ translation }) => {
     if(values.picture){
       getBase64FromUrl(values, onSubmitProps);
     } else {
+      if(clan!== '')
+        values.clan = clan;
       const savedUserResponse = await fetch(
         urlEnv+"/auth/register",
         {
@@ -309,7 +317,8 @@ const Form = ({ translation }) => {
                   label={translation.loginPage.formClan}
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  value={values.clan}
+                  value={clan}
+                  disabled={clan !== ''}
                   name="clan"
                   sx={{ gridColumn: "span 4" }}
                 />
