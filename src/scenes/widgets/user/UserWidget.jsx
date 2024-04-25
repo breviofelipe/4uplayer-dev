@@ -59,7 +59,7 @@ const UserWidget = ({ userId }) => {
             headers: { Authorization: `Bearer ${token}` },
           }).then(async (data) => {
             setUser(await data.json());
-          });
+          }).catch(err => console.log);
   };
 
   const getWallet = async () => {
