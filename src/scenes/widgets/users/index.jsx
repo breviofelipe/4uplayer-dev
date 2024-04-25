@@ -84,7 +84,7 @@ const UserListWidget = () => {
     </>
   }
 
-  return <PostComponent titulo={"Novos usuários"} content={content()} isCenter={false} icon={<Icon4uPlayer />} />
+  return <PostComponent titulo={"Novos usuários"} subtitulo={"Player que acabaram de chegar"} content={content()} isCenter={false} icon={<Icon4uPlayer />} />
 }
 
 export default UserListWidget;

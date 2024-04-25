@@ -36,7 +36,7 @@ function PostComponent({ titulo, subtitulo, icon, content, msg, isCenter = true,
         </FlexBetween>
         {isNonMobileScreens ? <Box m={"2rem"} /> : <Divider />}
        </FlexBetween>
-       {content && <div><Divider />
+       {content && <div>
         {isCenter ? <Box mb={"1rem"} mt={"1rem"} width={"100%"} height={"auto"} minHeight={"200px"} display={"flex"} justifyContent={"center"} alignItems={"center"} textAlign={"center"} >
           {content}
        </Box> :

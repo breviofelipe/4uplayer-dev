@@ -29,16 +29,20 @@ const HomePage = () => {
   const targetDate = new Date(2024, 3, 14);
   const home = () => {
     const top = () => {
-      return <>
+      return <Box>
+        {!isNonMobileScreens && role !== "PLAYER" && <><MemberWidget />
+        {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}</>}
         <UserWidget userId={id} />
         {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
         <ResgateWidget />
         {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
-        {coinTicker()}
+        <Box mt={"0.4rem"}>
+          {coinTicker()}
+        </Box>
         {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}      
         <MetaMaskWidget />
         {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
-      </>
+      </Box>
     };
 
     const main = () => {
@@ -47,7 +51,7 @@ const HomePage = () => {
       {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
       {/* <CountdownTimer targetDate={targetDate} /> */}
       
-      {role !== "PLAYER" && <><MemberWidget />
+      {isNonMobileScreens && role !== "PLAYER" && <><MemberWidget />
       {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}</>}
       <BuyPlayerCoin />
       {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}

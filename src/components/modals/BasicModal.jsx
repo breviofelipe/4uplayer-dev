@@ -10,22 +10,9 @@ import GamerLoading from "components/gamerLoading/GamerLoading";
 import { setRole } from "state";
 import { useNavigate } from "react-router-dom";
 import FormControlLabel from '@mui/material/FormControlLabel';
-import { Checkbox } from "@mui/material";
-import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+import { Checkbox, useMediaQuery } from "@mui/material";
 
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "50%",
-  display: "flex",
-  flexDirection: "column",
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
+
 
 export default function BasicModal() {
   const [open, setOpen] = useState(false);
@@ -39,6 +26,22 @@ export default function BasicModal() {
   const [ wallet, setWallet ] =  useState();
   const [isLoading, setLoading] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+
+  const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
+
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: isNonMobileScreens ? "50%" : "100%",
+    display: "flex",
+    flexDirection: "column",
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+  };
 
   const handleChange = (event) => {
     setIsChecked(event.target.checked);
