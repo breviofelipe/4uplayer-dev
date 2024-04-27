@@ -5,8 +5,9 @@ import FlexBetween from 'components/FlexBetween';
 import {
     ChatBubbleOutlineOutlined,
   } from "@mui/icons-material";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import UserImage from 'components/UserImage';
+import { useSelector } from 'react-redux';
 
 const ItemForum = ({topic}) => {
     const { palette } = useTheme();
@@ -14,19 +15,40 @@ const ItemForum = ({topic}) => {
     const medium = palette.neutral.medium;
     const [newComment, setNewComment] = useState("");
     const [isComments, setIsComments] = useState(false);
-    
-    const comments = [{
-        "userId": "65739e40e8c0935ec34d97a2",
-        "firstName": "Felipe",
-        "lastName": "Brevio",
-        "comment": "teste no front",
-        "urlPicturePath": "https://res.cloudinary.com/dosghtja7/image/upload/v1695005286/assets/zup4gnxe93ra0aetsfoh.jpg",
-        "createdAt": {
-          "$date": "2024-01-22T23:18:29.244Z"
-        }
-      }];
+    const [comments, setComments] = useState([]);
+    const token = useSelector((state) => state.token);
+    const [isLoading, setLoading] =  useState(false);
 
-      const getFormatedDate = (str) => {
+    const url = process.env.REACT_APP_HOST_MEMBERS;
+    
+    const fetchComments = async () => {
+      setLoading(true);
+    
+    try{
+      const response = await fetch(
+        url+`/members/topic/comment?id=${topic.id}`,
+      {
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` }
+      }
+    );
+    if(response.ok){      
+      const data = await response.json();
+      setComments(data)
+    } else {
+      console.log(response);
+    }
+    } catch (err) {
+      console.log(err);
+    }
+      setLoading(false);
+    }
+
+    useEffect(() => {
+      fetchComments();
+    },[])
+
+    const getFormatedDate = (str) => {
         try {
          let currentDate = format(new Date(str), 'dd MMMM yyyy, HH:mm',  { locale: ptBR });
          return currentDate;
@@ -36,14 +58,29 @@ const ItemForum = ({topic}) => {
          }
        }
        const handleComment = async () => {
+        const newTopic = {
+          comment: newComment,
+          topicId: topic.id
+        };
+        let body = JSON.stringify(newTopic)
+        const reponse = await fetch(
+          url+`/members/topic/comment`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+          body: body
+        }
+      );
+        const data = await reponse.json();
+        setComments(data);
         setNewComment('');
       }
 
-    return <ListItem key={topic.id}>
+    return <ListItem key={topic._id}>
     <Box display={"flex"} flexDirection={"column"} width={"100%"}>
         <ListItemText
-        primary={topic.title}
-        secondary={topic.content}
+        primary={topic.titulo}
+        secondary={topic.conteudo}
       />
       <FlexBetween gap="0.3rem">
         <Box />

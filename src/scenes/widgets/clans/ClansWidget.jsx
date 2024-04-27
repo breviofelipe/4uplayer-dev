@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { Box, Divider, IconButton, Typography, useTheme } from "@mui/material";
 import PostComponent from "components/post/PostComponent";
@@ -8,13 +8,10 @@ import SkipNextIcon from '@mui/icons-material/SkipNext';
 import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 import FlexBetween from "components/FlexBetween";
 import Diversity2Icon from '@mui/icons-material/Diversity2';
-import Member from "components/Member";
-import BookmarkIcon from '@mui/icons-material/Bookmark';
-import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+
 const ClansWidget = ({ clan }) => {
 
   const url = process.env.REACT_APP_HOST_GROUPS;
-  const dispatch = useDispatch();
   const token = useSelector((state) => state.token);
   const [members, setMembers] = useState([]);
   const [owner, setOwner] = useState();
@@ -22,9 +19,7 @@ const ClansWidget = ({ clan }) => {
   const [amount, setAmount] = useState(0);
   const [hasMore, setHasMore] = useState();
   const [isLoading, setLoading] =  useState(false);
-  const { palette } = useTheme();
-  const medium = palette.neutral.medium;
-  const main = palette.neutral.main;
+
   const getAmount = async () => {
   
     try{

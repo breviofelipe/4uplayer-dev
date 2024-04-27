@@ -6,16 +6,24 @@ import UserWidget from "scenes/widgets/user/UserWidget";
 import PostComponent from "components/post/PostComponent";
 import Forum from "components/forum";
 import CofundersWidget from "scenes/widgets/cofunder/CofundersWidget";
+import EstatisticasWidget from "scenes/widgets/estatisticas/EstatisticasWidget";
+import { Box } from "@mui/material";
 
 
 const CofunderPage = () => {
     const { id } = useSelector((state) => state.user);
     const content = () => {
-    return <PostComponent isCenter={false} titulo={"Cofundadores"} subtitulo={"Área exclusiva ⛏️ Em construção..."} content={<Forum />} icon={<BookmarkIcon sx={{ color: "gold", fontSize: "25px" }} />} />
+    return <Box>
+        
+        <PostComponent isCenter={false} titulo={"Cofundadores"} subtitulo={"Área exclusiva ⛏️ Em construção..."} content={<Forum />} icon={<BookmarkIcon sx={{ color: "gold", fontSize: "25px" }} />} />
+    </Box>
     }
 
     const lastContent = () => {
-        return <CofundersWidget />
+        return <>
+            <EstatisticasWidget />
+            <CofundersWidget />
+        </>
     }
 
     return <PageSchemaComponent topContent={<UserWidget userId={id} />} main={content()} lastContent={lastContent()}/>

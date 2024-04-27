@@ -81,12 +81,12 @@ export default function ModalClans({clanOwner}) {
 
   const getWallet = async () => {
     setWallet(null);
-    const response = await fetch(urlMembers+`/members/wallet`, {
+    await fetch(urlMembers+`/members/wallet`, {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     }).then(async (data) => {
       setWallet(await data.json());
-    });
+    }).catch(console.log);
   };
 
   useEffect(() => {
