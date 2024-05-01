@@ -15,7 +15,7 @@ const CofunderPage = () => {
     const content = () => {
     return <Box>
         
-        <PostComponent isCenter={false} titulo={"Cofundadores"} subtitulo={"Área exclusiva ⛏️ Em construção..."} content={<Forum />} icon={<BookmarkIcon sx={{ color: "gold", fontSize: "25px" }} />} />
+        <PostComponent isCenter={false} titulo={"Cofundadores"} subtitulo={"Área exclusiva"} content={<Forum />} icon={<BookmarkIcon sx={{ color: "gold", fontSize: "25px" }} />} />
     </Box>
     }
 
