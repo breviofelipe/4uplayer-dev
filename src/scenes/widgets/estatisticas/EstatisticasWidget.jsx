@@ -43,7 +43,7 @@ const EstatisticasWidget = () => {
         </Box> }</>
         }
 
-        return <PostComponent isCenter={false} titulo={"Estatísticas  ⛏️ Em construção..."} subtitulo={"Nosso números"} content={content()} />
+        return <PostComponent isCenter={false} titulo={"Estatísticas"} subtitulo={"⛏️ Em construção... Nosso números"} content={content()} />
 }
 
 export default EstatisticasWidget;
