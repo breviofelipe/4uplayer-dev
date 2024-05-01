@@ -94,7 +94,7 @@ const Navbar = () => {
       {/* DESKTOP NAV */}
       {isNonMobileScreens ? (
         <FlexBetween gap="2rem">
-           { user.role === 'PLAYER' && <IconButton onClick={() => navigate("/cofunders")} >
+           {user && user.role === 'PLAYER' && <IconButton onClick={() => navigate("/cofunders")} >
                 <Tooltip title="Exclusivo Cofundadores">
                   <BookmarkIcon sx={{ color: "gold", fontSize: "25px" }} />
                 </Tooltip>
