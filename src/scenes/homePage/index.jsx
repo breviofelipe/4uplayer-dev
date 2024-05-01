@@ -15,7 +15,6 @@ import ResgateWidget from "scenes/widgets/resgate/ResgateWidgets";
 import MemberWidget from "scenes/widgets/member/MemberWidget";
 import MissionsWidget from "scenes/widgets/missions/MissionsWidget";
 import MyClanWidget from "scenes/widgets/clans/MyClanWidget";
-import CountdownTimer from "components/countdownTimer/CountdownTimer";
 import BuyPlayerCoin from "scenes/widgets/buyCoin/BuyPlayerCoin";
 import ClansWidget from "scenes/widgets/clans/ClansWidget";
 
@@ -24,9 +23,7 @@ const HomePage = () => {
   const { id, picturePath, emailCheck, clan, role } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const theme = useTheme();
-  const now = new Date();
-  // const targetDate = new Date(now.getTime() + (1 * 24 * 60 * 60 * 1000));
-  const targetDate = new Date(2024, 3, 14);
+
   const home = () => {
     const top = () => {
       return <Box>
@@ -48,9 +45,7 @@ const HomePage = () => {
     const main = () => {
       return <>
        <MyPostWidget picturePath={picturePath} />
-      {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
-      {/* <CountdownTimer targetDate={targetDate} /> */}
-      
+      {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}     
       {isNonMobileScreens && role !== "PLAYER" && <><MemberWidget />
       {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}</>}
       <BuyPlayerCoin />
@@ -67,11 +62,11 @@ const HomePage = () => {
 
     const lastContent = () => {
       return <>
+          {emailCheck && <><MissionsWidget />{isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}</>}                    
           <MyClanWidget clan={clan} />
           {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
           <ClansWidget />
           {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
-          {emailCheck && <><MissionsWidget />{isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}</>}                    
           {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
           
           <FriendListWidget userId={id} />

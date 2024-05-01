@@ -6,12 +6,10 @@ import FriendListWidget from "scenes/widgets/utils/FriendListWidget";
 import MyPostWidget from "scenes/widgets/utils/MyPostWidget";
 import PostsWidget from "scenes/widgets/utils/PostsWidget";
 import UserWidget from "scenes/widgets/user/UserWidget";
-import AdvertWidget from "scenes/widgets/ads/AdvertWidget";
 import PostComponent from "components/post/PostComponent";
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 import PageSchemaComponent from "components/page/PageSchemaComponent";
 import PageLoadingComponent from "components/page/PageLoadingComponent";
-import FlexBetween from "components/FlexBetween";
 import IconMedalGold from "components/icons/IconMedalGold";
 import MyClanWidget from "scenes/widgets/clans/MyClanWidget";
 
@@ -63,8 +61,6 @@ const ProfilePage = () => {
     return <>
     {user && <><MyClanWidget clan={user.clan} />{isNonMobileScreens ? <Box m="2rem 0" /> : <Divider />}</>}
     <PostComponent titulo={"Medalhas"} subtitulo={"Medalhas Conquistadas"} content={content()} icon={<WorkspacePremiumIcon fontSize="large" />} />
-    {isNonMobileScreens ? <Box m="2rem 0" /> : <Divider />}
-    <AdvertWidget />
     {isNonMobileScreens ? <Box m="2rem 0" /> : <Divider />}
     <FriendListWidget userId={userId} /> </>
   }
