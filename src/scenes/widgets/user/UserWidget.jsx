@@ -277,9 +277,9 @@ const UserWidget = ({ userId }) => {
                     <Typography color={medium}>Clan</Typography>
                     <Typography color={medium}>{clan}</Typography>
                   </Box>
-                  <Box display="flex">
+                  {myProfile && <Box display="flex">
                       <ModalClans clanOwner={clanOwner} />                  
-                  </Box>
+                  </Box>}
                 </FlexBetween>
               </Box>
           </Box>}
