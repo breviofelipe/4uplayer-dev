@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import PostComponent from "components/post/PostComponent";
@@ -11,11 +11,14 @@ import Diversity2Icon from '@mui/icons-material/Diversity2';
 import Member from "components/Member";
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+
+import ShareButton from "components/modals/LinkModal";
 const MyClanWidget = ({ clan }) => {
 
   const url = process.env.REACT_APP_HOST_GROUPS;
-  const dispatch = useDispatch();
+  const urlClan = "https://4uplayer-dev.vercel.app/?clan="+clan;
   const token = useSelector((state) => state.token);
+  const {clanOwner} = useSelector((state) => state.user);
   const [members, setMembers] = useState([]);
   const [owner, setOwner] = useState();
   const [page, setPage] = useState(0);
@@ -23,8 +26,11 @@ const MyClanWidget = ({ clan }) => {
   const [hasMore, setHasMore] = useState();
   const [isLoading, setLoading] =  useState(false);
   const { palette } = useTheme();
+  const primaryLight = palette.primary.light;
   const medium = palette.neutral.medium;
-  const main = palette.neutral.main;
+  
+    
+  console.log(clanOwner)
   const getAmount = async () => {
   
     try{
@@ -62,7 +68,6 @@ const MyClanWidget = ({ clan }) => {
       setOwner(data.owner);
       setMembers(data.members.friends)
       setHasMore(data.members.hasMore)
-    //   dispatch(setUsers({ users: data }));
     } else {
       console.log(response);
     }
@@ -146,7 +151,12 @@ const MyClanWidget = ({ clan }) => {
     <Typography color={medium}>{formatNumberWithCommas(parseFloat(amount))}</Typography>
   </Box> 
   }
-  return <PostComponent titulo={"Clan"} subtitulo={clan} content={content()} isCenter={false} icon={<Diversity2Icon fontSize="large"/>} msg={wallet()} />
+
+  const convidarClan = () => {
+    return <>{clanOwner && <ShareButton url={urlClan} texto={"Compartilhe o link para convidar novos player para o Clan"} />}</>
+  }
+
+  return <PostComponent msg1={convidarClan()} titulo={"Clan"} subtitulo={clan} content={content()} isCenter={false} icon={<Diversity2Icon fontSize="large"/>} msg={wallet()} />
 }
 
 export default MyClanWidget;
