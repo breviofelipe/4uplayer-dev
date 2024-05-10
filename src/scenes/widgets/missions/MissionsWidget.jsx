@@ -24,12 +24,10 @@ const MissionsWidget = () => {
           headers: { Authorization: `Bearer ${token}` },
         }).then(async (data) => {
             const user = await data.json();
-            console.log(user);
             setMissions(user.missions);
             setLoading(false);
         })
         .catch(err => {
-            console.log(err);
             setLoading(false);
         })
         .finally();

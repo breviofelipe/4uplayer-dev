@@ -29,8 +29,6 @@ const MyClanWidget = ({ clan }) => {
   const primaryLight = palette.primary.light;
   const medium = palette.neutral.medium;
   
-    
-  console.log(clanOwner)
   const getAmount = async () => {
   
     try{

@@ -7,25 +7,27 @@ import { useNavigate } from "react-router-dom";
 import FlexBetween from 'components/FlexBetween';
 
 import Checkout from 'components/mercadoPago/Checkout';
-import Product from 'components/Product';
 import { CheckCircle } from '@mui/icons-material';
-const ethers = require("ethers");
+import Products from './Products';
 
 const BuyPlayerCoin = () => {
 
     const navigate = useNavigate();
-
+    
    
     const [comprar, setComprar] = useState(false);
     const [response, setResponse] = useState();
     const [product, setProduct] = useState(0);
+    
     const [isLoading, setLoading] = useState(false);
 
     const [mainContent, setMainContent] = useState();
     
+    
     const titulo = "PlayerCoin";
     const subtitulo = "Compre pacotes da Cripto dos Gamers";
-    
+
+   
 
     function onClick(product){
         setProduct(product);
@@ -33,36 +35,8 @@ const BuyPlayerCoin = () => {
     }
    
     const content = () => {
-        const props =  {
-            id: '6612f662fdff533870915c9c',
-            imageUrl: 'https://res.cloudinary.com/dosghtja7/image/upload/v1707940336/assets/w5vviukwefe2hwykn2jt.png',
-            name: "4K",
-            description: "4.000 unidades de PLC",
-            price: 3.96,
-            onClick
-            };
-        const props1 =  {
-            id: '6612f662fdff533870915c9d',
-            imageUrl: 'https://res.cloudinary.com/dosghtja7/image/upload/v1707940336/assets/w5vviukwefe2hwykn2jt.png',
-            name: "100K",
-            description: "100.000 unidades de PLC",
-            price: 92.25,
-            onClick
-            };
-        const props2 =  {
-            id: '6612f663fdff533870915c9e',
-            imageUrl: 'https://res.cloudinary.com/dosghtja7/image/upload/v1707940336/assets/w5vviukwefe2hwykn2jt.png',
-            name: "1M",
-            description: "1.000.000 unidades de PLC",
-            price: 922.50,
-            onClick
-            };
         if(!comprar){
-            return <Box display={'flex'} justifyContent={"space-between"} flex={"column"}>
-                    <Product {...props} />
-                    <Product {...props1} />
-                    <Product {...props2} />
-                </Box>
+            return <Products onClick={onClick} />                 
         } else {
             return <Box>
                 <Checkout product={product} setResponse={setResponse} />
