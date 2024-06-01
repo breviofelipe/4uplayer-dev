@@ -12,11 +12,11 @@ const MemberWidget = () => {
         <FlexBetween>
             <Box></Box>
             <Box display={"flex"} mt={"1rem"} mb={"0.5rem"} flexDirection={"column"}>
-            <Typography  color={'gold'} fontWeight="500" variant="h5"
+            <Typography  color={'rgb(102, 255, 178)'} fontWeight="500" variant="h5"
             >
-                1º Lote – 7/100 Vendidos
+                1º Lote – 8/100 Vendidos
             </Typography>
-            <Typography  color={'gold'} fontWeight="500" variant="h5">
+            <Typography  color={'rgb(102, 255, 178)'} fontWeight="500" variant="h5">
                 Investimento: $9.90
             </Typography>
             </Box>

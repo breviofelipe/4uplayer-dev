@@ -238,52 +238,33 @@ const ethers = require("ethers");
 async function getMetaMaskProvider() {
     if (!window.ethereum)
       return 'No MetaMask';
-    await window.ethereum.send('eth_requestAccounts');
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
+	await window.ethereum.request({ method: 'eth_requestAccounts' });
+    const provider = new ethers.BrowserProvider(window.ethereum);
     return provider;
 }
 export async function getTokenBalance(address, decimals = 8) {
     const provider = await getMetaMaskProvider();
     const contract = new ethers.Contract(addressToken, CONTRACT_ABI, provider);
     const balance = await contract.balanceOf(address)
-    return ethers.utils.formatUnits(balance, decimals);
+    return ethers.formatUnits(balance, decimals);
 }
 
 export async function getTokenBalanceTeste(address, contractAddress, decimals = 8) {
     const provider = await getMetaMaskProvider();
     const contract = new ethers.Contract(contractAddress, CONTRACT_ABI_TESTE, provider);
     const balance = await contract.balanceOf(address)
-    return ethers.utils.formatUnits(balance, decimals);
+    return ethers.formatUnits(balance, decimals);
 }
 
 
 export async function transferToken(toAddress, quantity, decimals = 8) {
 	const provider = await getMetaMaskProvider();
-    const signer = provider.getSigner();
-    const contract = new ethers.Contract(addressToken, CONTRACT_ABI, provider);
-    const contractSigner = contract.connect(signer);
-    ethers.utils.getAddress(toAddress);//valida endereço
+    const signer = await provider.getSigner();
+    const contract = new ethers.Contract(addressToken, CONTRACT_ABI, signer);
     try {
-        const tx = await contractSigner
+        const tx = await contract
 		.transfer(toAddress,
-			 ethers.utils.parseUnits(quantity, decimals));
-        return tx;
-    } catch (err) {
-        console.log(err);
-		return err;
-    }
-}
-
-export async function transferTokenTeste(toAddress, contractAddress, quantity, decimals = 8) {
-	const provider = await getMetaMaskProvider();
-    const signer = provider.getSigner();
-    const contract = new ethers.Contract(contractAddress, CONTRACT_ABI_TESTE, provider);
-    const contractSigner = contract.connect(signer);
-    ethers.utils.getAddress(toAddress);//valida endereço
-    try {
-        const tx = await contractSigner
-		.transfer(toAddress,
-			 ethers.utils.parseUnits(quantity, decimals));
+			 ethers.parseUnits(quantity, decimals));
         return tx;
     } catch (err) {
         console.log(err);
