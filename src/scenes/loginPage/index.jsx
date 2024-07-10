@@ -2,6 +2,7 @@ import { Box, Typography, useTheme, useMediaQuery, Divider } from "@mui/material
 import Form from "./Form";
 // import WeatherApp from "components/weatherApp/WeatherApp";
 import { useSelector } from "react-redux";
+import Icon4uPlayer from "components/icons/Icon4uPlayer";
 
 
 const LoginPage = () => {
@@ -16,12 +17,7 @@ const LoginPage = () => {
         backgroundColor={theme.palette.background.alt}
       >
         <Box p="1rem 6%" gap={"0.5rem"} justifyContent="center" display={"flex"} flexDirection={"row"}>
-        <img
-          width={"50dp"}
-          height={"50dp"}
-          alt="4u"
-          src={'https://res.cloudinary.com/dosghtja7/image/upload/v1707940336/assets/w5vviukwefe2hwykn2jt.png'}
-        />
+        <Icon4uPlayer />
         <Typography mt={"0.5rem"} fontWeight="bold" fontSize="32px" color="primary">
         {translation != null && translation.loginPage.title}
         </Typography>
