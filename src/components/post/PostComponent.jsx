@@ -1,8 +1,8 @@
 
-import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import WidgetWrapper from "../WidgetWrapper";
 import FlexBetween from 'components/FlexBetween';
 import { Box, Divider, Typography, useMediaQuery, useTheme } from '@mui/material';
+import Icon4uPlayer from 'components/icons/Icon4uPlayer';
 
 function PostComponent({ titulo, subtitulo, icon, content, msg, isCenter = true, msg1 }) {
 
@@ -16,7 +16,7 @@ function PostComponent({ titulo, subtitulo, icon, content, msg, isCenter = true,
         <WidgetWrapper mobile={!isNonMobileScreens}>
        <FlexBetween>
        <FlexBetween gap="1rem">
-            {icon ? icon : <SportsEsportsIcon fontSize="large" /> }
+            {icon ? icon : <Icon4uPlayer />}
             <Box mb={"0.5rem"}>
                 <Typography
                     variant="h4"

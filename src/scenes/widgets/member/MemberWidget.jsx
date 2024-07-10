@@ -56,7 +56,7 @@ const MemberWidget = () => {
     }
 
 
-    return <PostComponent msg={msg()} titulo={"Seja um cofundador"} subtitulo={"Faça parte da fundação, proponha melhorias. "} isCenter={false} content={content()} icon={<img width={"30px"} height={"30px"} src={'https://res.cloudinary.com/dosghtja7/image/upload/v1707940336/assets/w5vviukwefe2hwykn2jt.png'} />}/>
+    return <PostComponent msg={msg()} titulo={"Seja um cofundador"} subtitulo={"Faça parte da fundação, proponha melhorias. "} isCenter={false} content={content()} />
 }
 
 export default MemberWidget;

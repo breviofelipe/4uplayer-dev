@@ -9,6 +9,7 @@ import Confetes from "./components/Confetes";
 import CheckIcon from '@mui/icons-material/Check';
 
 import ReCaptchaComponent from "components/reCaptcha/ReCaptchaComponent";
+import Icon4uPlayer from "components/icons/Icon4uPlayer";
 
 const ResgateWidget = () => {
 
@@ -148,7 +149,7 @@ const ResgateWidget = () => {
         </Box> 
     </>
     }
-    return <PostComponent titulo={"PLC Resgate"} subtitulo={"Utilize códigos de restate"} content={content()} icon={<img width={"30px"} height={"30px"} src={'https://res.cloudinary.com/dosghtja7/image/upload/v1707940336/assets/w5vviukwefe2hwykn2jt.png'} />}/>
+    return <PostComponent titulo={"PLC Resgate"} subtitulo={"Utilize códigos de restate"} content={content()} icon={<Icon4uPlayer />}/>
 }
 
 export default ResgateWidget;

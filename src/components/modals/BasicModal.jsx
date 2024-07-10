@@ -11,6 +11,7 @@ import { setRole } from "state";
 import { useNavigate } from "react-router-dom";
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { Checkbox, useMediaQuery } from "@mui/material";
+import Icon4uPlayer from "components/icons/Icon4uPlayer";
 
 
 
@@ -88,7 +89,7 @@ export default function BasicModal() {
   return <>{!isLoading ? <div style={{ marginTop: "2rem"}}>
   <Button onClick={handleOpen}>
   <Typography mt={"0.3rem"} marginRight={"0.5rem"} variant="h3">Seja sócio</Typography>
-  <img width={"25px"} height={"25px"} src={'https://res.cloudinary.com/dosghtja7/image/upload/v1707940336/assets/w5vviukwefe2hwykn2jt.png'} />
+  <Icon4uPlayer />
   </Button>
   <Modal
     open={open}

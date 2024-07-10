@@ -30,6 +30,7 @@ import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 
 import BasicMenu from "./components/BaseMenu";
+import Icon4uPlayer from "components/icons/Icon4uPlayer";
 const Navbar = () => {
   const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
   const dispatch = useDispatch();
@@ -55,12 +56,7 @@ const Navbar = () => {
   return (
     <FlexBetween padding="1rem 6%" backgroundColor={alt}>
       <FlexBetween gap="1.5rem">
-      <img
-        width={"50dp"}
-        height={"50dp"}
-        alt="4u"
-        src={'https://res.cloudinary.com/dosghtja7/image/upload/v1707940336/assets/w5vviukwefe2hwykn2jt.png'}
-      />
+      <Icon4uPlayer />
         <Typography
           fontWeight="bold"
           fontSize="clamp(1rem, 2rem, 2.25rem)"

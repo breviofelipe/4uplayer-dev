@@ -1,0 +1,42 @@
+.game-area {
+  position: relative;
+  width: 600px;
+  height: 400px;
+  border: 2px solid #0019fc;
+  border-radius: 10px;
+  margin: 2rem auto;
+  display: flex;
+  flex-wrap: wrap;
+  box-shadow: 0 0 10px #abbfc0;
+}
+
+@media only screen and (max-width: 800px) {
+  .game-area {
+    position: relative;
+    width: 350px;
+    height: 300px;
+  }
+
+  .snake {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+.snake {
+  position: absolute;
+  width: 2%;
+  height: 2%;
+  background-color: #0019fc;
+  border: 1px solid white;
+  z-index: 2;
+}
+
+.food {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background-color: white;
+  border-radius: 20px;
+  z-index: 1;
+}
