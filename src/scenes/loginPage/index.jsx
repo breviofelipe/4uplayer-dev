@@ -1,8 +1,9 @@
 import { Box, Typography, useTheme, useMediaQuery, Divider } from "@mui/material";
-import Form from "./Form";
-// import WeatherApp from "components/weatherApp/WeatherApp";
+import Form from "./components/Form";
+import "./login.css";
 import { useSelector } from "react-redux";
 import Icon4uPlayer from "components/icons/Icon4uPlayer";
+import ImagemArtistas from "./components/ImagemArtistas";
 
 
 const LoginPage = () => {
@@ -11,31 +12,26 @@ const LoginPage = () => {
   const translation = useSelector((state) => state.translation);
  
   return (
-    <Box>
+    <Box m={"2rem"}>
       <Box
-        width="100%"
+        width={"100%"}
+        flexDirection={"row"}
+        display={"flex"}
+        height={"auto"}
+        justifyContent="space-around"
         backgroundColor={theme.palette.background.alt}
-      >
-        <Box p="1rem 6%" gap={"0.5rem"} justifyContent="center" display={"flex"} flexDirection={"row"}>
-        <Icon4uPlayer />
-        <Typography mt={"0.5rem"} fontWeight="bold" fontSize="32px" color="primary">
-        {translation != null && translation.loginPage.title}
-        </Typography>
+      > 
+        <Box
+          width={"40%"}
+          display={"flex"}
+        >
+          <ImagemArtistas src="https://res.cloudinary.com/dosghtja7/image/upload/v1721091247/assets/login/zifxnbfeg5dr3mjhzpma.png" />
         </Box>
-      </Box>
-      {/* <WeatherApp /> */}
-      {!isNonMobileScreens && <Divider />}
-      <Box
-        width={isNonMobileScreens ? "50%" : "97%"}
-        p="2rem"
-        m="2rem auto"
-        borderRadius="1.5rem"
-        backgroundColor={theme.palette.background.alt}
-      >
-        <Typography fontWeight="500" variant="h5" sx={{ mb: "1.5rem" }}>
-          {translation != null && translation.loginPage.frase}
-        </Typography>
-        {translation != null && <Form translation={translation} />}
+        <Box
+          width={"60%"}
+          display={"flex"} >
+          <Form translation={translation} />
+        </Box>
       </Box>
     </Box>
     

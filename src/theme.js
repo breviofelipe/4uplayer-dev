@@ -27,6 +27,12 @@ export const colorTokens = {
     800: "#00353F",
     900: "#001519",
   },
+  custom: {
+    10: "#030E40",
+    20: "#1B213B",
+    30: "#3700FF"
+
+  }
 };
 
 // mui theme settings
@@ -39,8 +45,8 @@ export const themeSettings = (mode) => {
             // palette values for dark mode
             primary: {
               dark: colorTokens.primary[200],
-              main: colorTokens.primary[500],
-              light: colorTokens.primary[800],
+              main: colorTokens.custom[30],
+              light: colorTokens.primary[50],
             },
             neutral: {
               dark: colorTokens.grey[100],
@@ -50,8 +56,10 @@ export const themeSettings = (mode) => {
               light: colorTokens.grey[700],
             },
             background: {
-              default: colorTokens.grey[900],
-              alt: colorTokens.grey[800],
+              // default: colorTokens.grey[900],
+              // alt: colorTokens.grey[800],
+              default: colorTokens.custom[10],
+              alt: colorTokens.custom[20]
             },
           }
         : {
@@ -69,8 +77,10 @@ export const themeSettings = (mode) => {
               light: colorTokens.grey[50],
             },
             background: {
-              default: colorTokens.grey[10],
-              alt: colorTokens.grey[0],
+              // default: colorTokens.grey[10],
+              // alt: colorTokens.grey[0],
+              default: "#030E40",
+              alt: "#1B213B"
             },
           }),
     },

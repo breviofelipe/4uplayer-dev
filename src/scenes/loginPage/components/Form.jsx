@@ -18,6 +18,7 @@ import FlexBetween from "components/FlexBetween";
 import LoadingComponent from "components/loading/Loading";
 import Alert from '@mui/material/Alert';
 import ReCaptchaComponent from "components/reCaptcha/ReCaptchaComponent";
+import Icon4uPlayer from "components/icons/Icon4uPlayer";
 
 
 
@@ -234,7 +235,15 @@ const Form = ({ translation }) => {
   };
 
   return (
-    <div>
+    <Box width={"100%"} justifyContent="center" alignItems={"center"} flexDirection={"column"} display={"flex"}>
+
+          <Box p="1rem 6%" gap={"0.5rem"} justifyContent="center" alignItems={"center"} display={"flex"} >
+          <Icon4uPlayer />
+          <Typography mt={"0.5rem"} fontWeight="bold" fontSize="32px" color={palette.primary.light}>
+          {translation != null && translation.loginPage.title}
+          </Typography>
+          </Box>
+        
       {loading ? <LoadingComponent /> : 
       <div>
         { warning && <Alert onClose={() => {
@@ -412,7 +421,7 @@ const Form = ({ translation }) => {
                 m: "2rem 0",
                 p: "1rem",
                 backgroundColor: palette.primary.main,
-                color: palette.background.alt,
+                color: palette.primary.light,
                 "&:hover": { color: palette.primary.main },
               }}
             >
@@ -456,7 +465,7 @@ const Form = ({ translation }) => {
     </Formik>
         </div>
           }
-    </div>
+    </Box>
   );
   }
 export default Form;

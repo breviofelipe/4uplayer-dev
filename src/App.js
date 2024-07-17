@@ -31,7 +31,7 @@ function App() {
     dispatch(
       setTranslation({
         loginPage: {
-          title: "4uPlayer",
+          title: "4UPLAYER",
           frase: "Ingresse e seja parte da maior aventura entre mundos, personagens e magia",
           fraseFormCriar: "Não tem uma conta? Crie aqui.",
           fraseFormEntrar: "Já tem uma conta? Entre aqui.",
