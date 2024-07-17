@@ -12,25 +12,27 @@ const LoginPage = () => {
   const translation = useSelector((state) => state.translation);
  
   return (
-    <Box m={"2rem"}>
+    <Box m={isNonMobileScreens ? "2rem" : undefined}>
       <Box
         width={"100%"}
-        flexDirection={"row"}
+        flexDirection={isNonMobileScreens ? "row" : "column"}
         display={"flex"}
         height={"auto"}
         justifyContent="space-around"
         backgroundColor={theme.palette.background.alt}
       > 
         <Box
-          width={"40%"}
+          width={isNonMobileScreens ? "40%" : "100%"}
           display={"flex"}
         >
-          <ImagemArtistas src="https://res.cloudinary.com/dosghtja7/image/upload/v1721091247/assets/login/zifxnbfeg5dr3mjhzpma.png" />
+          {isNonMobileScreens ? <ImagemArtistas src="https://res.cloudinary.com/dosghtja7/image/upload/v1721091247/assets/login/zifxnbfeg5dr3mjhzpma.png" /> 
+          : <Form translation={translation} />}
         </Box>
         <Box
-          width={"60%"}
+          width={isNonMobileScreens ? "60%" : "100%"}
           display={"flex"} >
-          <Form translation={translation} />
+          {!isNonMobileScreens ? <ImagemArtistas src="https://res.cloudinary.com/dosghtja7/image/upload/v1721091247/assets/login/zifxnbfeg5dr3mjhzpma.png" /> 
+          : <Form translation={translation} />}
         </Box>
       </Box>
     </Box>
