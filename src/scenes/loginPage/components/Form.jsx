@@ -243,7 +243,6 @@ const Form = ({ translation }) => {
         setPageType("password");
       }}
       sx={{
-          textDecoration: "underline",
           color: palette.primary.light,
           minWidth: isNonMobile ? "50%" : undefined,
           "&:hover": {
