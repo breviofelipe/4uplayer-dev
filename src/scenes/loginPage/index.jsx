@@ -21,18 +21,18 @@ const LoginPage = () => {
         justifyContent="space-around"
       > 
         <Box
-          width={isNonMobileScreens ? "40%" : "100%"}
+          width={isNonMobileScreens ? "50%" : "100%"}
           display={"flex"}
         >
           {isNonMobileScreens 
-          ? <ImagemArtistas src="https://res.cloudinary.com/dosghtja7/image/upload/v1721091247/assets/login/zifxnbfeg5dr3mjhzpma.png" /> 
+          ? <ImagemArtistas profile={"Ivona Denovic - @ivonadenovic"} src="https://res.cloudinary.com/dosghtja7/image/upload/v1721351456/assets/arts/g919fsw0ctb0wrqmmkoj.jpg" /> 
           : <Form translation={translation} />}
         </Box>
         <Box
           width={isNonMobileScreens ? "60%" : "100%"}
           display={"flex"} >
           {!isNonMobileScreens 
-          ? <ImagemArtistas src="https://res.cloudinary.com/dosghtja7/image/upload/v1721091247/assets/login/zifxnbfeg5dr3mjhzpma.png" /> 
+          ? <ImagemArtistas profile={"Zihan - @zihan"} src="https://res.cloudinary.com/dosghtja7/image/upload/v1721091247/assets/login/zifxnbfeg5dr3mjhzpma.png" /> 
           : <Form translation={translation} />}
         </Box>
       </Box>
