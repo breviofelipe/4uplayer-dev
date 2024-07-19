@@ -9,7 +9,9 @@ const ImagemArtistas = ({ src, alt, profile }) => {
   return (
     <Box display={"flex"} flexDirection={"column"} width={"100%"} bgcolor={"#3700FF"}>
       <Box className="imagem-container">
-        <img src={src} alt={alt} className="imagem-responsiva" />
+        <div style={{
+          backgroundImage:`url(${src})`,
+        }} alt={alt} className="imagem-responsiva" />
       </Box>
       <FlexBetween>
           <Box display={"flex"} >
