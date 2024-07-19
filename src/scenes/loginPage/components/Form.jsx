@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Box,
   Button,
@@ -6,7 +6,7 @@ import {
   useMediaQuery,
   Typography,
   useTheme,
-  InputAdornment,
+  InputAdornment
 } from "@mui/material";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { Formik } from "formik";
@@ -236,15 +236,49 @@ const Form = ({ translation }) => {
     if (isNewPassword) await password(values, onSubmitProps);
   };
 
-  return (
-    <Box width={"100%"} justifyContent="center" alignItems={"center"} flexDirection={"column"} display={"flex"}>
+  const buttonMissingPassword = () => {
+    
+    return <>{pageType === 'login' && !isNewPassword && <Typography
+      onClick={() => {
+        setPageType("password");
+      }}
+      sx={{
+          textDecoration: "underline",
+          color: palette.primary.light,
+          minWidth: isNonMobile ? "50%" : undefined,
+          "&:hover": {
+            cursor: "pointer",
+            color: palette.primary.main,
+          },
+        }}>Esqueci a minha senha</Typography>}</>
+  }
 
-          <Box p="1rem 6%" gap={"0.5rem"} justifyContent="center" alignItems={"center"} display={"flex"} >
+  const buttonSubmit = () => {
+    return <Button
+    type="submit"
+    fullWidth
+    sx={{
+      minWidth: isNonMobile ? "50%" : undefined,
+      m: "1rem 0",
+      p: "0.5rem",
+      borderRadius: 20,
+      backgroundColor: palette.primary.main,
+      color: palette.primary.light,
+      "&:hover": { color: palette.primary.main },
+    }}
+  >
+    {isLogin ? translation.loginPage.formLogin : isNewPassword ? "Solicitar recuperação de senha" : translation.loginPage.formRegister}
+  </Button>
+  }
+  return (
+    <Box gap={"2.5rem"} width={"100%"} justifyContent="center" alignItems={"center"} flexDirection={"column"} display={"flex"}>
+      <Box p="1rem 6%" gap={"0.5rem"} justifyContent="center" alignItems={"center"} display={"flex"} >
           <Icon4uPlayer />
           <Typography mt={"0.5rem"} fontWeight="bold" fontSize="32px" color={palette.primary.light}>
           {translation != null && translation.loginPage.title}
           </Typography>
-          </Box>
+        </Box>
+          
         
       {loading ? <LoadingComponent /> : 
       <div>
@@ -256,10 +290,11 @@ const Form = ({ translation }) => {
           setSuccess(null);
         }}  severity="success">{success}</Alert> }
         <Formik
-      onSubmit={handleFormSubmit}
-      initialValues={isLogin ? initialValuesLogin : initialValuesRegister}
-      validationSchema={isLogin ? loginSchema : isNewPassword ? passwordSchema : registerSchema}
-    >
+        
+        onSubmit={handleFormSubmit}
+        initialValues={isLogin ? initialValuesLogin : initialValuesRegister}
+        validationSchema={isLogin ? loginSchema : isNewPassword ? passwordSchema : registerSchema}
+      >
       {({
         values,
         errors,
@@ -272,9 +307,9 @@ const Form = ({ translation }) => {
       }) => (
         <form onSubmit={handleSubmit}>
           <Box
-            minWidth={"350px"}
+            width={isNonMobile ? "40vw" : "80vw"}
             display="grid"
-            gap="30px"
+            gap={"2.5rem"}
             gridTemplateColumns="repeat(4, minmax(0, 1fr))"
             sx={{
               "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
@@ -434,38 +469,17 @@ const Form = ({ translation }) => {
 
             </Box>
           {/* BUTTONS */}
-          <Box>
+          <Box gap={"2.5rem"}>
+            {isNonMobile && <FlexBetween >
+              {buttonMissingPassword()}
+              {buttonSubmit()}
+            </FlexBetween>}
+            {!isNonMobile && <FlexBetween flexDirection={"column"}>
+              {buttonSubmit()}
+              {buttonMissingPassword()}
+            </FlexBetween>}
             <FlexBetween>
-            
-            {!isNewPassword &&  <Typography
-            onClick={() => {
-              setPageType("password");
-            }}
-            sx={{
-                textDecoration: "underline",
-                color: palette.primary.light,
-                "&:hover": {
-                  cursor: "pointer",
-                  color: palette.primary.main,
-                },
-              }}>Esqueci a minha senha</Typography>}
-            <Button
-              type="submit"
-              sx={{
-                width: "50%",
-                m: "1rem 0",
-                p: "0.5rem",
-                borderRadius: 20,
-                backgroundColor: palette.primary.main,
-                color: palette.primary.light,
-                "&:hover": { color: palette.primary.main },
-              }}
-            >
-              {isLogin ? translation.loginPage.formLogin : isNewPassword ? "Solicitar recuperação de senha" : translation.loginPage.formRegister}
-            </Button>
-            
-            </FlexBetween>
-            <FlexBetween>
+              
             <Button
               variant="outlined"
               fullWidth

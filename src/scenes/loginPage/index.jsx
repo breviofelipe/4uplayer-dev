@@ -24,13 +24,15 @@ const LoginPage = () => {
           width={isNonMobileScreens ? "40%" : "100%"}
           display={"flex"}
         >
-          {isNonMobileScreens ? <ImagemArtistas src="https://res.cloudinary.com/dosghtja7/image/upload/v1721091247/assets/login/zifxnbfeg5dr3mjhzpma.png" /> 
+          {isNonMobileScreens 
+          ? <ImagemArtistas src="https://res.cloudinary.com/dosghtja7/image/upload/v1721091247/assets/login/zifxnbfeg5dr3mjhzpma.png" /> 
           : <Form translation={translation} />}
         </Box>
         <Box
           width={isNonMobileScreens ? "60%" : "100%"}
           display={"flex"} >
-          {!isNonMobileScreens ? <ImagemArtistas src="https://res.cloudinary.com/dosghtja7/image/upload/v1721091247/assets/login/zifxnbfeg5dr3mjhzpma.png" /> 
+          {!isNonMobileScreens 
+          ? <ImagemArtistas src="https://res.cloudinary.com/dosghtja7/image/upload/v1721091247/assets/login/zifxnbfeg5dr3mjhzpma.png" /> 
           : <Form translation={translation} />}
         </Box>
       </Box>
