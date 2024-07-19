@@ -12,14 +12,13 @@ const LoginPage = () => {
   const translation = useSelector((state) => state.translation);
  
   return (
-    <Box m={isNonMobileScreens ? "2rem" : undefined}>
+    <Box>
       <Box
         width={"100%"}
         flexDirection={isNonMobileScreens ? "row" : "column"}
         display={"flex"}
         height={"auto"}
         justifyContent="space-around"
-        backgroundColor={theme.palette.background.alt}
       > 
         <Box
           width={isNonMobileScreens ? "40%" : "100%"}

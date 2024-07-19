@@ -6,6 +6,7 @@ import {
   useMediaQuery,
   Typography,
   useTheme,
+  InputAdornment,
 } from "@mui/material";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { Formik } from "formik";
@@ -19,7 +20,8 @@ import LoadingComponent from "components/loading/Loading";
 import Alert from '@mui/material/Alert';
 import ReCaptchaComponent from "components/reCaptcha/ReCaptchaComponent";
 import Icon4uPlayer from "components/icons/Icon4uPlayer";
-
+import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
+import StarPassword from "components/customIcons/StarPassword";
 
 
 
@@ -270,6 +272,7 @@ const Form = ({ translation }) => {
       }) => (
         <form onSubmit={handleSubmit}>
           <Box
+            minWidth={"350px"}
             display="grid"
             gap="30px"
             gridTemplateColumns="repeat(4, minmax(0, 1fr))"
@@ -369,27 +372,45 @@ const Form = ({ translation }) => {
 
             {isLogin && <><TextField
               label={translation.loginPage.formEmail}
+              color="info"
               onBlur={handleBlur}
               onChange={handleChange}
               value={values.email}
               name="email"
               error={Boolean(touched.email) && Boolean(errors.email)}
               helperText={touched.email && errors.email}
-              sx={{ gridColumn: "span 4" }}
+              sx={{ gridColumn: "span 4", bgcolor: "background.alt" }}
+              placeholder="E-mail ou nome de usuário"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <PersonOutlineIcon fontSize="large"/>
+                  </InputAdornment>
+                ),
+              }}
             />
             <TextField
               label={translation.loginPage.formPassword}
               type="password"
+              color="info"
               onBlur={handleBlur}
               onChange={handleChange}
               value={values.password}
               name="password"
               error={Boolean(touched.password) && Boolean(errors.password)}
               helperText={touched.password && errors.password}
-              sx={{ gridColumn: "span 4" }}
-            /></>
+              sx={{ gridColumn: "span 4", bgcolor: "background.alt" }}
+              placeholder="Senha"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <StarPassword />
+                  </InputAdornment>
+                ),
+              }}
+            />
+            </>
             }
-
             {isNewPassword && <>
               <TextField
               label={"Recuperar senha e-mail"}
@@ -414,12 +435,27 @@ const Form = ({ translation }) => {
             </Box>
           {/* BUTTONS */}
           <Box>
+            <FlexBetween>
+            
+            {!isNewPassword &&  <Typography
+            onClick={() => {
+              setPageType("password");
+            }}
+            sx={{
+                textDecoration: "underline",
+                color: palette.primary.light,
+                "&:hover": {
+                  cursor: "pointer",
+                  color: palette.primary.main,
+                },
+              }}>Esqueci a minha senha</Typography>}
             <Button
-              fullWidth
               type="submit"
               sx={{
-                m: "2rem 0",
-                p: "1rem",
+                width: "50%",
+                m: "1rem 0",
+                p: "0.5rem",
+                borderRadius: 20,
                 backgroundColor: palette.primary.main,
                 color: palette.primary.light,
                 "&:hover": { color: palette.primary.main },
@@ -427,37 +463,28 @@ const Form = ({ translation }) => {
             >
               {isLogin ? translation.loginPage.formLogin : isNewPassword ? "Solicitar recuperação de senha" : translation.loginPage.formRegister}
             </Button>
+            
+            </FlexBetween>
             <FlexBetween>
-            <Typography
+            <Button
+              variant="outlined"
+              fullWidth
               onClick={() => {
                 setPageType(isLogin ? "register" : "login");
                 resetForm();
               }}
               sx={{
-                textDecoration: "underline",
-                color: palette.primary.main,
-                "&:hover": {
-                  cursor: "pointer",
-                  color: palette.primary.light,
-                },
+                m: "1rem 0",
+                p: "0.5rem",
+                borderRadius: 20,
+                borderWidth: 1,
+                "&:hover": { color: palette.primary.light },
               }}
             >
               {isLogin
                 ?  translation.loginPage.fraseFormCriar
                 :  translation.loginPage.fraseFormEntrar }
-            </Typography>
-            {!isNewPassword &&  <Typography
-            onClick={() => {
-              setPageType("password");
-            }}
-            sx={{
-                textDecoration: "underline",
-                color: palette.primary.main,
-                "&:hover": {
-                  cursor: "pointer",
-                  color: palette.primary.light,
-                },
-              }}>Esqueceu a senha?</Typography>}
+            </Button>
             </FlexBetween>
           </Box>
         </form>

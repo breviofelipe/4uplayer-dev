@@ -33,7 +33,7 @@ function App() {
         loginPage: {
           title: "4UPLAYER",
           frase: "Ingresse e seja parte da maior aventura entre mundos, personagens e magia",
-          fraseFormCriar: "Não tem uma conta? Crie aqui.",
+          fraseFormCriar: "criar uma conta",
           fraseFormEntrar: "Já tem uma conta? Entre aqui.",
           fraseRequired: "Obrigatório",
           fraseEmail: "Email inválido!",
@@ -41,7 +41,7 @@ function App() {
           sucessRegister: "Usuário criado com sucesso!",
           error: "Falha - Tente novamente mais tarde",
           addPic: "Adicione uma foto aqui",
-          formEmail: "E-mail",
+          formEmail: "E-mail ou nome de usuário",
           formPassword: "Senha",
           formName: "Nome",
           formLastName: "Sobrenome",
