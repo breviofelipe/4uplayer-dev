@@ -5,6 +5,7 @@ import { Box, Typography, useTheme } from '@mui/material';
 import FlexBetween from 'components/FlexBetween';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { useEffect, useState } from 'react';
+import GamerLoading from 'components/gamerLoading/GamerLoading';
 const ImagemArtistas = ({ src, alt, profile }) => {
   const { palette } = useTheme();
   const [userArt, setUserArt] = useState();
@@ -28,33 +29,22 @@ const ImagemArtistas = ({ src, alt, profile }) => {
   },[])
   return (
     <Box display={"flex"} flexDirection={"column"} width={"100%"} bgcolor={"#3700FF"}>
-      {!userArt ? <Box className="imagem-container">
-        <div style={{
-          backgroundImage:`url(${src})`,
-        }} alt={alt} className="imagem-responsiva" />
+      {!userArt ? <Box className="loading-container">
+        <GamerLoading />
       </Box> 
       :
-      <Box className="imagem-container">
-        <div style={{
-          backgroundImage:`url(${userArt.src})`,
-        }} alt={alt} className="imagem-responsiva" />
-      </Box>
-      }
-      {!userArt ? <FlexBetween>
-          <Box display={"flex"} >
-            <Typography color={palette.primary.dark} >Artista da semana </Typography>
-            <Typography ml={"0.5rem"}>{profile}</Typography>
-          </Box>
-          <InfoOutlinedIcon />
-      </FlexBetween>
-      : <FlexBetween>
-        <Box display={"flex"} >
+      <><Box className="imagem-container">
+      <div style={{
+        backgroundImage:`url(${userArt.src})`,
+      }} alt={alt} className="imagem-responsiva" />
+    </Box>
+    <FlexBetween>
+      <Box display={"flex"} >
           <Typography color={palette.primary.dark} >Artista da semana </Typography>
           <Typography ml={"0.5rem"}>{userArt.description}</Typography>
-        </Box>
+      </Box>
         <InfoOutlinedIcon />
-    </FlexBetween>
-      
+    </FlexBetween></>
       }
     </Box>
   );
