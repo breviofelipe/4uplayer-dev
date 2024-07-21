@@ -5,7 +5,7 @@ import { Box, Typography, useTheme } from '@mui/material';
 import FlexBetween from 'components/FlexBetween';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { useEffect, useState } from 'react';
-import GamerLoading from 'components/gamerLoading/GamerLoading';
+import LoadingComponent from 'components/loading/Loading';
 const ImagemArtistas = ({ src, alt, profile }) => {
   const { palette } = useTheme();
   const [userArt, setUserArt] = useState();
@@ -30,7 +30,7 @@ const ImagemArtistas = ({ src, alt, profile }) => {
   return (
     <Box display={"flex"} flexDirection={"column"} width={"100%"} bgcolor={"#3700FF"}>
       {!userArt ? <Box className="loading-container">
-        <GamerLoading />
+        <LoadingComponent />
       </Box> 
       :
       <><Box className="imagem-container">
