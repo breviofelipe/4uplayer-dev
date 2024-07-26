@@ -33,7 +33,7 @@ const Form = ({ translation }) => {
   const { palette } = useTheme();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const isNonMobile = useMediaQuery("(min-width:600px)");
+  const isNonMobile = useMediaQuery("(min-width:1000px)");
   const isLogin = pageType === "login";
   const isRegister = pageType === "register";
   const isNewPassword = pageType === "password";
@@ -270,7 +270,7 @@ const Form = ({ translation }) => {
   </Button>
   }
   return (
-    <Box gap={"2.5rem"} width={"100%"} justifyContent="center" alignItems={"center"} flexDirection={"column"} display={"flex"}>
+    <Box height={isNonMobile ? undefined :  "60vh"} gap={"2.5rem"} width={"100%"} justifyContent="center" alignItems={"center"} flexDirection={"column"} display={"flex"}>
       <Box p="1rem 6%" gap={"0.5rem"} justifyContent="center" alignItems={"center"} display={"flex"} >
           <Icon4uPlayer />
           <Typography mt={"0.5rem"} fontWeight="bold" fontSize="32px" color={palette.neutral.dark}>

@@ -1,7 +1,7 @@
 
 import PropTypes from 'prop-types';
 import './ImagemArtistas.css'; // Importa o arquivo CSS para estilos adicionais
-import { Box, Typography, useTheme } from '@mui/material';
+import { Box, Typography, useMediaQuery, useTheme } from '@mui/material';
 import FlexBetween from 'components/FlexBetween';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { useEffect, useState } from 'react';
@@ -9,7 +9,7 @@ import LoadingComponent from 'components/loading/Loading';
 const ImagemArtistas = ({ src, alt, profile }) => {
   const { palette } = useTheme();
   const [userArt, setUserArt] = useState();
-
+  const isNonMobile = useMediaQuery("(min-width:1000px)");
   const randomImage = async () => {
     let url = process.env.REACT_APP_HOST_LOGIN;
 
@@ -35,6 +35,7 @@ const ImagemArtistas = ({ src, alt, profile }) => {
       :
       <><Box className="imagem-container">
       <div style={{
+        height: isNonMobile ? undefined :  "80vh",
         backgroundImage:`url(${userArt.src})`,
       }} alt={alt} className="imagem-responsiva" />
     </Box>
