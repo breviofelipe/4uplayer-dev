@@ -44,7 +44,7 @@ const ImagemArtistas = ({ src, alt, profile }) => {
           <Typography color={palette.primary.light} >Artista da semana </Typography>
           <Typography ml={"0.5rem"}>{userArt.description}</Typography>
       </Box>
-        <InfoOutlinedIcon />
+        <InfoOutlinedIcon color='disabled' />
     </FlexBetween></>
       }
     </Box>
