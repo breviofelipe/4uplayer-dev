@@ -28,8 +28,8 @@ const ImagemArtistas = ({ src, alt, profile }) => {
     randomImage()
   },[])
   return (
-    <Box display={"flex"} flexDirection={"column"} width={"100%"} bgcolor={"#3700FF"}>
-      {!userArt ? <Box className="loading-container">
+    <Box display={"flex"} flexDirection={"column"} width={"100%"} bgcolor={"primary.dark"}>
+      {!userArt ? <Box bgcolor={"primary.dark"} className="loading-container">
         <LoadingComponent />
       </Box> 
       :
