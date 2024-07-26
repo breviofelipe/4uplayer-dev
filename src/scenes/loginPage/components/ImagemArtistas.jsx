@@ -40,7 +40,7 @@ const ImagemArtistas = ({ src, alt, profile }) => {
     </Box>
     <FlexBetween>
       <Box display={"flex"} >
-          <Typography color={palette.primary.dark} >Artista da semana </Typography>
+          <Typography color={palette.primary.light} >Artista da semana </Typography>
           <Typography ml={"0.5rem"}>{userArt.description}</Typography>
       </Box>
         <InfoOutlinedIcon />

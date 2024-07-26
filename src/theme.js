@@ -28,10 +28,16 @@ export const colorTokens = {
     900: "#001519",
   },
   custom: {
-    10: "#030E40",
-    20: "#1B213B",
-    30: "#3700FF"
-
+    primary_dark: "#3700FF",
+    primary_main: "#3101EE",
+    primary_light: "#8C8C8C",
+    neutral_dark: "#FFFFFF",
+    neutral_main: "#DBDBDB",
+    neutral_medium_main: "#C1C1C1",
+    neutral_medium: "#AFAFAF",
+    neutral_light: "#22294B",
+    background: "#01061C",
+    background_alt: "#1B213B",
   }
 };
 
@@ -40,49 +46,22 @@ export const themeSettings = (mode) => {
   return {
     palette: {
       mode: mode,
-      ...(mode === "dark"
-        ? {
-            // palette values for dark mode
-            primary: {
-              dark: colorTokens.primary[200],
-              main: colorTokens.custom[30],
-              light: colorTokens.primary[50],
-            },
-            neutral: {
-              dark: colorTokens.grey[100],
-              main: colorTokens.grey[200],
-              mediumMain: colorTokens.grey[300],
-              medium: colorTokens.grey[400],
-              light: colorTokens.grey[700],
-            },
-            background: {
-              // default: colorTokens.grey[900],
-              // alt: colorTokens.grey[800],
-              default: colorTokens.custom[10],
-              alt: colorTokens.custom[20]
-            },
-          }
-        : {
-            // palette values for light mode
-            primary: {
-              dark: colorTokens.primary[700],
-              main: colorTokens.primary[500],
-              light: colorTokens.primary[50],
-            },
-            neutral: {
-              dark: colorTokens.grey[700],
-              main: colorTokens.grey[500],
-              mediumMain: colorTokens.grey[400],
-              medium: colorTokens.grey[300],
-              light: colorTokens.grey[50],
-            },
-            background: {
-              // default: colorTokens.grey[10],
-              // alt: colorTokens.grey[0],
-              default: colorTokens.custom[10],
-              alt: colorTokens.custom[20]
-            },
-          }),
+      primary: {
+        dark: colorTokens.custom["primary_dark"],
+        main: colorTokens.custom["primary_main"],
+        light: colorTokens.custom["primary_light"],
+      },
+      neutral: {
+        dark: colorTokens.custom["neutral_dark"],
+        main: colorTokens.custom["neutral_main"],
+        mediumMain: colorTokens.custom["neutral_medium_main"],
+        medium: colorTokens.custom["neutral_medium"],
+        light: colorTokens.custom["neutral_light"],
+      },
+      background: {
+        default: colorTokens.custom["background"],
+        alt: colorTokens.custom["background_alt"]
+      },
     },
     typography: {
       fontFamily: ["Rubik", "sans-serif"].join(","),

@@ -63,6 +63,7 @@ const Navbar = () => {
           color="primary"
           onClick={() => navigate("/home") }
           sx={{
+            color: dark,
             marginTop: "0.5rem",
             "&:hover": {
               color: primaryLight,
@@ -96,13 +97,13 @@ const Navbar = () => {
                 </Tooltip>
                 </IconButton> 
             }
-          <IconButton onClick={() => dispatch(setMode())}>
+          {/* <IconButton onClick={() => dispatch(setMode())}>
             {theme.palette.mode === "dark" ? (
               <DarkMode sx={{ fontSize: "25px" }} />
             ) : (
               <LightMode sx={{ color: dark, fontSize: "25px" }} />
             )}
-          </IconButton>
+          </IconButton> */}
           <IconButton onClick={() => navigate("/games")} >
             <SportsEsportsIcon sx={{ fontSize: "25px" }} />
           </IconButton>          
@@ -181,11 +182,11 @@ const Navbar = () => {
               onClick={() => dispatch(setMode())}
               sx={{ fontSize: "25px" }}
             >
-              {theme.palette.mode === "dark" ? (
+              {/* {theme.palette.mode === "dark" ? (
                 <DarkMode sx={{ fontSize: "25px" }} />
               ) : (
                 <LightMode sx={{ color: dark, fontSize: "25px" }} />
-              )}
+              )} */}
             </IconButton>
             <IconButton onClick={() => navigate("/games")} >
               <SportsEsportsIcon sx={{ fontSize: "25px" }} />

@@ -262,7 +262,7 @@ const Form = ({ translation }) => {
       p: "0.5rem",
       borderRadius: 20,
       backgroundColor: palette.primary.main,
-      color: palette.primary.light,
+      color: palette.neutral.dark,
       "&:hover": { color: palette.primary.main },
     }}
   >
@@ -273,7 +273,7 @@ const Form = ({ translation }) => {
     <Box gap={"2.5rem"} width={"100%"} justifyContent="center" alignItems={"center"} flexDirection={"column"} display={"flex"}>
       <Box p="1rem 6%" gap={"0.5rem"} justifyContent="center" alignItems={"center"} display={"flex"} >
           <Icon4uPlayer />
-          <Typography mt={"0.5rem"} fontWeight="bold" fontSize="32px" color={palette.primary.light}>
+          <Typography mt={"0.5rem"} fontWeight="bold" fontSize="32px" color={palette.neutral.dark}>
           {translation != null && translation.loginPage.title}
           </Typography>
         </Box>
