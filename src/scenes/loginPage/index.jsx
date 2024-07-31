@@ -9,7 +9,29 @@ import ImagemArtistas from "./components/ImagemArtistas";
 const LoginPage = () => {
   const theme = useTheme();
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
-  const translation = useSelector((state) => state.translation);
+  const translation = {loginPage: {
+    title: "4UPLAYER",
+    frase: "Ingresse e seja parte da maior aventura entre mundos, personagens e magia",
+    fraseFormCriar: "criar uma conta",
+    fraseFormEntrar: "Já tem uma conta? Entre aqui.",
+    fraseRequired: "Obrigatório",
+    fraseEmail: "Email inválido!",
+    warningLogin: "Usuário ou senha inválido!",
+    sucessRegister: "Usuário criado com sucesso!",
+    error: "Falha - Tente novamente mais tarde",
+    addPic: "Adicione uma foto aqui",
+    formEmail: "E-mail ou nome de usuário",
+    formPassword: "Senha",
+    formName: "Nome",
+    formLastName: "Sobrenome",
+    formClan: "Clan",
+    formNickname: "Nickname",
+    formLogin: "Entrar",
+    formRegister: "Cadastrar"
+  }
+};
+  
+  // useSelector((state) => state.translation);
  
   return (
     <Box>
@@ -25,14 +47,14 @@ const LoginPage = () => {
           display={"flex"}
         >
           {isNonMobileScreens 
-          ? <ImagemArtistas profile={"Ivona Denovic - @ivonadenovic"} src="https://res.cloudinary.com/dosghtja7/image/upload/v1721351456/assets/arts/g919fsw0ctb0wrqmmkoj.jpg" /> 
+          ? <ImagemArtistas /> 
           : <Form translation={translation} />}
         </Box>
         <Box
           width={isNonMobileScreens ? "60%" : "100%"}
           display={"flex"} >
           {!isNonMobileScreens 
-          ? <ImagemArtistas profile={"Zihan - @zihan"} src="https://res.cloudinary.com/dosghtja7/image/upload/v1721091247/assets/login/zifxnbfeg5dr3mjhzpma.png" /> 
+          ? <ImagemArtistas /> 
           : <Form translation={translation} />}
         </Box>
       </Box>

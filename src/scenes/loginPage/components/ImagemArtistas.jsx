@@ -6,7 +6,7 @@ import FlexBetween from 'components/FlexBetween';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { useEffect, useState } from 'react';
 import LoadingComponent from 'components/loading/Loading';
-const ImagemArtistas = ({ src, alt, profile }) => {
+const ImagemArtistas = ( ) => {
   const { palette } = useTheme();
   const [userArt, setUserArt] = useState();
   const isNonMobile = useMediaQuery("(min-width:1000px)");
@@ -37,7 +37,7 @@ const ImagemArtistas = ({ src, alt, profile }) => {
       <div style={{
         height: isNonMobile ? undefined :  "80vh",
         backgroundImage:`url(${userArt.src})`,
-      }} alt={alt} className="imagem-responsiva" />
+      }} alt={'Imagem'} className="imagem-responsiva" />
     </Box>
     <FlexBetween>
       <Box display={"flex"} >
@@ -49,15 +49,6 @@ const ImagemArtistas = ({ src, alt, profile }) => {
       }
     </Box>
   );
-};
-
-ImagemArtistas.propTypes = {
-  src: PropTypes.string.isRequired,
-  alt: PropTypes.string
-};
-
-ImagemArtistas.defaultProps = {
-  alt: 'Imagem'
 };
 
 export default ImagemArtistas;
