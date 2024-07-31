@@ -17,6 +17,7 @@ import MissionsWidget from "scenes/widgets/missions/MissionsWidget";
 import MyClanWidget from "scenes/widgets/clans/MyClanWidget";
 import BuyPlayerCoin from "scenes/widgets/buyCoin/BuyPlayerCoin";
 import ClansWidget from "scenes/widgets/clans/ClansWidget";
+import TwitchEmbed from "components/twitch/TwitchEmbed";
 
 const HomePage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
@@ -45,6 +46,7 @@ const HomePage = () => {
     const main = () => {
       return <>
        <MyPostWidget picturePath={picturePath} />
+       <TwitchEmbed embedId={'44613204827'} />
       {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}     
       {isNonMobileScreens && role !== "PLAYER" && <><MemberWidget />
       {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}</>}
