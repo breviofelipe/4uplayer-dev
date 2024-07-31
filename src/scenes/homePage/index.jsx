@@ -5,8 +5,8 @@ import UserWidget from "scenes/widgets/user/UserWidget";
 import FriendListWidget from "scenes/widgets/utils/FriendListWidget";
 
 import PageSchemaComponent from "components/page/PageSchemaComponent";
-import PostsWidget from "scenes/widgets/utils/PostsWidget";
-import MyPostWidget from "scenes/widgets/utils/MyPostWidget";
+import PostsWidget from "scenes/widgets/posts/PostsWidget";
+import MyPostWidget from "scenes/widgets/posts/MyPostWidget";
 import UserListWidget from "scenes/widgets/users";
 import MetaMaskWidget from "scenes/widgets/metamask/MetaMaskWidget";
 import { useNavigate } from "react-router-dom";
@@ -46,7 +46,7 @@ const HomePage = () => {
     const main = () => {
       return <>
        <MyPostWidget picturePath={picturePath} />
-       {/* <TwitchEmbed embedId={'51649075373'} /> */}
+       {/* <TwitchEmbed embedId={'2208754200'} /> */}
       {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}     
       {isNonMobileScreens && role !== "PLAYER" && <><MemberWidget />
       {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}</>}
