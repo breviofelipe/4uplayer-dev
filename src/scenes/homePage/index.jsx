@@ -46,7 +46,7 @@ const HomePage = () => {
     const main = () => {
       return <>
        <MyPostWidget picturePath={picturePath} />
-       <TwitchEmbed embedId={'44613204827'} />
+       <TwitchEmbed embedId={'51649075373'} />
       {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}     
       {isNonMobileScreens && role !== "PLAYER" && <><MemberWidget />
       {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}</>}
