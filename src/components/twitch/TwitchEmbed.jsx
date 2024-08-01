@@ -38,7 +38,7 @@ const TwitchEmbed = ({ embedId }) => {
 
     return <div ref={elementRef} className="video-responsive">
     <iframe
-        src={`https://player.twitch.tv/?video=${embedId}&autoplay=${isVisible}&muted=true&time=0h0m00s&parent=localhost`}
+        src={`https://player.twitch.tv/?video=${embedId}&autoplay=${isVisible}&muted=true&time=0h0m00s&parent=4uplayer-dev.vercel.app`}
         height="720"
         width="1280"
         allowfullscreen>
