@@ -1,0 +1,5 @@
+/* src/FixedComponent.css */
+.fixed-component {
+    position: fixed;
+    z-index: 1000; /* Garante que o componente fique acima de outros elementos */
+}

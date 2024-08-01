@@ -17,7 +17,6 @@ import MissionsWidget from "scenes/widgets/missions/MissionsWidget";
 import MyClanWidget from "scenes/widgets/clans/MyClanWidget";
 import BuyPlayerCoin from "scenes/widgets/buyCoin/BuyPlayerCoin";
 import ClansWidget from "scenes/widgets/clans/ClansWidget";
-import TwitchEmbed from "components/twitch/TwitchEmbed";
 
 const HomePage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
@@ -31,6 +30,8 @@ const HomePage = () => {
         {!isNonMobileScreens && role !== "PLAYER" && <><MemberWidget />
         {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}</>}
         <UserWidget userId={id} />
+        {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
+        <BuyPlayerCoin />
         {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
         <ResgateWidget />
         {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
@@ -46,12 +47,7 @@ const HomePage = () => {
     const main = () => {
       return <>
        <MyPostWidget picturePath={picturePath} />
-       {/* <TwitchEmbed embedId={'2208754200'} /> */}
       {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}     
-      {isNonMobileScreens && role !== "PLAYER" && <><MemberWidget />
-      {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}</>}
-      <BuyPlayerCoin />
-      {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
       <PostsWidget />
       {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
        </>
@@ -64,6 +60,8 @@ const HomePage = () => {
 
     const lastContent = () => {
       return <>
+        {isNonMobileScreens && role !== "PLAYER" && <><MemberWidget />
+          {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}</>}
           {emailCheck && <><MissionsWidget />{isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}</>}                    
           <MyClanWidget clan={clan} />
           {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}

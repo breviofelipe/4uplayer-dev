@@ -1,11 +1,7 @@
 import {
   EditOutlined,
   DeleteOutlined,
-  AttachFileOutlined,
-  GifBoxOutlined,
   ImageOutlined,
-  MicOutlined,
-  MoreHorizOutlined,
 } from "@mui/icons-material";
 import {
   Box,
@@ -21,10 +17,11 @@ import FlexBetween from "components/FlexBetween";
 import Dropzone from "react-dropzone";
 import UserImage from "components/UserImage";
 import WidgetWrapper from "components/WidgetWrapper";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPosts } from "state";
 import LoadingComponent from "components/loading/Loading";
+import "./MyPostWidget.css";
           
 
 const MyPostWidget = ({ picturePath }) => {
@@ -41,6 +38,27 @@ const MyPostWidget = ({ picturePath }) => {
   const medium = palette.neutral.medium;
   
   const url = process.env.REACT_APP_HOST_POSTS; 
+
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+      const handleScroll = () => {
+          setScrollY(window.scrollY);
+      };
+
+      window.addEventListener('scroll', handleScroll);
+
+      return () => {
+          window.removeEventListener('scroll', handleScroll);
+      };
+  }, []);
+
+  const style = {
+      position: 'relative',
+      top: `${scrollY}px`,
+      zIndex: 100,
+  };
+
   
   const getBase64FromUrl = (image) => {
   var reader = new FileReader();
@@ -92,7 +110,7 @@ const MyPostWidget = ({ picturePath }) => {
     }    
   };
 
-  return (<div>
+  return (<div style={style}>
     { loading ? <WidgetWrapper mobile={!isNonMobileScreens}><LoadingComponent /></WidgetWrapper> : <><WidgetWrapper mobile={!isNonMobileScreens}>
       <FlexBetween gap="1.5rem">
         <UserImage image={picturePath} />

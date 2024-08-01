@@ -12,15 +12,15 @@ const PageSchemaComponent = ({topContent, main, lastContent, alerUser}) => {
           padding={isNonMobileScreens ? "2rem 6%" : undefined}
           display={isNonMobileScreens ? "flex" : "block"}
           gap="2rem"
-          justifyContent="center"
+          justifyContent="space-between"
         >
-          <Box flexBasis={isNonMobileScreens ? "26%" : undefined}>{topContent}</Box>
+          <Box flexBasis={isNonMobileScreens ? "20%" : undefined}>{topContent}</Box>
           <Box
-            flexBasis={isNonMobileScreens ? "42%" : undefined}
+            flexBasis={isNonMobileScreens ? "60%" : undefined}
           >
             {main}
           </Box>      
-          <Box flexBasis={isNonMobileScreens ? "26%" : undefined}>
+          <Box flexBasis={isNonMobileScreens ? "30%" : undefined}>
             {lastContent}
           </Box>
           
