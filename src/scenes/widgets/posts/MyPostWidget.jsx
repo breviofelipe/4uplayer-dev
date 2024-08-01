@@ -109,8 +109,8 @@ const MyPostWidget = ({ picturePath }) => {
       setLoading(false)
     }    
   };
-
-  return (<div style={style}>
+  // style={style}
+  return (<div >
     { loading ? <WidgetWrapper mobile={!isNonMobileScreens}><LoadingComponent /></WidgetWrapper> : <><WidgetWrapper mobile={!isNonMobileScreens}>
       <FlexBetween gap="1.5rem">
         <UserImage image={picturePath} />
