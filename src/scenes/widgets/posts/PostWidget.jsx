@@ -17,6 +17,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate } from "react-router-dom";
 import UserImage from "components/UserImage";
 import YoutubeEmbed from "components/youtube/YoutubeEmbed";
+import TwitchEmbed from "components/twitch/TwitchEmbed";
 
 const PostWidget = ({
   postId,
@@ -29,7 +30,8 @@ const PostWidget = ({
   likes,
   comments,
   createdAt,
-  youtubeEmbedId
+  youtubeEmbedId,
+  twitchEmbedId
 }) => {
   const [isComments, setIsComments] = useState(false);
   const dispatch = useDispatch();
@@ -124,6 +126,7 @@ const PostWidget = ({
       />
     )}
     {youtubeEmbedId && <YoutubeEmbed embedId={youtubeEmbedId} />}
+    {twitchEmbedId && <TwitchEmbed embedId={twitchEmbedId} />}
     <FlexBetween mt="0.25rem">
       <FlexBetween gap="1rem">
         <FlexBetween gap="0.3rem">

@@ -67,7 +67,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
         likes,
         comments,
         createdAt,
-        youtubeEmbedId
+        youtubeEmbedId, twitchEmbedId
       }) => (
         <PostWidget
           key={id}
@@ -82,6 +82,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
           comments={comments}
           createdAt={createdAt}
           youtubeEmbedId={youtubeEmbedId}
+          twitchEmbedId={twitchEmbedId}
         />
       )
     )
