@@ -31,6 +31,9 @@ const HomePage = () => {
         {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}</>}
         <UserWidget userId={id} />
         {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
+
+        {isNonMobileScreens && role !== "PLAYER" && <><MemberWidget />
+          {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}</>}
         <BuyPlayerCoin />
         {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
         <ResgateWidget />
@@ -60,8 +63,6 @@ const HomePage = () => {
 
     const lastContent = () => {
       return <>
-        {isNonMobileScreens && role !== "PLAYER" && <><MemberWidget />
-          {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}</>}
           {emailCheck && <><MissionsWidget />{isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}</>}                    
           <MyClanWidget clan={clan} />
           {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
