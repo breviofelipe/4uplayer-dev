@@ -11,7 +11,7 @@ function PostComponent({ titulo, subtitulo, icon, content, msg, isCenter = true,
     const medium = palette.neutral.medium;
     const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
     
-    return <Box minWidth={"300px"}>
+    return <Box minWidth={"345px"}>
         {!isNonMobileScreens && <Divider />}
         <WidgetWrapper mobile={!isNonMobileScreens}>
        <FlexBetween>
