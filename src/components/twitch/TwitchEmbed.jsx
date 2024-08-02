@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import "./TwitchEmbed.css";
 
 const TwitchEmbed = ({ embedId }) => {
+  const domain = process.env.REACT_APP_DOMAIN;
   const [isVisible, setIsVisible] = useState(false);
   const elementRef = useRef(null);
 
@@ -38,7 +39,7 @@ const TwitchEmbed = ({ embedId }) => {
 
     return <div ref={elementRef} className="video-responsive">
     <iframe
-        src={`https://player.twitch.tv/?video=${embedId}&autoplay=${isVisible}&muted=true&time=0h0m00s&parent=4uplayer-dev.vercel.app`}
+        src={`https://player.twitch.tv/?video=${embedId}&autoplay=${isVisible}&muted=true&time=0h0m00s&parent=${domain}`}
         height="720"
         width="1280"
         allowfullscreen>
