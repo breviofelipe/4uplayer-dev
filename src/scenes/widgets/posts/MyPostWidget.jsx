@@ -77,7 +77,7 @@ const MyPostWidget = ({ picturePath }) => {
         body: JSON.stringify(body),
       });
       const posts = await response.json();
-      dispatch(setPosts({ posts }));
+      dispatch(setPosts({ posts: posts.content }));
       setImage(null);
       setPost("");
       setLoading(false);
@@ -104,7 +104,7 @@ const MyPostWidget = ({ picturePath }) => {
         body: JSON.stringify(body),
       });
       const posts = await response.json();
-      dispatch(setPosts({ posts }));
+      dispatch(setPosts({ posts: posts.content }));
       setPost("");
       setLoading(false)
     }    

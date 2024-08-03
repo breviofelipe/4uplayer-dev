@@ -33,6 +33,7 @@ export const authSlice = createSlice({
       state.user = null;
       state.token = null;
       state.metamaskAddress = null;
+      state.posts = null;
     },
     setFriends: (state, action) => {
       if (state.user) {
