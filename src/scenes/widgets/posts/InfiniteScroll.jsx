@@ -10,16 +10,13 @@ import WysiwygTwoToneIcon from '@mui/icons-material/WysiwygTwoTone';
 
 const InfiniteScroll = ({ userId, isProfile = false }) => {
   var posts = useSelector((state) => state.posts);
-  const [items, setItems] = useState([]);
+  const [isLast, setLast] = useState(false);
   const [page, setPage] = useState(0);
   const observer = useRef();
   const [isLoading, setLoading] = useState(false);
   const urlEnv = process.env.REACT_APP_HOST_POSTS;
   const token = useSelector((state) => state.token);
   const dispatch = useDispatch();
-  function delay(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
   
   const loadMoreItems = async () => {
     setLoading(true);
@@ -29,7 +26,7 @@ const InfiniteScroll = ({ userId, isProfile = false }) => {
     });
     const data = await response.json();
     var newItems = data.content;
-    console.log(data.last)
+    setLast(data.last);
     setLoading(false);
     if(posts){
         dispatch(setPosts({ posts: [...posts, ...newItems] }));
@@ -39,6 +36,7 @@ const InfiniteScroll = ({ userId, isProfile = false }) => {
   };
 
   const loadMoreItemsUserPosts = async () => {
+    setLoading(true);
     const response = await fetch(
       urlEnv+`/posts/${userId}/posts?page=${page}&sizePerPage=3&sortDirection=DESC`,
       {
@@ -48,6 +46,8 @@ const InfiniteScroll = ({ userId, isProfile = false }) => {
     );
     try {
       const data = await response.json();
+      setLast(data.last);
+      setLoading(false);
       dispatch(setPosts({ posts: data }));
     } catch (err) {
       console.log(err);
@@ -55,11 +55,13 @@ const InfiniteScroll = ({ userId, isProfile = false }) => {
   };
 
   useEffect(() => {    
-    if (isProfile) {
-        loadMoreItemsUserPosts();
-      } else {
-        loadMoreItems();
-      }
+    if(!isLast){
+        if (isProfile) {
+           loadMoreItemsUserPosts();
+        } else {
+           loadMoreItems();
+        }
+    }
   }, [page]);
 
   const lastItemRef = useCallback(node => {
