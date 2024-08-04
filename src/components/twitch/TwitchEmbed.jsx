@@ -27,13 +27,7 @@ const TwitchEmbed = ({ embedId }) => {
   }, []);
 
   useEffect(() => {
-      if (isVisible) {
-          console.log('O componente está visível!');
-          // Dispare qualquer ação desejada aqui
-      }
-      if(!isVisible){
-          
-      }
+
   }, [isVisible]);
 
 

@@ -1,5 +1,4 @@
 
-import PropTypes from 'prop-types';
 import './ImagemArtistas.css'; // Importa o arquivo CSS para estilos adicionais
 import { Box, Typography, useMediaQuery, useTheme } from '@mui/material';
 import FlexBetween from 'components/FlexBetween';
@@ -19,7 +18,6 @@ const ImagemArtistas = ( ) => {
 
     if(response.ok){
       let body = await response.json();
-      console.log(body);
       setUserArt(body);
     }
   }
@@ -35,12 +33,12 @@ const ImagemArtistas = ( ) => {
       :
       <><Box className="imagem-container">
       <div style={{
-        height: isNonMobile ? undefined :  "80vh",
+        height: isNonMobile ? "96vh" :  "80vh",
         backgroundImage:`url(${userArt.src})`,
       }} alt={'Imagem'} className="imagem-responsiva" />
     </Box>
     <FlexBetween>
-      <Box display={"flex"} >
+      <Box minHeight={"4vh"} ml={"0.5rem"} alignItems={"center"} display={"flex"} >
           <Typography color={palette.primary.light} >Artista da semana </Typography>
           <Typography ml={"0.5rem"}>{userArt.description}</Typography>
       </Box>

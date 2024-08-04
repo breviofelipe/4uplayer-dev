@@ -198,7 +198,7 @@ const UserWidget = ({ userId }) => {
     clanOwner
   } = user;
 
-  return <WidgetWrapper style={role === 'PLAYER' ? {
+  return <WidgetWrapper minWidth={"365px"} style={role === 'PLAYER' ? {
     border: '2px solid gold',
     boxShadow: '0px 0px 25px rgba(255, 215, 0, 0.5)', /* Define o efeito de sombra com cor dourada */
     // background: 'linear-gradient(145deg, #ffd700, #ffd700 50%, #e8c100 50%, #e8c100)', /* Cria o efeito de gradiente dourado */

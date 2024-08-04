@@ -5,8 +5,10 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PostWidget from './PostWidget';
 import { setPosts } from 'state';
+import PostComponent from 'components/post/PostComponent';
+import WysiwygTwoToneIcon from '@mui/icons-material/WysiwygTwoTone';
 
-const InfiniteScroll = () => {
+const InfiniteScroll = ({ userId, isProfile = false }) => {
   var posts = useSelector((state) => state.posts);
   const [items, setItems] = useState([]);
   const [page, setPage] = useState(0);
@@ -20,31 +22,44 @@ const InfiniteScroll = () => {
   }
   
   const loadMoreItems = async () => {
-    // Simulando uma chamada de API para buscar mais itens
-    // const newItems = await new Promise(resolve => {
-    //   setTimeout(() => {
-    //     resolve(Array.from({ length: 10 }, (_, i) => `Item ${i + 1 + (page - 1) * 10}`));
-    //   }, 1000);
-    // });
-
-
-  
     setLoading(true);
-    // await delay(5000);
-    const response = await fetch(urlEnv+`/posts?page=${page}&sizePerPage=5&sortDirection=DESC`, {
+    const response = await fetch(urlEnv+`/posts?page=${page}&sizePerPage=3&sortDirection=DESC`, {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     });
     const data = await response.json();
     var newItems = data.content;
+    console.log(data.last)
     setLoading(false);
-
-    setItems(prevItems => [...prevItems, ...newItems]);
-    dispatch(setPosts({ posts: items }));
+    if(posts){
+        dispatch(setPosts({ posts: [...posts, ...newItems] }));
+    } else {
+        dispatch(setPosts({ posts: newItems }));
+    }
   };
 
-  useEffect(() => {
-    loadMoreItems();
+  const loadMoreItemsUserPosts = async () => {
+    const response = await fetch(
+      urlEnv+`/posts/${userId}/posts?page=${page}&sizePerPage=3&sortDirection=DESC`,
+      {
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    try {
+      const data = await response.json();
+      dispatch(setPosts({ posts: data }));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {    
+    if (isProfile) {
+        loadMoreItemsUserPosts();
+      } else {
+        loadMoreItems();
+      }
   }, [page]);
 
   const lastItemRef = useCallback(node => {
@@ -55,10 +70,13 @@ const InfiniteScroll = () => {
         setPage(prevPage => prevPage + 1);
       }
     });
-
     if (node) observer.current.observe(node);
   }, []);
 
+  if(!posts)
+    return <GamerLoading />
+  if(posts.length == 0)
+    return <PostComponent subtitulo={"Nenhum post por aqui..."} icon={<WysiwygTwoToneIcon fontSize="large" />} />
   return (
     <div>
         {posts != null && posts.map(({

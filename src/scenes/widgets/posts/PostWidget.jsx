@@ -10,7 +10,7 @@ import Friend from "components/Friend";
 import WidgetWrapper from "components/WidgetWrapper";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setPost } from "state";
+import { setPost, setPosts } from "state";
 import { format } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -71,6 +71,7 @@ const PostWidget = ({
         "Content-Type": "application/json",
       }
     });
+    dispatch(setPosts({ posts: null }));
     navigate(0);
   }
 
