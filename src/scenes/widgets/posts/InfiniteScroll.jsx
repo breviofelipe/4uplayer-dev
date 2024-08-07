@@ -9,7 +9,7 @@ import PostComponent from 'components/post/PostComponent';
 import WysiwygTwoToneIcon from '@mui/icons-material/WysiwygTwoTone';
 
 const InfiniteScroll = ({ userId, isProfile = false }) => {
-  var posts = useSelector((state) => state.posts);
+  var posts =  useSelector((state) => state.posts);
   const [isLast, setLast] = useState(false);
   const [page, setPage] = useState(0);
   const observer = useRef();
@@ -20,15 +20,17 @@ const InfiniteScroll = ({ userId, isProfile = false }) => {
   
   const loadMoreItems = async () => {
     setLoading(true);
+
     const response = await fetch(urlEnv+`/posts?page=${page}&sizePerPage=3&sortDirection=DESC`, {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     });
     const data = await response.json();
+
     var newItems = data.content;
     setLast(data.last);
     setLoading(false);
-    if(posts){
+    if(!data.first){
         dispatch(setPosts({ posts: [...posts, ...newItems] }));
     } else {
         dispatch(setPosts({ posts: newItems }));
@@ -37,6 +39,7 @@ const InfiniteScroll = ({ userId, isProfile = false }) => {
 
   const loadMoreItemsUserPosts = async () => {
     setLoading(true);
+ 
     const response = await fetch(
       urlEnv+`/posts/${userId}/posts?page=${page}&sizePerPage=3&sortDirection=DESC`,
       {
@@ -46,12 +49,18 @@ const InfiniteScroll = ({ userId, isProfile = false }) => {
     );
     try {
       const data = await response.json();
+      var newItems = data.content;
       setLast(data.last);
-      setLoading(false);
-      dispatch(setPosts({ posts: data }));
+      
+      if(!data.first){
+          dispatch(setPosts({ posts: [...posts, ...newItems] }));
+      } else {
+          dispatch(setPosts({ posts: newItems }));
+      }
     } catch (err) {
       console.log(err);
     }
+    setLoading(false);
   };
 
   useEffect(() => {    
