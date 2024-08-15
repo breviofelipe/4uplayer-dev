@@ -27,6 +27,7 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import LockClockIcon from '@mui/icons-material/LockClock';
 import CountdownTimer from "components/countdownTimer/CountdownTimer";
 import ModalClans from "components/modals/ModalClans";
+import TransferComponent from "components/wallet/TransferComponent";
 
 const UserWidget = ({ userId }) => {
 
@@ -208,6 +209,8 @@ const UserWidget = ({ userId }) => {
                 gap="0.5rem"
                 pb="1.1rem"
               >
+
+               
                 <FlexBetween gap="1rem">
                   {user && edit ?  drop() : <UserImage image={user.picturePath} />}
                   {!edit && <Box onClick={() => navigate(`/profile/${userId}`)} >

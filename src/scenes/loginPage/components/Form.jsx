@@ -6,7 +6,9 @@ import {
   useMediaQuery,
   Typography,
   useTheme,
-  InputAdornment
+  InputAdornment,
+  styled,
+  Divider
 } from "@mui/material";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { Formik } from "formik";
@@ -22,6 +24,7 @@ import ReCaptchaComponent from "components/reCaptcha/ReCaptchaComponent";
 import Icon4uPlayer from "components/icons/Icon4uPlayer";
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import StarPassword from "components/customIcons/StarPassword";
+import CssTextField from "components/CssTextField";
 
 
 
@@ -260,7 +263,7 @@ const Form = ({ translation }) => {
       minWidth: isNonMobile ? "50%" : undefined,
       m: "1rem 0",
       p: "0.5rem",
-      borderRadius: 20,
+      borderRadius: "1.5rem",
       backgroundColor: palette.primary.main,
       color: palette.neutral.dark,
       "&:hover": { color: palette.primary.main },
@@ -269,13 +272,11 @@ const Form = ({ translation }) => {
     {isLogin ? translation.loginPage.formLogin : isNewPassword ? "Solicitar recuperação de senha" : translation.loginPage.formRegister}
   </Button>
   }
+
   return (
     <Box height={isNonMobile ? undefined :  "60vh"} gap={"2.5rem"} width={"100%"} justifyContent="center" alignItems={"center"} flexDirection={"column"} display={"flex"}>
       <Box p="1rem 6%" gap={"0.5rem"} justifyContent="center" alignItems={"center"} display={"flex"} >
-          <Icon4uPlayer />
-          <Typography mt={"0.5rem"} fontWeight="bold" fontSize="32px" color={palette.neutral.dark}>
-          {translation != null && translation.loginPage.title}
-          </Typography>
+          <img src="https://res.cloudinary.com/dosghtja7/image/upload/v1723684429/assets/login/lfmpnzhct9ydmzusmmc6.png" />
         </Box>
           
         
@@ -306,7 +307,7 @@ const Form = ({ translation }) => {
       }) => (
         <form onSubmit={handleSubmit}>
           <Box
-            width={isNonMobile ? "40vw" : "80vw"}
+            width={isNonMobile ? "36vw" : "90vw"}
             display="grid"
             gap={"2.5rem"}
             gridTemplateColumns="repeat(4, minmax(0, 1fr))"
@@ -316,8 +317,8 @@ const Form = ({ translation }) => {
           >
             {isRegister && (
               <>
-                <TextField
-                  label={translation.loginPage.formName}
+                <CssTextField
+                  placeholder={translation.loginPage.formName}
                   onBlur={handleBlur}
                   onChange={handleChange}
                   value={values.firstName}
@@ -326,30 +327,30 @@ const Form = ({ translation }) => {
                     Boolean(touched.firstName) && Boolean(errors.firstName)
                   }
                   helperText={touched.firstName && errors.firstName}
-                  sx={{ gridColumn: "span 2" }}
+                  sx={{ gridColumn: "span 2", bgcolor: "background.alt", borderRadius: "1.5rem"  }}
                 />
-                <TextField
-                  label={translation.loginPage.formLastName}
+                <CssTextField
+                  placeholder={translation.loginPage.formLastName}
                   onBlur={handleBlur}
                   onChange={handleChange}
                   value={values.lastName}
                   name="lastName"
                   error={Boolean(touched.lastName) && Boolean(errors.lastName)}
                   helperText={touched.lastName && errors.lastName}
-                  sx={{ gridColumn: "span 2" }}
+                  sx={{ gridColumn: "span 2", bgcolor: "background.alt", borderRadius: "1.5rem"  }}
                 />
-                <TextField
-              label={translation.loginPage.formEmail}
+                <CssTextField
+              placeholder={translation.loginPage.formEmail}
               onBlur={handleBlur}
               onChange={handleChange}
               value={values.email}
               name="email"
               error={Boolean(touched.email) && Boolean(errors.email)}
               helperText={touched.email && errors.email}
-              sx={{ gridColumn: "span 4" }}
+              sx={{ gridColumn: "span 4", bgcolor: "background.alt", borderRadius: "1.5rem"  }}
             />
-            <TextField
-              label={translation.loginPage.formPassword}
+            <CssTextField
+              placeholder={translation.loginPage.formPassword}
               type="password"
               onBlur={handleBlur}
               onChange={handleChange}
@@ -357,22 +358,23 @@ const Form = ({ translation }) => {
               name="password"
               error={Boolean(touched.password) && Boolean(errors.password)}
               helperText={touched.password && errors.password}
-              sx={{ gridColumn: "span 4" }}
+              sx={{ gridColumn: "span 4", bgcolor: "background.alt", borderRadius: "1.5rem"  }}
             />
-                <TextField
-                  label={translation.loginPage.formClan}
+                <CssTextField
+                  placeholder={translation.loginPage.formClan}
                   onBlur={handleBlur}
                   onChange={handleChange}
                   value={clan}
                   disabled={clan !== ''}
                   name="clan"
-                  sx={{ gridColumn: "span 4" }}
+                  sx={{ gridColumn: "span 4", bgcolor: "background.alt", borderRadius: "1.5rem"  }}
                 />
                 <Box
                   gridColumn="span 4"
                   border={`1px solid ${palette.neutral.medium}`}
                   borderRadius="5px"
                   p="1rem"
+                  bgcolor="background.alt"
                 >
                   <Dropzone
                     acceptedFiles=".jpg,.jpeg,.png"
@@ -386,7 +388,7 @@ const Form = ({ translation }) => {
                         {...getRootProps()}
                         border={`2px dashed ${palette.primary.main}`}
                         p="1rem"
-                        sx={{ "&:hover": { cursor: "pointer" } }}
+                        sx={{ bgcolor: "background.alt", "&:hover": { cursor: "pointer" } }}
                       >
                         <input {...getInputProps()} />
                         {!values.picture ? (
@@ -404,16 +406,14 @@ const Form = ({ translation }) => {
               </>
             )}
 
-            {isLogin && <><TextField
-              label={translation.loginPage.formEmail}
-              color="info"
+            {isLogin && <><CssTextField              
               onBlur={handleBlur}
               onChange={handleChange}
               value={values.email}
               name="email"
               error={Boolean(touched.email) && Boolean(errors.email)}
               helperText={touched.email && errors.email}
-              sx={{ gridColumn: "span 4", bgcolor: "background.alt" }}
+              sx={{ gridColumn: "span 4", bgcolor: "background.alt", borderRadius: "1.5rem" }}
               placeholder="E-mail ou nome de usuário"
               InputProps={{
                 startAdornment: (
@@ -423,17 +423,15 @@ const Form = ({ translation }) => {
                 ),
               }}
             />
-            <TextField
-              label={translation.loginPage.formPassword}
+            <CssTextField
               type="password"
-              color="info"
               onBlur={handleBlur}
               onChange={handleChange}
               value={values.password}
               name="password"
               error={Boolean(touched.password) && Boolean(errors.password)}
               helperText={touched.password && errors.password}
-              sx={{ gridColumn: "span 4", bgcolor: "background.alt" }}
+              sx={{ gridColumn: "span 4", bgcolor: "background.alt", borderRadius: "1.5rem" }}
               placeholder="Senha"
               InputProps={{
                 startAdornment: (
@@ -443,11 +441,12 @@ const Form = ({ translation }) => {
                 ),
               }}
             />
+            
             </>
             }
             {isNewPassword && <>
-              <TextField
-              label={"Recuperar senha e-mail"}
+              <CssTextField
+              placeholder={"Recuperar senha e-mail"}
               onBlur={handleBlur}
               onChange={handleChange}
               value={values.email}
@@ -477,6 +476,7 @@ const Form = ({ translation }) => {
               {buttonSubmit()}
               {buttonMissingPassword()}
             </FlexBetween>}
+              <Box mb="1.5rem" mt="1.5rem"><Divider sx={{ borderColor: 'primary.dark' }} /></Box>             
             <FlexBetween>
               
             <Button
@@ -489,7 +489,7 @@ const Form = ({ translation }) => {
               sx={{
                 m: "1rem 0",
                 p: "0.5rem",
-                borderRadius: 20,
+                borderRadius: "1.5rem",
                 borderWidth: 1,
                 "&:hover": { color: palette.primary.light },
               }}

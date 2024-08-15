@@ -12,6 +12,7 @@ import PageSchemaComponent from "components/page/PageSchemaComponent";
 import PageLoadingComponent from "components/page/PageLoadingComponent";
 import IconMedalGold from "components/icons/IconMedalGold";
 import MyClanWidget from "scenes/widgets/clans/MyClanWidget";
+import TransferComponent from "components/wallet/TransferComponent";
 
 const ProfilePage = () => {
   const [user, setUser] = useState(null);
@@ -42,7 +43,10 @@ const ProfilePage = () => {
   if (!user) return <PageLoadingComponent />;
 
   const top = () => {
-    return <UserWidget userId={userId} />
+    return <>
+    {/* <TransferComponent token={token} isNonMobile={isNonMobileScreens} /> */}
+    <UserWidget userId={userId} />
+    </>
   }
 
   const main = () => {

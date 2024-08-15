@@ -14,8 +14,9 @@ const InputComponent = ({placeholder,value,setValue}) => {
             sx={{
                 width: "100%",
                 backgroundColor: palette.neutral.light,
-                borderRadius: "2rem",
-                padding: "1rem 2rem",
+                borderRadius: "1.5rem",
+                m: "1rem 0",
+                p: "0.5rem",
             }}
             />
         </FlexBetween>

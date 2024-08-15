@@ -1,4 +1,4 @@
-import { Button, useTheme } from "@mui/material";
+import { Button, useMediaQuery, useTheme } from "@mui/material";
 
 
 const PostButton = ({ text, disabled = false, onClick }) => {
@@ -8,11 +8,12 @@ const PostButton = ({ text, disabled = false, onClick }) => {
     disabled={disabled}
     onClick={onClick}
     sx={{
-      color: palette.background.alt,
+      m: "1rem 0",
+      p: "0.5rem",
+      borderRadius: "1.5rem",
       backgroundColor: palette.primary.main,
-      borderRadius: "3rem",
-      fontSize: 16,
-      padding: "0.5rem"
+      color: palette.neutral.dark,
+      "&:hover": { color: palette.primary.main },
     }}
   >
     {text}
