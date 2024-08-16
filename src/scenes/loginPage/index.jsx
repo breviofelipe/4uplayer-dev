@@ -1,13 +1,12 @@
-import { Box, Typography, useTheme, useMediaQuery, Divider } from "@mui/material";
+import { Box, useMediaQuery } from "@mui/material";
 import Form from "./components/Form";
 import "./login.css";
-import { useSelector } from "react-redux";
-import Icon4uPlayer from "components/icons/Icon4uPlayer";
+
 import ImagemArtistas from "./components/ImagemArtistas";
 
 
 const LoginPage = () => {
-  const theme = useTheme();
+
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
   const translation = {loginPage: {
     title: "4UPLAYER",

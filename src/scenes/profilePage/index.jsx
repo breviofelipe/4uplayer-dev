@@ -44,7 +44,8 @@ const ProfilePage = () => {
 
   const top = () => {
     return <>
-    {/* <TransferComponent token={token} isNonMobile={isNonMobileScreens} /> */}
+    {!myProfile && <TransferComponent token={token} toUserId={userId} isNonMobile={isNonMobileScreens} /> }
+    {isNonMobileScreens ? <Box m="2rem 0" /> : <Divider />}
     <UserWidget userId={userId} />
     </>
   }

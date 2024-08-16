@@ -8,6 +8,7 @@ const InputComponent = ({placeholder,value,setValue}) => {
     const { palette } = useTheme();
     return <FlexBetween gap="1.5rem">
             <InputBase
+            type="number"
             placeholder={placeholder}
             onChange={(e) => setValue(e.target.value)}
             value={value}

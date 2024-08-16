@@ -10,7 +10,6 @@ import MyPostWidget from "scenes/widgets/posts/MyPostWidget";
 import UserListWidget from "scenes/widgets/users";
 import MetaMaskWidget from "scenes/widgets/metamask/MetaMaskWidget";
 import { useNavigate } from "react-router-dom";
-import PostBuild from "components/postConstruction/PostConstruction";
 import ResgateWidget from "scenes/widgets/resgate/ResgateWidgets";
 import MemberWidget from "scenes/widgets/member/MemberWidget";
 import MissionsWidget from "scenes/widgets/missions/MissionsWidget";
