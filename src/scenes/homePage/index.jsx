@@ -26,13 +26,9 @@ const HomePage = () => {
   const home = () => {
     const top = () => {
       return <Box>
-        {!isNonMobileScreens && role !== "PLAYER" && <><MemberWidget />
-        {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}</>}
+        
         <UserWidget userId={id} />
         {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
-
-        {isNonMobileScreens && role !== "PLAYER" && <><MemberWidget />
-          {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}</>}
         <BuyPlayerCoin />
         {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
         <ResgateWidget />
@@ -72,7 +68,7 @@ const HomePage = () => {
           <FriendListWidget userId={id} />
           {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
           <UserListWidget />
-          {/* <PostBuild titulo={"Clans Populares"} subTitulo={"Encontre o seu"} /> */}
+
       </>
     }
     const alertCheckEmail = () => {
