@@ -33,7 +33,7 @@ const ImagemArtistas = ( ) => {
       :
       <><Box className="imagem-container">
       <div style={{
-        height: isNonMobile ? "96vh" :  "80vh",
+        height: isNonMobile ? "96vh" :  "50vh",
         backgroundImage:`url(${userArt.src})`,
       }} alt={'Imagem'} className="imagem-responsiva" />
     </Box>

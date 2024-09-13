@@ -274,7 +274,7 @@ const Form = ({ translation }) => {
   }
 
   return (
-    <Box height={isNonMobile ? undefined :  "60vh"} gap={"2.5rem"} width={"100%"} justifyContent="center" alignItems={"center"} flexDirection={"column"} display={"flex"}>
+    <Box gap={"2.5rem"} width={"100%"} justifyContent="center" alignItems={"center"} flexDirection={"column"} display={"flex"}>
       <Box p="1rem 6%" gap={"0.5rem"} justifyContent="center" alignItems={"center"} display={"flex"} >
           <img src="https://res.cloudinary.com/dosghtja7/image/upload/v1723684429/assets/login/lfmpnzhct9ydmzusmmc6.png" />
         </Box>
