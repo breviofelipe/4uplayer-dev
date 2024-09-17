@@ -28,7 +28,7 @@ const CofundersWidget = () => {
     
     try{
       const response = await fetch(
-        url+`/members/cofunders?page=${page}&sizePerPage=5`,
+        url+`/members/cofunders?page=${page}&sizePerPage=10`,
       {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
