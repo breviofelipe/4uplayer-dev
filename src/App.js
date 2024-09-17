@@ -16,6 +16,7 @@ import NoAuthPage from 'scenes/noAuthPage';
 import NotFound from 'scenes/notFoundPage';
 import { initMercadoPago } from '@mercadopago/sdk-react';
 import CofunderPage from 'scenes/cofunderPage';
+import RegisterCofunder from 'scenes/registerCofunder';
 
 function App() {
   const mode = useSelector((state) => state.mode);
@@ -63,6 +64,7 @@ function App() {
             <Route path='*' element={<NotFound />} />
             <Route path="/" element={<LoginPage />} />
             <Route path="/guest/:code" element={<NoAuthPage />} />
+            <Route path="/cofunder/:code" element={<RegisterCofunder />} />
             <Route
               path="/home"
               element={isAuth ? <HomePage /> : <Navigate to="/" />}

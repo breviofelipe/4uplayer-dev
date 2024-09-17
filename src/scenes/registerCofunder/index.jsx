@@ -1,11 +1,11 @@
 import { Box, useMediaQuery } from "@mui/material";
-import Form from "./components/Form";
 import "./login.css";
 
-import ImagemArtistas from "./components/ImagemArtistas";
+import FormCofunder from "./components/FormCofunder";
+import ImagemArtistas from "scenes/loginPage/components/ImagemArtistas";
 
 
-const LoginPage = () => {
+const RegisterCofunder = () => {
 
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
   const translation = {loginPage: {
@@ -45,14 +45,14 @@ const LoginPage = () => {
         >
           {isNonMobileScreens 
           ? <ImagemArtistas /> 
-          : <Form translation={translation} />}
+          : <FormCofunder translation={translation} />}
         </Box>
         <Box
           width={isNonMobileScreens ? "60%" : "100%"}
           display={"flex"} >
           {!isNonMobileScreens 
           ? <ImagemArtistas /> 
-          : <Form translation={translation} />}
+          : <FormCofunder translation={translation} />}
         </Box>
       </Box>
     </Box>
@@ -60,4 +60,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default RegisterCofunder;
