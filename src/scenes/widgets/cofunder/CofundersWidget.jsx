@@ -28,7 +28,7 @@ const CofundersWidget = () => {
     
     try{
       const response = await fetch(
-        url+`/members/cofunders?page=${page}&sizePerPage=10`,
+        url+`/members/cofunders?page=${page}&sizePerPage=4`,
       {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
@@ -36,8 +36,8 @@ const CofundersWidget = () => {
     );
     if(response.ok){      
       const data = await response.json();
-      setMembers(data)
-      setHasMore(data.hasMore)
+      setMembers(data.content)
+      setHasMore(data.hasNext)
     } else {
       console.log(response);
     }
