@@ -13,6 +13,7 @@ import PageLoadingComponent from "components/page/PageLoadingComponent";
 import IconMedalGold from "components/icons/IconMedalGold";
 import MyClanWidget from "scenes/widgets/clans/MyClanWidget";
 import TransferComponent from "components/wallet/TransferComponent";
+import StatsWidget from "scenes/widgets/fortnite/StatsWidget";
 
 const ProfilePage = () => {
   const [user, setUser] = useState(null);
@@ -24,6 +25,185 @@ const ProfilePage = () => {
   const myProfile = useSelector((state) => state.user.id) === userId;
   const { palette } = useTheme();
   const medium = palette.neutral.medium;
+
+  const playerData = {
+    data: {
+      stats: {
+        all: {
+          squad: {
+            wins: 3,
+            kills: 16,
+            killsPerMatch: 0.5,
+            killsPerMin: 0.085,
+            top3: 3,
+            scorePerMatch: 146.406,
+            matches: 32,
+            score: 4685,
+            scorePerMin: 24.788,
+            top6: 5,
+            minutesPlayed: 189,
+            playersOutlived: 1170,
+            kd: 0.552,
+            winRate: 9.375,
+            lastModified: "2020-12-29T02:06:05Z",
+            deaths: 29
+          },
+          overall: {
+            wins: 3,
+            top12: 0,
+            kills: 23,
+            killsPerMatch: 0.561,
+            top10: 1,
+            killsPerMin: 0.093,
+            top3: 3,
+            scorePerMatch: 146.634,
+            matches: 41,
+            top25: 3,
+            score: 6012,
+            scorePerMin: 24.34,
+            top5: 0,
+            top6: 5,
+            minutesPlayed: 247,
+            playersOutlived: 1587,
+            kd: 0.605,
+            winRate: 7.317,
+            lastModified: "2024-06-15T18:23:00Z",
+            deaths: 38
+          },
+          solo: {
+            wins: 0,
+            kills: 7,
+            killsPerMatch: 0.778,
+            top10: 1,
+            killsPerMin: 0.121,
+            scorePerMatch: 147.444,
+            matches: 9,
+            top25: 3,
+            score: 1327,
+            scorePerMin: 22.879,
+            minutesPlayed: 58,
+            playersOutlived: 417,
+            kd: 0.778,
+            winRate: 0,
+            lastModified: "2024-06-15T18:23:00Z",
+            deaths: 9
+          }
+        },
+        keyboardMouse: {
+          overall: {
+            wins: 0,
+            top12: 0,
+            kills: 0,
+            killsPerMatch: 0,
+            top10: 0,
+            killsPerMin: 0,
+            top3: 0,
+            scorePerMatch: 17,
+            matches: 1,
+            top25: 0,
+            score: 17,
+            scorePerMin: 17,
+            top5: 0,
+            top6: 0,
+            minutesPlayed: 1,
+            playersOutlived: 1,
+            kd: 0,
+            winRate: 0,
+            lastModified: "2024-06-15T18:23:00Z",
+            deaths: 1
+          },
+          solo: {
+            wins: 0,
+            kills: 0,
+            killsPerMatch: 0,
+            top10: 0,
+            killsPerMin: 0,
+            scorePerMatch: 17,
+            matches: 1,
+            top25: 0,
+            score: 17,
+            scorePerMin: 17,
+            minutesPlayed: 1,
+            playersOutlived: 1,
+            kd: 0,
+            winRate: 0,
+            lastModified: "2024-06-15T18:23:00Z",
+            deaths: 1
+          }
+        },
+        gamepad: {
+          squad: {
+            wins: 3,
+            kills: 16,
+            killsPerMatch: 0.5,
+            killsPerMin: 0.085,
+            top3: 3,
+            scorePerMatch: 146.406,
+            matches: 32,
+            score: 4685,
+            scorePerMin: 24.788,
+            top6: 5,
+            minutesPlayed: 189,
+            playersOutlived: 1170,
+            kd: 0.552,
+            winRate: 9.375,
+            lastModified: "2020-12-29T02:06:05Z",
+            deaths: 29
+          },
+          overall: {
+            wins: 3,
+            top12: 0,
+            kills: 23,
+            killsPerMatch: 0.575,
+            top10: 1,
+            killsPerMin: 0.093,
+            top3: 3,
+            scorePerMatch: 149.875,
+            matches: 40,
+            top25: 3,
+            score: 5995,
+            scorePerMin: 24.37,
+            top5: 0,
+            top6: 5,
+            minutesPlayed: 246,
+            playersOutlived: 1586,
+            kd: 0.622,
+            winRate: 7.5,
+            lastModified: "2020-12-30T19:09:05Z",
+            deaths: 37
+          },
+          solo: {
+            wins: 0,
+            kills: 7,
+            killsPerMatch: 0.875,
+            top10: 1,
+            killsPerMin: 0.123,
+            scorePerMatch: 163.75,
+            matches: 8,
+            top25: 3,
+            score: 1310,
+            scorePerMin: 22.982,
+            minutesPlayed: 57,
+            playersOutlived: 416,
+            kd: 0.875,
+            winRate: 0,
+            lastModified: "2020-12-30T19:09:05Z",
+            deaths: 8
+          }
+        }
+      },
+      account: {
+        name: "Febrevio",
+        id: "fb3db879264643f49e19cc8183a6b37a"
+      },
+      battlePass: {
+        level: 1,
+        progress: 0
+      }
+    },
+    status: 200
+  };
+
 
   const getUser = async () => {
     setLoading(true);
@@ -44,9 +224,11 @@ const ProfilePage = () => {
 
   const top = () => {
     return <>
-    {!myProfile && <TransferComponent token={token} toUserId={userId} isNonMobile={isNonMobileScreens} /> }
-    {isNonMobileScreens ? <Box m="2rem 0" /> : <Divider />}
+    {!myProfile && <><TransferComponent token={token} toUserId={userId} isNonMobile={isNonMobileScreens} />{isNonMobileScreens ? <Box m="2rem 0" /> : <Divider /> }</>
+    }
     <UserWidget userId={userId} />
+    {isNonMobileScreens ? <Box m="2rem 0" /> : <Divider /> }
+    {/* <StatsWidget data={playerData.data} /> */}
     </>
   }
 
