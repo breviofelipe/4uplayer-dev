@@ -1,10 +1,11 @@
 import { Button, useMediaQuery, useTheme } from "@mui/material";
 
 
-const PostButton = ({ text, disabled = false, onClick }) => {
+const PostButton = ({ text, disabled = false, onClick, fullWidth = false }) => {
     const { palette } = useTheme();
 
     return <Button
+    fullWidth={fullWidth}
     disabled={disabled}
     onClick={onClick}
     sx={{

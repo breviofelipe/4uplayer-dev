@@ -1,7 +1,7 @@
 import {
   ManageAccountsOutlined,
 } from "@mui/icons-material";
-import { Box, Typography, Divider, useTheme, useMediaQuery, Button, Icon } from "@mui/material";
+import { Box, Typography, Divider, useTheme, useMediaQuery, Button, Icon, Dialog, DialogContent, Grid, TextField } from "@mui/material";
 import UserImage from "components/UserImage";
 import FlexBetween from "components/FlexBetween";
 import WidgetWrapper from "components/WidgetWrapper";
@@ -27,7 +27,9 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import LockClockIcon from '@mui/icons-material/LockClock';
 import CountdownTimer from "components/countdownTimer/CountdownTimer";
 import ModalClans from "components/modals/ModalClans";
-import TransferComponent from "components/wallet/TransferComponent";
+import ModalFortnite from "./components/ModalFortnite";
+
+
 
 const UserWidget = ({ userId }) => {
 
@@ -53,13 +55,15 @@ const UserWidget = ({ userId }) => {
   const main = palette.neutral.main;
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
 
+
   const getUser = async () => {
           setUser(null);
-          const response = await fetch(url+`/users/${userId}`, {
+          fetch(url+`/users/${userId}`, {
             method: "GET",
             headers: { Authorization: `Bearer ${token}` },
           }).then(async (data) => {
-            setUser(await data.json());
+            const userResponse = await data.json();
+            setUser(userResponse);
           }).catch(err => console.log);
   };
 
@@ -199,6 +203,9 @@ const UserWidget = ({ userId }) => {
     clanOwner
   } = user;
 
+
+  
+
   return <WidgetWrapper minWidth={"365px"} style={role === 'PLAYER' ? {
     border: '2px solid gold',
     boxShadow: '0px 0px 25px rgba(255, 215, 0, 0.5)', /* Define o efeito de sombra com cor dourada */
@@ -302,8 +309,29 @@ const UserWidget = ({ userId }) => {
              </Box>
           </Box>
           <Divider />
-          {/* 4 ROW */}
-          <Box p="1rem 0">
+        {/* 5 ROW */}
+        <Box p="1rem 0">
+          <Typography fontSize="1rem" color={main} fontWeight="500" mb="1rem">
+            Gamer Profiles
+          </Typography>
+          <FlexBetween gap="1rem" mb="0.5rem">
+            <FlexBetween gap="1rem">
+              <img style={{width : 25, height: 25}} src="https://res.cloudinary.com/dosghtja7/image/upload/v1727316730/assets/games/klyikxhewyuhliqvljld.jpg" alt="fortnite" />
+              <Box>
+                <Typography color={main} fontWeight="500">
+                  Fortnite
+                </Typography>
+                <Typography color={medium}>Online Game</Typography>         
+              </Box>
+            </FlexBetween>
+            { myProfile && <>
+              <ModalFortnite userId={userId} token={token} url={url} />
+            </>
+            }
+          </FlexBetween>
+        </Box>  
+        {/* 5 ROW */}
+        <Box p="1rem 0">
           <Typography fontSize="1rem" color={main} fontWeight="500" mb="1rem">
             Social Profiles
           </Typography>
@@ -337,6 +365,7 @@ const UserWidget = ({ userId }) => {
             { myProfile && editSave(link, setLink, "TIKTOK", userId, linkUpdate, token, setUser, palette) }
           </FlexBetween>
         </Box>
+        
         {myProfile && role === 'PLAYER' && <><Divider />
         <Box p="1rem 0">
         <Typography fontSize="1rem" color={main} fontWeight="500" mb="1rem">
