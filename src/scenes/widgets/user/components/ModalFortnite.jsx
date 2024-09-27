@@ -48,6 +48,7 @@ const ModalFortnite = ({userId, token, url }) => {
                     const data = await response.text();
                     if(data === 'OK'){
                         setSuccess("Atualizado com sucesso!");
+                        setNicknameFortnite('');
                     }
                     setLoading(false);
                   }
