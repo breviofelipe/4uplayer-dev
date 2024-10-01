@@ -1,7 +1,7 @@
 import {
   ManageAccountsOutlined,
 } from "@mui/icons-material";
-import { Box, Typography, Divider, useTheme, useMediaQuery, Button, Icon, Dialog, DialogContent, Grid, TextField } from "@mui/material";
+import { Box, Typography, Divider, useTheme, useMediaQuery, Button } from "@mui/material";
 import UserImage from "components/UserImage";
 import FlexBetween from "components/FlexBetween";
 import WidgetWrapper from "components/WidgetWrapper";
@@ -179,6 +179,20 @@ const UserWidget = ({ userId }) => {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   }
  
+  const counterDown = () => {
+    if(userWallet?.amountStack > 0){
+      return <><Divider />
+    <Box p="1rem 0">
+    <Typography fontSize="1rem" color={main} fontWeight="500" mb="1rem">
+        Tempo restante para proximo saque
+      </Typography>
+      {userWallet && <CountdownTimer targetDate={userWallet.dateStackFinish} />}
+    </Box></>
+    } else {
+      return <></>
+    }
+  }
+
   useEffect(() => {
     getUser();
     getWallet();
@@ -270,7 +284,7 @@ const UserWidget = ({ userId }) => {
               <Typography color={medium}>{formatNumberWithCommas(parseFloat(wallet))}</Typography>
             </Box>
             <Box display="flex" alignItems="center" gap="1rem">
-            {role === 'PLAYER' && <>
+            {role === 'PLAYER' && userWallet?.amountStack > 0 && <>
                   <LockClockIcon />
                   <Typography color={medium}>PLC</Typography>
                   {userWallet && <Typography color={medium}>{formatNumberWithCommas(parseFloat(userWallet.amountStack))}</Typography>}
@@ -366,13 +380,7 @@ const UserWidget = ({ userId }) => {
           </FlexBetween>
         </Box>
         
-        {myProfile && role === 'PLAYER' && <><Divider />
-        <Box p="1rem 0">
-        <Typography fontSize="1rem" color={main} fontWeight="500" mb="1rem">
-            Tempo restante para proximo saque
-          </Typography>
-          {!userWallet ? <CountdownTimer targetDate={targetDate} /> : <CountdownTimer targetDate={userWallet.dateStackFinish} />}
-        </Box></>}
+        {myProfile && role === 'PLAYER' && counterDown()}
         </WidgetWrapper>
 };
 export default UserWidget;
