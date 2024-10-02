@@ -284,8 +284,7 @@ const UserWidget = ({ userId }) => {
                 <Typography color={medium}>PLC</Typography>
                 <Typography color={medium}>{formatNumberWithCommas(parseFloat(wallet))}</Typography>
               </Box>
-              {myProfile && role === 'PLAYER' && userWallet?.amountStack == 0 && userWallet?.amount > 10_000 && <><WalletModal /></>}
-              
+              {myProfile && role === 'PLAYER' && userWallet?.amountStack == 0 && userWallet?.amount > 10_000 && <><WalletModal saldo={userWallet.amount}/></>}
             </FlexBetween>
             <Box display="flex" alignItems="center" gap="1rem">
             {myProfile && role === 'PLAYER' && userWallet?.amountStack > 0 && <>

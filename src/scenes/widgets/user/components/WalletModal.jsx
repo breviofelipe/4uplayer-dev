@@ -20,7 +20,7 @@ import { useSelector } from 'react-redux';
 import GamerLoading from 'components/gamerLoading/GamerLoading';
 import { useNavigate } from 'react-router-dom';
 
-function WalletModal() {
+function WalletModal({saldo}) {
   const navigate = useNavigate();
   const [address, setAddress] = useState('');
   const [addressError, setAddressError] = useState(false);
@@ -40,7 +40,7 @@ function WalletModal() {
 
   const handleSubmit = async () => {
 
-    if(quantity >= 1000){
+    if(quantity >= 1000 && saldo >= quantity){
     //TODO fetch
     setLoading(true);
     const response = await fetch(url+`/wallet/withdraw`, {
@@ -67,7 +67,11 @@ function WalletModal() {
           }
       }   
     setLoading(false);
-  } else{
+  } else if (saldo < quantity) {
+    setMessage("Saldo insuficiente");
+    setQuantityErro(true);
+  } 
+  else {
     setMessage("Minimo 1000 PLCs");
     setQuantityErro(true);
   }
