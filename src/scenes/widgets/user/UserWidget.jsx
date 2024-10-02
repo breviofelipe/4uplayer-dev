@@ -1,7 +1,7 @@
 import {
   ManageAccountsOutlined,
 } from "@mui/icons-material";
-import { Box, Typography, Divider, useTheme, useMediaQuery, Button } from "@mui/material";
+import { Box, Typography, Divider, useTheme, useMediaQuery, Button, IconButton } from "@mui/material";
 import UserImage from "components/UserImage";
 import FlexBetween from "components/FlexBetween";
 import WidgetWrapper from "components/WidgetWrapper";
@@ -28,6 +28,7 @@ import LockClockIcon from '@mui/icons-material/LockClock';
 import CountdownTimer from "components/countdownTimer/CountdownTimer";
 import ModalClans from "components/modals/ModalClans";
 import ModalFortnite from "./components/ModalFortnite";
+import WalletModal from "./components/WalletModal";
 
 
 
@@ -54,7 +55,6 @@ const UserWidget = ({ userId }) => {
   const medium = palette.neutral.medium;
   const main = palette.neutral.main;
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
-
 
   const getUser = async () => {
           setUser(null);
@@ -278,13 +278,17 @@ const UserWidget = ({ userId }) => {
               <Typography color={medium}>LV.</Typography>
               <Typography color={medium}>100.000</Typography>
             </Box>
-            <Box display="flex" alignItems="center" gap="1rem" mb="0.5rem">
-              <AccountBalanceWalletIcon />
-              <Typography color={medium}>PLC</Typography>
-              <Typography color={medium}>{formatNumberWithCommas(parseFloat(wallet))}</Typography>
-            </Box>
+            <FlexBetween>
+              <Box display="flex" alignItems="center" gap="1rem" mb="0.5rem">
+                <AccountBalanceWalletIcon />
+                <Typography color={medium}>PLC</Typography>
+                <Typography color={medium}>{formatNumberWithCommas(parseFloat(wallet))}</Typography>
+              </Box>
+              {myProfile && role === 'PLAYER' && userWallet?.amountStack == 0 && userWallet?.amount > 10_000 && <><WalletModal /></>}
+              
+            </FlexBetween>
             <Box display="flex" alignItems="center" gap="1rem">
-            {role === 'PLAYER' && userWallet?.amountStack > 0 && <>
+            {myProfile && role === 'PLAYER' && userWallet?.amountStack > 0 && <>
                   <LockClockIcon />
                   <Typography color={medium}>PLC</Typography>
                   {userWallet && <Typography color={medium}>{formatNumberWithCommas(parseFloat(userWallet.amountStack))}</Typography>}
