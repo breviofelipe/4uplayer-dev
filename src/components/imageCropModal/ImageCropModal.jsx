@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from "react";
+import './styles.css'
 import Cropper from "react-easy-crop";
 import getCroppedImg from "./cropImage"; // Função para cortar a imagem
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Typography } from "@mui/material";
@@ -81,7 +82,7 @@ const ImageCropModal = ({ isOpen, onClose, imageSrc, onCropComplete, setBase64Im
         open={isOpen} onClose={onClose} >
       <DialogTitle>Ajuste a imagem</DialogTitle>
       <DialogContent dividers>
-        
+      <div className="crop-container"> 
         <Cropper
             image={imageSrc}
             crop={crop}
@@ -92,29 +93,34 @@ const ImageCropModal = ({ isOpen, onClose, imageSrc, onCropComplete, setBase64Im
             onZoomChange={onZoomChange}
             onCropComplete={onCropCompleteHandler}
             />
-            <Box >
-                <Stack spacing={2} direction="row" sx={{ alignItems: 'center', mb: 1 }}>
-                    <ZoomOutOutlinedIcon />
-                    <Slider min={1} max={3} step={0.1} aria-label="Zoom" value={zoom} onChange={onZoomChange} />
-                    <ZoomInOutlinedIcon />
-                </Stack>
-                <Stack spacing={2} direction="row" sx={{ alignItems: 'center', mb: 1 }}>
-                    <Rotate90DegreesCcwOutlinedIcon />
-                    <Slider min={0} max={180} step={90} value={rotation} onChange={onRotationChange} aria-label="Rotação" />
-                    <Rotate90DegreesCwOutlinedIcon />
-                </Stack>
+        </div>
+            
+            
+        <DialogActions className="controls">
+            <Box className="zoom-range" mb={"1rem"}>
+                    <Stack spacing={2} direction="row" sx={{ alignItems: 'center', mb: 1 }}>
+                        <ZoomOutOutlinedIcon />
+                        <Slider min={1} max={3} step={0.1} aria-label="Zoom" value={zoom} onChange={onZoomChange} />
+                        <ZoomInOutlinedIcon />
+                    </Stack>
+                    <Stack spacing={2} direction="row" sx={{ alignItems: 'center', mb: 1 }}>
+                        <Rotate90DegreesCcwOutlinedIcon />
+                        <Slider min={0} max={180} step={90} value={rotation} onChange={onRotationChange} aria-label="Rotação" />
+                        <Rotate90DegreesCwOutlinedIcon />
+                    </Stack>
+                    <Stack spacing={2} direction="row">
+                        <Button fullWidth sx={{
+                            backgroundColor: 'primary.main',
+                            color: 'neutral.dark',
+                        }} onClick={handleSave}>Cortar</Button>
+                        <Button fullWidth sx={{
+                            backgroundColor: 'primary.main',
+                            color: 'neutral.dark',
+                        }}
+                        onClick={onClose}>Cancelar</Button>
+                    </Stack>
             </Box>
             
-        <DialogActions>
-            <Button sx={{
-                backgroundColor: 'primary.main',
-                color: 'neutral.dark',
-            }} onClick={handleSave}>Cortar</Button>
-            <Button sx={{
-                backgroundColor: 'primary.main',
-                color: 'neutral.dark',
-            }}
-             onClick={onClose}>Cancelar</Button>
         </DialogActions>
       </DialogContent>
     </Dialog>
