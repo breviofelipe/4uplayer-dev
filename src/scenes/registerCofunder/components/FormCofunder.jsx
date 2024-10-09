@@ -8,7 +8,8 @@ import {
   useTheme,
   InputAdornment,
   styled,
-  Divider
+  Divider,
+  IconButton
 } from "@mui/material";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { Formik } from "formik";
@@ -27,6 +28,8 @@ import StarPassword from "components/customIcons/StarPassword";
 import CssTextField from "components/CssTextField";
 import { DatePicker } from "@mui/x-date-pickers";
 import DataPickerCustom from "./DataPickerCustom";
+import ImageCropModal from "components/imageCropModal/ImageCropModal";
+import { DeleteForeverOutlined, DeleteOutline, DeleteOutlineOutlined, Edit, Remove } from "@mui/icons-material";
 
 const FormCofunder = ({ translation }) => {
   const [email, setEmail] = useState(null);
@@ -41,14 +44,31 @@ const FormCofunder = ({ translation }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isNonMobile = useMediaQuery("(min-width:1000px)");
-  const isLogin = pageType === "login";
   const isRegister = pageType === "register";
-  const isNewPassword = pageType === "password";
   const [warning, setWarning] = useState();
   const [success, setSuccess] =  useState();
   const [recaptchaToken, setRecaptchaToken] = useState(null);
   const [strike, setStrike] = useState(0);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [croppedImage, setCroppedImage] = useState(null);
+  const [base64Image, setBase64Image] = useState(null);
+  const handleImageChange = (e) => {
+    
+    const file = e[0];
+    const reader = new FileReader();
+    reader.onload = () => {
+      setSelectedImage(reader.result);
+      setIsModalOpen(true); // Abrir o modal após selecionar a imagem
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleCropComplete = (croppedImage) => {
+    setCroppedImage(croppedImage); // Definir a imagem recortada
+    
+  };
 
   let initialValuesRegister = {
     fullName: "",
@@ -75,34 +95,28 @@ const FormCofunder = ({ translation }) => {
     picture: yup.string(),
   });
 
+  
 
-  const getBase64FromUrl = (values, onSubmitProps) => {
-    var reader = new FileReader();
-    reader.readAsDataURL(values.picture);
-    reader.onload = async function () {
-      values.picture = reader.result;
-       let body = JSON.stringify(values);
-       const savedUserResponse = await fetch(
-         urlEnv+"/auth/register/confunder",
-         {
-           method: "POST",
-           headers: { "Content-Type": "application/json" },
-           body: body
-         }
-       ).catch(err => {
-         console.log(err);
-       });
-       validaStatus(savedUserResponse, onSubmitProps);
-    };
-    reader.onerror = function (error) {
-      console.log('Error: ', error);
-     };
+  const getBase64FromUrl = async (values, onSubmitProps) => {
+    values.picture = base64Image;
+    let body = JSON.stringify(values);
+    const savedUserResponse = await fetch(
+      urlEnv+"/auth/register/confunder",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: body
+      }
+    ).catch(err => {
+      console.log(err);
+    });
+    validaStatus(savedUserResponse, onSubmitProps);
   }
 
   const register = async (values, onSubmitProps) => {
     setLoading(true);
 
-    if(values.picture){
+    if(croppedImage){
       getBase64FromUrl(values, onSubmitProps);
     } else {
       if(clan!== '')
@@ -315,32 +329,58 @@ const FormCofunder = ({ translation }) => {
                   p="1rem"
                   bgcolor="background.alt"
                 >
-                  <Dropzone
-                    acceptedFiles=".jpg,.jpeg,.png"
-                    multiple={false}
-                    onDrop={(acceptedFiles) =>
-                      setFieldValue("picture", acceptedFiles[0])
-                    }
-                  >
-                    {({ getRootProps, getInputProps }) => (
-                      <Box
-                        {...getRootProps()}
-                        border={`2px dashed ${palette.primary.main}`}
-                        p="1rem"
-                        sx={{ bgcolor: "background.alt", "&:hover": { cursor: "pointer" } }}
+
+              <div>
+                  
+                    {croppedImage ? 
+                      <Box alignItems={'center'} flexDirection={'column'} display={'flex'}>
+                          <img src={croppedImage} alt="Cropped" style={{ width: "200px" }} />
+                          <IconButton onClick={() => setCroppedImage(null)}>
+                          <DeleteForeverOutlined />
+                          </IconButton>
+                      </Box> 
+                      : <Dropzone
+                        maxFiles={1}
+                        acceptedFiles=".jpg,.jpeg,.png"
+                        multiple={false}
+                        onDrop={(acceptedFiles, fileRejections) => {
+                          // fileRejections.forEach(({ file, errors }) => {
+                          //   errors.forEach((error) => {
+                          //     if (error.code === "file-too-large") {
+                          //       alert(`Erro: O arquivo ${file.name} é muito grande!`);
+                          //     }
+                          //   });
+                          // });
+                          handleImageChange(acceptedFiles);
+                          
+
+                          }
+                        }
                       >
-                        <input {...getInputProps()} />
-                        {!values.picture ? (
-                          <p>{translation.loginPage.addPic}</p>
-                        ) : (
-                          <FlexBetween>
-                            <Typography>{values.picture.name}</Typography>
-                            <EditOutlinedIcon />
-                          </FlexBetween>
+                        {({ getRootProps, getInputProps }) => (
+                          <Box
+                            {...getRootProps()}
+                            border={`2px dashed ${palette.primary.main}`}
+                            p="1rem"
+                            sx={{ bgcolor: "background.alt", "&:hover": { cursor: "pointer" } }}
+                          >
+                            <input {...getInputProps()} />
+                            {!croppedImage && (
+                              <p>{translation.loginPage.addPic}</p>
+                            )}
+                          </Box>
                         )}
-                      </Box>
-                    )}
-                  </Dropzone>
+                      </Dropzone>}
+
+                    <ImageCropModal
+                      isOpen={isModalOpen}
+                      onClose={() => setIsModalOpen(false)}
+                      imageSrc={selectedImage}
+                      onCropComplete={handleCropComplete}
+                      setBase64Image={setBase64Image}
+                    />
+                  </div>
+                  
                 </Box>
               </>
             )}

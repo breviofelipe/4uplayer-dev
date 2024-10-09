@@ -2,8 +2,9 @@ import {
   ChatBubbleOutlineOutlined,
   FavoriteBorderOutlined,
   FavoriteOutlined,
-  ShareOutlined,
+  ShareOutlined
 } from "@mui/icons-material";
+import ReportGmailerrorredOutlinedIcon from '@mui/icons-material/ReportGmailerrorredOutlined';
 import { Box, Button, Divider, IconButton, InputBase, Typography, useMediaQuery, useTheme } from "@mui/material";
 import FlexBetween from "components/FlexBetween";
 import Friend from "components/Friend";
@@ -88,6 +89,17 @@ const PostWidget = ({
     dispatch(setPost({ post: updatedPost }));
   };
 
+  const patchReport = async () => {
+    const response = await fetch(url+`/posts/${postId}/report`, {
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${token}`, "Content-Type": "application/json",
+      }
+    });
+    const updatedPost = await response.json();
+    console.log(updatedPost);
+  };
+
   const handleComment = async () => {
     const response = await fetch(url+`/posts/${postId}/comment?userId=${loggedInUserId}&comment=${newComment}`, {
       method: "PATCH",
@@ -152,6 +164,9 @@ const PostWidget = ({
       <FlexBetween>
       <IconButton>
         <ShareOutlined />
+      </IconButton>
+      <IconButton onClick={patchReport}>
+        <ReportGmailerrorredOutlinedIcon sx={{ color: 'red' }}/>
       </IconButton>
       {role === 'ADMIN' && <>
       <IconButton onClick={deletePost}>
