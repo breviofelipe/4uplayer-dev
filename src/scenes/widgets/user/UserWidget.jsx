@@ -1,4 +1,5 @@
 import {
+  DeleteForeverOutlined,
   ManageAccountsOutlined,
 } from "@mui/icons-material";
 import { Box, Typography, Divider, useTheme, useMediaQuery, Button, IconButton } from "@mui/material";
@@ -29,6 +30,7 @@ import CountdownTimer from "components/countdownTimer/CountdownTimer";
 import ModalClans from "components/modals/ModalClans";
 import ModalFortnite from "./components/ModalFortnite";
 import WalletModal from "./components/WalletModal";
+import ImageCropModal from "components/imageCropModal/ImageCropModal";
 
 
 
@@ -55,6 +57,27 @@ const UserWidget = ({ userId }) => {
   const medium = palette.neutral.medium;
   const main = palette.neutral.main;
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
+
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [croppedImage, setCroppedImage] = useState(null);
+  const [base64Image, setBase64Image] = useState(null);
+  const handleImageChange = (e) => {
+    
+    const file = e[0];
+    const reader = new FileReader();
+    reader.onload = () => {
+      setSelectedImage(reader.result);
+      setIsModalOpen(true); // Abrir o modal após selecionar a imagem
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleCropComplete = (croppedImage) => {
+    setCroppedImage(croppedImage); // Definir a imagem recortada
+    
+  };
 
   const getUser = async () => {
           setUser(null);
@@ -86,35 +109,48 @@ const UserWidget = ({ userId }) => {
   }
 
   const handlePatchPicture = async () => {
-    if (image) {
+    if (base64Image) {
         setUser(null);
-        getBase64FromUrl(image);
+        getBase64FromUrl(base64Image);
     }
   };
   const [image, setImage] = useState(null);
 
-  const getBase64FromUrl = (image) => {
-    var reader = new FileReader();
-     reader.readAsDataURL(image);
-     reader.onload = async function () {
-        const body = {
-          file: reader.result,
-          userId: userId
-        };
-        const response = await fetch(urlLogin+`/profile/picture`, {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-          body: JSON.stringify(body),
-        });
-        const data = await response.json();
-        setUser(await data);
-        setImage(null);
-        setEdit(false);
-        // navigate(0);
-     };
-     reader.onerror = function (error) {
-       console.log('Error: ', error);
-      };
+  const getBase64FromUrl = async (image) => {
+    const body = {
+      file: base64Image,
+      userId: userId
+    };
+    const response = await fetch(urlLogin+`/profile/picture`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+      body: JSON.stringify(body),
+    });
+    const data = await response.json();
+    setUser(data);
+    // setImage(null);
+    setEdit(false);
+    // var reader = new FileReader();
+    //  reader.readAsDataURL(image);
+    //  reader.onload = async function () {
+    //     const body = {
+    //       file: base64Image,
+    //       userId: userId
+    //     };
+    //     const response = await fetch(urlLogin+`/profile/picture`, {
+    //       method: "PATCH",
+    //       headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+    //       body: JSON.stringify(body),
+    //     });
+    //     const data = await response.json();
+    //     setUser(await data);
+    //     setImage(null);
+    //     setEdit(false);
+    //     // navigate(0);
+    //  };
+    //  reader.onerror = function (error) {
+    //    console.log('Error: ', error);
+    //   };
   }
   const drop = () => {
     return <Dropzone
@@ -123,7 +159,11 @@ const UserWidget = ({ userId }) => {
     maxSize={10072000}
     multiple={false}
     autoProcessQueue={false}
-    onDrop={(acceptedFiles) => setImage(acceptedFiles[0])}
+    onDrop={(acceptedFiles) => {
+      handleImageChange(acceptedFiles);
+      //setImage(acceptedFiles[0])
+    }
+    }
   >
     {({ getRootProps, getInputProps }) => (
       <Box
@@ -133,15 +173,15 @@ const UserWidget = ({ userId }) => {
         sx={{ "&:hover": { cursor: "pointer" } }}
       >
         <input {...getInputProps()} />
-        {!image ? (  
+        {!croppedImage ? (  
           <CropOriginalIcon fontSize="large"/>
         ) : (
-          <div>
-            <FlexBetween>
-            <Typography>{image.name.length > 10 ? image.name.substring(0, 10)+'...' : image.name}</Typography>
-            <EditOutlinedIcon />
-          </FlexBetween>
-          </div>
+          <Box alignItems={'center'} flexDirection={'column'} display={'flex'}>
+              <img src={croppedImage} alt="Cropped" style={{ width: "5rem" }} />
+              <IconButton onClick={() => setCroppedImage(null)}>
+                <DeleteForeverOutlined />
+              </IconButton>
+          </Box>                
         )}
       </Box>
     )}
@@ -160,7 +200,7 @@ const UserWidget = ({ userId }) => {
       <CancelIcon fontSize="large" />
       </Button>
   <Button
-    disabled={!image}
+    disabled={!base64Image}
     onClick={handlePatchPicture}
     sx={{
       color: palette.background.alt,
@@ -234,6 +274,13 @@ const UserWidget = ({ userId }) => {
                
                 <FlexBetween gap="1rem">
                   {user && edit ?  drop() : <UserImage image={user.picturePath} />}
+                  <ImageCropModal
+                      isOpen={isModalOpen}
+                      onClose={() => setIsModalOpen(false)}
+                      imageSrc={selectedImage}
+                      onCropComplete={handleCropComplete}
+                      setBase64Image={setBase64Image}
+                    />
                   {!edit && <Box onClick={() => navigate(`/profile/${userId}`)} >
                     <Typography
                       variant="h4"
