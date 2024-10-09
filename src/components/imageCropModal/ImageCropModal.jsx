@@ -109,7 +109,7 @@ const ImageCropModal = ({ isOpen, onClose, imageSrc, onCropComplete, setBase64Im
             <Button sx={{
                 backgroundColor: 'primary.main',
                 color: 'neutral.dark',
-            }} onClick={handleSave}>Salvar</Button>
+            }} onClick={handleSave}>Cortar</Button>
             <Button sx={{
                 backgroundColor: 'primary.main',
                 color: 'neutral.dark',
