@@ -92,7 +92,7 @@ const ImageCropModal = ({ isOpen, onClose, imageSrc, onCropComplete, setBase64Im
             onZoomChange={onZoomChange}
             onCropComplete={onCropCompleteHandler}
             />
-            <Box sx={{ width: 200 }}>
+            <Box >
                 <Stack spacing={2} direction="row" sx={{ alignItems: 'center', mb: 1 }}>
                     <ZoomOutOutlinedIcon />
                     <Slider min={1} max={3} step={0.1} aria-label="Zoom" value={zoom} onChange={onZoomChange} />
