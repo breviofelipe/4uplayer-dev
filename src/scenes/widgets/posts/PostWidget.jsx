@@ -32,13 +32,16 @@ const PostWidget = ({
   comments,
   createdAt,
   youtubeEmbedId,
-  twitchEmbedId
+  twitchEmbedId,
+  reports
 }) => {
   const [isComments, setIsComments] = useState(false);
   const dispatch = useDispatch();
   const token = useSelector((state) => state.token);
   const loggedInUserId = useSelector((state) => state.user.id);
+  const loggedInUserEmail = useSelector((state) => state.user.email);
   const isLiked = likes ? Boolean(likes[loggedInUserId]) : false;
+  const isReported = reports ? reports.includes(loggedInUserEmail) : false;
   const likeCount = Object.keys(likes ? likes : []).length;
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
   const { palette } = useTheme();
@@ -97,7 +100,7 @@ const PostWidget = ({
       }
     });
     const updatedPost = await response.json();
-    console.log(updatedPost);
+    dispatch(setPost({ post: updatedPost }));
   };
 
   const handleComment = async () => {
@@ -113,8 +116,30 @@ const PostWidget = ({
     setNewComment('');
   }
 
+  if(isReported){
+    return <><WidgetWrapper mobile={!isNonMobileScreens}>
+              <Friend
+                friendId={postUserId}
+                name={name}
+                subtitle={createdAt && getFormatedDate(createdAt)}
+                userPicturePath={userPicturePath}
+              />
+              <img
+                width="100%"
+                height="auto"
+                alt="post"
+                style={{ borderRadius: "0.75rem", marginTop: "0.75rem" }}
+                src='https://res.cloudinary.com/dosghtja7/image/upload/v1729041958/assets/posts/x5o3ykvq7gury4l1ciz2.webp'
+              />
+          </WidgetWrapper>
+          {isNonMobileScreens ? <Box m="2rem 0" /> : <Divider />}</>
+  }
+ 
+
+
   return (
-    <div><WidgetWrapper mobile={!isNonMobileScreens}>
+    <div>
+      <WidgetWrapper mobile={!isNonMobileScreens}>
     <Friend
       friendId={postUserId}
       name={name}

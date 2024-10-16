@@ -23,6 +23,7 @@ export const authSlice = createSlice({
       state.translation = action.payload;
     },
     setLogin: (state, action) => {
+      state.posts = [];
       state.user = action.payload.user;
       state.token = action.payload.token;
     },
@@ -70,7 +71,12 @@ export const authSlice = createSlice({
     },
     setPost: (state, action) => {
       const updatedPosts = state.posts.map((post) => {
-        if (post.id === action.payload.post.id) return action.payload.post;
+        if (post.id === action.payload.post.id) {
+          if(action.payload.post.reports.includes(state.user.email)){
+            console.log("reported!!!")
+          }
+          return action.payload.post;
+        }
         return post;
       });
       state.posts = updatedPosts;

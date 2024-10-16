@@ -16,6 +16,7 @@ import MissionsWidget from "scenes/widgets/missions/MissionsWidget";
 import MyClanWidget from "scenes/widgets/clans/MyClanWidget";
 import BuyPlayerCoin from "scenes/widgets/buyCoin/BuyPlayerCoin";
 import ClansWidget from "scenes/widgets/clans/ClansWidget";
+import AdvertWidget from "scenes/widgets/ads/AdvertWidget";
 
 const HomePage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
@@ -59,6 +60,8 @@ const HomePage = () => {
     const lastContent = () => {
       return <>
           {emailCheck && <><MissionsWidget />{isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}</>}                    
+          <AdvertWidget />
+          {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
           <MyClanWidget clan={clan} />
           {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
           <ClansWidget />

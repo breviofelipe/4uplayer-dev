@@ -32,16 +32,16 @@ const AdvertWidget = () => {
         <Typography color={dark} variant="h5" fontWeight="500">
           Publicidade
         </Typography>
-        <Typography color={medium}>Google Ad</Typography>
+        <Typography color={medium}>4u Ads</Typography>
       </FlexBetween>
-      <FlexBetween>
-      <ins className="adsbygoogle"
-          data-full-width-responsive="true"
-          style={{ width: "100%", height: "auto", minHeight: "250px"}}
-          data-ad-client="ca-pub-4527229097839562"
-          data-ad-slot="6609002383"
-          data-ad-format="auto"
-          ></ins>     
+      <FlexBetween mb="1rem">
+            <img
+                width="100%"
+                height="auto"
+                alt="post"
+                style={{ borderRadius: "0.75rem", marginTop: "0.75rem" }}
+                src='https://res.cloudinary.com/dosghtja7/image/upload/v1729042356/assets/posts/tmpqvdqv6ss6usu5q7c5.webp'
+              />    
       </FlexBetween>
     </WidgetWrapper>
   );

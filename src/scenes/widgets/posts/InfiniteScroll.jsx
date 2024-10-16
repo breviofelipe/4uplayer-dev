@@ -7,61 +7,25 @@ import PostWidget from './PostWidget';
 import { setPosts } from 'state';
 import PostComponent from 'components/post/PostComponent';
 import WysiwygTwoToneIcon from '@mui/icons-material/WysiwygTwoTone';
+import { fetchPosts, fetchPostsByUser } from './services';
 
-const InfiniteScroll = ({ userId, isProfile = false }) => {
-  var posts =  useSelector((state) => state.posts);
+const InfiniteScroll = ({ userId, isProfile = false, posts, token, dispatch }) => {
+
   const [isLast, setLast] = useState(false);
   const [page, setPage] = useState(0);
   const observer = useRef();
   const [isLoading, setLoading] = useState(false);
-  const urlEnv = process.env.REACT_APP_HOST_POSTS;
-  const token = useSelector((state) => state.token);
-  const dispatch = useDispatch();
   
-  const loadMoreItems = async () => {
-    setLoading(true);
-
-    const response = await fetch(urlEnv+`/posts?page=${page}&sizePerPage=3&sortDirection=DESC`, {
-      method: "GET",
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    const data = await response.json();
-
-    var newItems = data.content;
-    setLast(data.last);
-    setLoading(false);
-    if(!data.first){
-        dispatch(setPosts({ posts: [...posts, ...newItems] }));
-    } else {
-        dispatch(setPosts({ posts: newItems }));
+  const loadMoreItems = useCallback(async () => {
+    
+    if(page > 0){
+      fetchPosts(setLoading, token, page, dispatch, posts, setPosts, setLast);
     }
-  };
+  }, [page, token]);
 
-  const loadMoreItemsUserPosts = async () => {
-    setLoading(true);
- 
-    const response = await fetch(
-      urlEnv+`/posts/${userId}/posts?page=${page}&sizePerPage=3&sortDirection=DESC`,
-      {
-        method: "GET",
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
-    try {
-      const data = await response.json();
-      var newItems = data.content;
-      setLast(data.last);
-      
-      if(!data.first){
-          dispatch(setPosts({ posts: [...posts, ...newItems] }));
-      } else {
-          dispatch(setPosts({ posts: newItems }));
-      }
-    } catch (err) {
-      console.log(err);
-    }
-    setLoading(false);
-  };
+  const loadMoreItemsUserPosts = useCallback(async () => {
+    fetchPostsByUser(setLoading, token, page, dispatch, posts, setPosts, setLast, userId);
+  }, [page, token])
 
   useEffect(() => {    
     if(!isLast){
@@ -84,13 +48,11 @@ const InfiniteScroll = ({ userId, isProfile = false }) => {
     if (node) observer.current.observe(node);
   }, []);
 
-  if(!posts)
-    return <GamerLoading />
   if(posts.length == 0)
     return <PostComponent subtitulo={"Nenhum post por aqui..."} icon={<WysiwygTwoToneIcon fontSize="large" />} />
-  return (
+  else return (
     <div>
-        {posts != null && posts.map(({
+        {posts.map(({
         id,
         userId,
         firstName,
@@ -102,7 +64,7 @@ const InfiniteScroll = ({ userId, isProfile = false }) => {
         likes,
         comments,
         createdAt,
-        youtubeEmbedId, twitchEmbedId
+        youtubeEmbedId, twitchEmbedId, reports
       }, index) => {
           if (posts.length === index + 1) {
             return (<div ref={lastItemRef} key={index}><PostWidget
@@ -119,6 +81,7 @@ const InfiniteScroll = ({ userId, isProfile = false }) => {
                 createdAt={createdAt}
                 youtubeEmbedId={youtubeEmbedId}
                 twitchEmbedId={twitchEmbedId}
+                reports={reports}
                 />
                </div>
             );
@@ -137,6 +100,7 @@ const InfiniteScroll = ({ userId, isProfile = false }) => {
             createdAt={createdAt}
             youtubeEmbedId={youtubeEmbedId}
             twitchEmbedId={twitchEmbedId}
+            reports={reports}
         /></div>;
           }
         })}
