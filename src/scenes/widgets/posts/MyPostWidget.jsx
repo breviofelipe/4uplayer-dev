@@ -22,10 +22,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { setPosts } from "state";
 import LoadingComponent from "components/loading/Loading";
 import "./MyPostWidget.css";
+import { useNavigate } from "react-router-dom";
           
 
 const MyPostWidget = ({ picturePath }) => {
-  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [isImage, setIsImage] = useState(false);
   const [image, setImage] = useState(null);
@@ -36,7 +36,7 @@ const MyPostWidget = ({ picturePath }) => {
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
   const mediumMain = palette.neutral.mediumMain;
   const medium = palette.neutral.medium;
-  
+  const navigate = useNavigate();
   const url = process.env.REACT_APP_HOST_POSTS; 
 
   const [scrollY, setScrollY] = useState(0);
@@ -76,11 +76,9 @@ const MyPostWidget = ({ picturePath }) => {
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify(body),
       });
-      const posts = await response.json();
-      dispatch(setPosts({ posts: posts.content }));
-      setImage(null);
-      setPost("");
-      setLoading(false);
+     if(response.ok){
+        navigate(0);
+     }
    };
    reader.onerror = function (error) {
      console.log('Error: ', error);
@@ -103,10 +101,9 @@ const MyPostWidget = ({ picturePath }) => {
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify(body),
       });
-      const posts = await response.json();
-      dispatch(setPosts({ posts: posts.content }));
-      setPost("");
-      setLoading(false)
+      if(response.ok){
+        navigate(0);
+     }
     }    
   };
   // style={style}
@@ -185,34 +182,11 @@ const MyPostWidget = ({ picturePath }) => {
           </Typography>
         </FlexBetween>
 
-        {/* {isNonMobileScreens ? (
-          <>
-            <FlexBetween gap="0.25rem">
-              <GifBoxOutlined sx={{ color: mediumMain }} />
-              <Typography color={mediumMain}>Clip</Typography>
-            </FlexBetween>
-
-            <FlexBetween gap="0.25rem">
-              <AttachFileOutlined sx={{ color: mediumMain }} />
-              <Typography color={mediumMain}>Attachment</Typography>
-            </FlexBetween>
-
-            <FlexBetween gap="0.25rem">
-              <MicOutlined sx={{ color: mediumMain }} />
-              <Typography color={mediumMain}>Audio</Typography>
-            </FlexBetween>
-          </>
-        ) : (
-          <FlexBetween gap="0.25rem">
-            <MoreHorizOutlined sx={{ color: mediumMain }} />
-          </FlexBetween>
-        )} */}
-
-        <Button
+       <Button
           disabled={!post}
           onClick={handlePost}
           sx={{
-            color: palette.background.alt,
+            color: palette.neutral.dark,
             backgroundColor: palette.primary.main,
             borderRadius: "3rem",
           }}

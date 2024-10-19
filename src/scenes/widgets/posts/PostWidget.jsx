@@ -51,7 +51,7 @@ const PostWidget = ({
   const medium = palette.neutral.medium;
   
   const role = useSelector((state) => state.user.role);
-
+  const myPost = useSelector((state) => state.user.id) === postUserId; 
   const navigate = useNavigate();
 
   const [newComment, setNewComment] = useState("");
@@ -187,12 +187,9 @@ const PostWidget = ({
       </FlexBetween>
 
       <FlexBetween>
-      <IconButton>
-        <ShareOutlined />
-      </IconButton>
-      <IconButton onClick={patchReport}>
+      {!myPost && <IconButton onClick={patchReport}>
         <ReportGmailerrorredOutlinedIcon sx={{ color: 'red' }}/>
-      </IconButton>
+      </IconButton>}
       {role === 'ADMIN' && <>
       <IconButton onClick={deletePost}>
         <DeleteIcon />

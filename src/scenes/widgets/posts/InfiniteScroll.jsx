@@ -48,7 +48,7 @@ const InfiniteScroll = ({ userId, isProfile = false, posts, token, dispatch }) =
     if (node) observer.current.observe(node);
   }, []);
 
-  if(posts.length == 0)
+  if(posts === undefined || posts === null || posts.length == 0)
     return <PostComponent subtitulo={"Nenhum post por aqui..."} icon={<WysiwygTwoToneIcon fontSize="large" />} />
   else return (
     <div>
