@@ -12,8 +12,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
   const token = useSelector((state) => state.token);
   const posts =  useSelector((state) => state.posts);
 
-  useEffect(() => {
-    
+  useEffect(() => {    
     dispatch(setPosts({ posts: [] }));  
     fetchPosts(setLoading, token, 0, dispatch, posts, setPosts, () => {});
     
