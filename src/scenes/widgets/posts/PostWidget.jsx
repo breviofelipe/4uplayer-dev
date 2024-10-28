@@ -21,28 +21,36 @@ import YoutubeEmbed from "components/youtube/YoutubeEmbed";
 import TwitchEmbed from "components/twitch/TwitchEmbed";
 
 const PostWidget = ({
+  post
+}) => {
+  const {
   postId,
-  postUserId,
+  userId,
   name,
+  firstName,
+  lastName,
   description,
   location,
   picturePath,
   userPicturePath,
   likes,
-  comments,
+  commentsObject,
   createdAt,
   youtubeEmbedId,
   twitchEmbedId,
-  reports
-}) => {
+  reports,
+  counterLikes,
+  counterComments,
+  liked
+  } = post;
   const [isComments, setIsComments] = useState(false);
   const dispatch = useDispatch();
   const token = useSelector((state) => state.token);
   const loggedInUserId = useSelector((state) => state.user.id);
   const loggedInUserEmail = useSelector((state) => state.user.email);
-  const isLiked = likes ? Boolean(likes[loggedInUserId]) : false;
+  const isLiked = liked;
   const isReported = reports ? reports.includes(loggedInUserEmail) : false;
-  const likeCount = Object.keys(likes ? likes : []).length;
+  const likeCount = counterLikes;
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
   const { palette } = useTheme();
   const main = palette.neutral.main;
@@ -51,7 +59,7 @@ const PostWidget = ({
   const medium = palette.neutral.medium;
   
   const role = useSelector((state) => state.user.role);
-  const myPost = useSelector((state) => state.user.id) === postUserId; 
+  const myPost = useSelector((state) => state.user.id) === userId; 
   const navigate = useNavigate();
 
   const [newComment, setNewComment] = useState("");
@@ -119,8 +127,8 @@ const PostWidget = ({
   if(isReported){
     return <><WidgetWrapper mobile={!isNonMobileScreens}>
               <Friend
-                friendId={postUserId}
-                name={name}
+                friendId={userId}
+                name={firstName + " "+ lastName}
                 subtitle={createdAt && getFormatedDate(createdAt)}
                 userPicturePath={userPicturePath}
               />
@@ -141,8 +149,8 @@ const PostWidget = ({
     <div>
       <WidgetWrapper mobile={!isNonMobileScreens}>
     <Friend
-      friendId={postUserId}
-      name={name}
+      friendId={userId}
+      name={firstName + " "+ lastName}
       subtitle={location}
       userPicturePath={userPicturePath}
     />
@@ -182,7 +190,7 @@ const PostWidget = ({
           <IconButton onClick={() => setIsComments(!isComments)}>
             <ChatBubbleOutlineOutlined />
           </IconButton>
-         {comments && <Typography>{comments.length}</Typography>}
+         {commentsObject && <Typography>{counterComments}</Typography>}
         </FlexBetween>
       </FlexBetween>
 
@@ -199,7 +207,7 @@ const PostWidget = ({
     </FlexBetween>
     {isComments && (
       <Box mt="0.5rem">
-        {comments.map((comment, i) => (
+        {commentsObject.map((comment, i) => (
           <Box key={`${name}-${i}`}>
             <Divider />          
               <Box sx={{ m: "0.5rem 0", flexDirection: "column", display: "flex" }}>
@@ -230,7 +238,7 @@ const PostWidget = ({
           disabled={!newComment}
           onClick={handleComment}
           sx={{
-            color: palette.background.alt,
+            color: palette.neutral.dark,
             backgroundColor: palette.primary.main,
             borderRadius: "3rem",
           }}
