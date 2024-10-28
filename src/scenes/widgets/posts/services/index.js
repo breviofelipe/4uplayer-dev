@@ -12,8 +12,7 @@ export async function fetchPosts(setLoading, token,page, dispatch, posts, setPos
       const data = await response.json();
 
       var newItems = data.content;
-      setLast(data.last);
-      
+      setLast(data.last);      
       if(!data.first){
           dispatch(setPosts({ posts: [...posts, ...newItems] }));
       } else {
