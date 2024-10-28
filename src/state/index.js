@@ -71,7 +71,7 @@ export const authSlice = createSlice({
     },
     setPost: (state, action) => {
       const updatedPosts = state.posts.map((post) => {
-        if (post.id === action.payload.post.id) {
+        if (post.postId === action.payload.post.postId) {
           if(action.payload.post.reports.includes(state.user.email)){
             console.log("reported!!!")
           }

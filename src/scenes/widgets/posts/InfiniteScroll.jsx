@@ -52,55 +52,16 @@ const InfiniteScroll = ({ userId, isProfile = false, posts, token, dispatch }) =
     return <PostComponent subtitulo={"Nenhum post por aqui..."} icon={<WysiwygTwoToneIcon fontSize="large" />} />
   else return (
     <div>
-        {posts.map(({
-        id,
-        userId,
-        firstName,
-        lastName,
-        description,
-        location,
-        picturePath,
-        userPicturePath,
-        likes,
-        comments,
-        createdAt,
-        youtubeEmbedId, twitchEmbedId, reports
-      }, index) => {
+        {posts.map((post, index) => {
           if (posts.length === index + 1) {
             return (<div ref={lastItemRef} key={index}><PostWidget
-                key={id}
-                postId={id}
-                postUserId={userId}
-                name={`${firstName} ${lastName}`}
-                description={description}
-                location={location}
-                picturePath={picturePath}
-                userPicturePath={userPicturePath}
-                likes={likes}
-                comments={comments}
-                createdAt={createdAt}
-                youtubeEmbedId={youtubeEmbedId}
-                twitchEmbedId={twitchEmbedId}
-                reports={reports}
+                post={post}
                 />
                </div>
             );
           } else {
             return <div key={index}><PostWidget
-            key={id}
-            postId={id}
-            postUserId={userId}
-            name={`${firstName} ${lastName}`}
-            description={description}
-            location={location}
-            picturePath={picturePath}
-            userPicturePath={userPicturePath}
-            likes={likes}
-            comments={comments}
-            createdAt={createdAt}
-            youtubeEmbedId={youtubeEmbedId}
-            twitchEmbedId={twitchEmbedId}
-            reports={reports}
+            post={post}
         /></div>;
           }
         })}
