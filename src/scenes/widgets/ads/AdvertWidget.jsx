@@ -1,4 +1,4 @@
-import { Typography, useMediaQuery, useTheme } from "@mui/material";
+import { CardActionArea, Typography, useMediaQuery, useTheme } from "@mui/material";
 import FlexBetween from "components/FlexBetween";
 import GamerLoading from "components/gamerLoading/GamerLoading";
 import WidgetWrapper from "components/WidgetWrapper";
@@ -13,6 +13,7 @@ const AdvertWidget = () => {
   const url = process.env.REACT_APP_HOST_POSTS;
   const token = useSelector((state) => state.token);
   const [ads, setAds] = useState();
+  
   const [isLoading, setLoading] = useState(true);
 
   const fetchAds = async () => {
@@ -25,10 +26,26 @@ const AdvertWidget = () => {
 
      if(response.ok){
         const data = await response.json();
-        console.log(data);
-        setAds(data[0]);
+
+        let filter = data.filter((ad) => ad.adsPosition === 'RIGHT_AD');
+        setAds(filter[filter.length - 1]);
+        
      } 
      setLoading(false);
+  }
+
+  const patchClickAd = async () => {
+    const response = await fetch(
+      url+`/ads/click/${ads.id}`
+      ,{
+        method: "PATCH",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+     if(!response.ok){
+        console.log("error on server")
+     }
+     window.open("https://4uplayer.com", '_blank', 'noreferrer');
   }
 
   useEffect(() => {
@@ -36,7 +53,8 @@ const AdvertWidget = () => {
   }, [])
 
   return (<WidgetWrapper mobile={!isNonMobileScreens}>
-      {isLoading ? <GamerLoading /> : <><FlexBetween>
+      {isLoading ? <GamerLoading /> : <><CardActionArea onClick={patchClickAd}>
+        <FlexBetween>
         <Typography color={dark} variant="h5" fontWeight="500">
           Publicidade
         </Typography>
@@ -50,7 +68,8 @@ const AdvertWidget = () => {
                 style={{ borderRadius: "0.75rem", marginTop: "0.75rem" }}
                 src={ads.urlImage}
               />    
-      </FlexBetween></>}
+      </FlexBetween>
+        </CardActionArea></>}
     </WidgetWrapper>
   );
 };
