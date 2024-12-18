@@ -5,7 +5,7 @@ import WidgetWrapper from "components/WidgetWrapper";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-const AdvertWidget = () => {
+const AdvertWidget = ({ type }) => {
   const { palette } = useTheme();
   const dark = palette.neutral.dark;
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
@@ -18,7 +18,7 @@ const AdvertWidget = () => {
 
   const fetchAds = async () => {
     const response = await fetch(
-      url+'/ads'
+      url+`/ads?adsPosition=${type}`
       ,{
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
@@ -26,9 +26,7 @@ const AdvertWidget = () => {
 
      if(response.ok){
         const data = await response.json();
-
-        let filter = data.filter((ad) => ad.adsPosition === 'RIGHT_AD');
-        setAds(filter[filter.length - 1]);
+        setAds(data[0]);
         
      } 
      setLoading(false);
