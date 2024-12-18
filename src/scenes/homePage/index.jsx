@@ -32,6 +32,8 @@ const HomePage = () => {
         {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
         <BuyPlayerCoin />
         {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
+        <AdvertWidget type={'LEFT_AD'}/>
+        {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
         <ResgateWidget />
         {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
         <Box mt={"0.4rem"}>
@@ -40,6 +42,7 @@ const HomePage = () => {
         {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}      
         <MetaMaskWidget />
         {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
+        
       </Box>
     };
 
@@ -60,7 +63,7 @@ const HomePage = () => {
     const lastContent = () => {
       return <>
           {emailCheck && <><MissionsWidget />{isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}</>}                    
-          <AdvertWidget />
+          <AdvertWidget type={'RIGHT_AD'}/>
           {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
           <MyClanWidget clan={clan} />
           {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
